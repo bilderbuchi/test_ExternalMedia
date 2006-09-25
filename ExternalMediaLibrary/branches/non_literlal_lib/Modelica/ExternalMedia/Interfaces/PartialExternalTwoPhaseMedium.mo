@@ -3,6 +3,7 @@ partial package PartialExternalTwoPhaseMedium
   import IC = ExternalMedia.Common.InputChoices;
   
   constant IC.InputChoice inputChoice=IC.ph "input variables";
+  constant String libname = "" "Name of external library";
   
   redeclare replaceable record extends ThermodynamicState 
     Integer uniqueID "unique ID number";
@@ -33,37 +34,37 @@ partial package PartialExternalTwoPhaseMedium
   
   redeclare function extends bubbleDensity 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" dl=  bubbleDensity_(sat.uniqueID);
   end bubbleDensity;
   
   redeclare function extends dewDensity 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" dv=  dewDensity_(sat.uniqueID);
   end dewDensity;
   
   redeclare function extends bubbleEnthalpy 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" hl=  bubbleEnthalpy_(sat.uniqueID);
   end bubbleEnthalpy;
   
   redeclare function extends dewEnthalpy 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" hv=  dewEnthalpy_(sat.uniqueID);
   end dewEnthalpy;
   
   redeclare function extends bubbleEntropy 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" sl=  bubbleEntropy_(sat.uniqueID);
   end bubbleEntropy;
   
   redeclare function extends dewEntropy 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" sv=  dewDensity_(sat.uniqueID);
   end dewEntropy;
   
@@ -105,55 +106,55 @@ partial package PartialExternalTwoPhaseMedium
   
   redeclare function extends density 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" d=  density_(state.uniqueID);
   end density;
   
   redeclare function extends pressure 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" p=  pressure_(state.uniqueID);
   end pressure;
   
   redeclare function extends specificEnthalpy 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" h=  specificEnthalpy_(state.uniqueID);
   end specificEnthalpy;
   
   redeclare function extends specificEntropy 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" s=  specificEntropy_(state.uniqueID);
   end specificEntropy;
   
   redeclare function extends temperature 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" T=  temperature_(state.uniqueID);
   end temperature;
   
   redeclare function extends isobaricExpansionCoefficient 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" beta=  beta_(state.uniqueID);
   end isobaricExpansionCoefficient;
   
   redeclare function extends isothermalCompressibility 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" kappa=  kappa_(state.uniqueID);
   end isothermalCompressibility;
   
   redeclare function extends specificHeatCapacityCp 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" cp=  specificHeatCapacityCp_(state.uniqueID);
   end specificHeatCapacityCp;
   
   redeclare function extends specificHeatCapacityCv 
     
-    annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+    annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
   external "C" cv=  specificHeatCapacityCv_(state.uniqueID);
   end specificHeatCapacityCv;
   
@@ -210,13 +211,13 @@ partial package PartialExternalTwoPhaseMedium
     replaceable function createMedium 
       input Integer oldUniqueID "old unique ID number";
       output Integer uniqueID "unique ID number";
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" uniqueID = createMedium_(mediumName, oldUniqueID);
     end createMedium;
     
     replaceable function deleteMedium 
       input Integer uniqueID "unique ID number";
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" deleteMedium_(uniqueID);
     end deleteMedium;
     
@@ -224,7 +225,7 @@ partial package PartialExternalTwoPhaseMedium
       input AbsolutePressure p "pressure";
       input Integer uniqueID "unique ID number";
       output SaturationProperties sat "saturation property record";
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" setSat_p_(p, uniqueID, sat.psat, sat.Tsat, sat.uniqueID);
     end setSat_p;
     
@@ -232,7 +233,7 @@ partial package PartialExternalTwoPhaseMedium
       input Temperature T "temperature";
       input Integer uniqueID "unique ID number";
       output SaturationProperties sat "saturation property record";
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" setSat_T_(T, uniqueID, sat.psat, sat.Tsat, sat.uniqueID);
     end setSat_T;
     
@@ -243,7 +244,7 @@ partial package PartialExternalTwoPhaseMedium
         "2 for two-phase, 1 for one-phase, 0 if not known";
       input Integer uniqueID "unique ID number";
       output ThermodynamicState state;
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" setState_dT_(d, T, phase, uniqueID, state.uniqueID, state.phase);
     end setState_dT;
     
@@ -254,7 +255,7 @@ partial package PartialExternalTwoPhaseMedium
         "2 for two-phase, 1 for one-phase, 0 if not known";
       input Integer uniqueID "unique ID number";
       output ThermodynamicState state;
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" setState_ph_(p, h, phase, uniqueID, state.uniqueID, state.phase);
     end setState_ph;
     
@@ -265,7 +266,7 @@ partial package PartialExternalTwoPhaseMedium
         "2 for two-phase, 1 for one-phase, 0 if not known";
       input Integer uniqueID "unique ID number";
       output ThermodynamicState state;
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" setState_ps_(p, s, phase, uniqueID, state.uniqueID, state.phase);
     end setState_ps;
     
@@ -276,16 +277,15 @@ partial package PartialExternalTwoPhaseMedium
         "2 for two-phase, 1 for one-phase, 0 if not known";
       input Integer uniqueID "unique ID number";
       output ThermodynamicState state;
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" setState_pT_(p, T, phase, uniqueID, state.uniqueID, state.phase);
     end setState_pT;
     
     replaceable function molarMass 
       input Integer uniqueID "unique ID number";
       output MolarMass MM "molar mass";
-      annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
+      annotation(Include="#include \"externaltwophasemedium.h\"", Library=libname);
     external "C" MM = molarMass_(uniqueID);
     end molarMass;
   end ExternalFunctions;
 end PartialExternalTwoPhaseMedium;
-
