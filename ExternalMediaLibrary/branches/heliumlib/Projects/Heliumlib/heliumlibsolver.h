@@ -1,7 +1,7 @@
 #ifndef HELIUMLIBSOLVER_H_
 #define HELIUMLIBSOLVER_H_
 
-#include "basesolver.h"
+#include "../Sources/basesolver.h"
 
 /*
   Header file for the Heliumlib solver

@@ -1,7 +1,7 @@
 #include "heliumlibsolver.h"
 #include "heliumlib.h"
-#include "twophasemediumproperties.h"
-#include "mediummap.h"
+#include "../Sources/twophasemediumproperties.h"
+#include "../Sources/mediummap.h"
 #include <math.h>
 
 HeliumlibSolver::HeliumlibSolver(const string &mediumName, const string &libraryName, const string &substanceName)
@@ -20,7 +20,9 @@ void HeliumlibSolver::setFluidConstants(){
 }
 
 void HeliumlibSolver::setSat_p(double &p, TwoPhaseMediumProperties *const properties){
-    errorMessage("setSat_p not implemented\n");
+	properties->ps = -1; // Dummy value
+	properties->Ts = -1; // Dummy value
+    // errorMessage("setSat_p not implemented\n");
 }
 
 void HeliumlibSolver::setSat_T(double &T, TwoPhaseMediumProperties *const properties){
@@ -37,16 +39,20 @@ void HeliumlibSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 
 void HeliumlibSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties){
     double Phi, c, d;
-	Phi = GRUNHE(&p,&T);
-	c = SNDHE(&p,&T);
-	d = DHE(&p,&T);
+	double pp, TT;
+	pp = p;
+	TT = T;
+	Phi = GRUNHE(&pp,&TT);
+	c = SNDHE(&pp,&TT);
+	d = DHE(&pp,&TT);
 	properties->p = p;
 	properties->T = T;
-	properties->h = HHE(&p,&T);
+	properties->h = HHE(&pp,&TT);
+	properties->s = SHE(&pp,&TT);
 	properties->d = d;
 	properties->phase = 1; // with pT input, always one-phase conditions!
-	properties->cp = CPHE(&p,&T);
-	properties->cv = CVHE(&p,&T);
+	properties->cp = CPHE(&pp,&TT);
+	properties->cv = CVHE(&pp,&TT);
 	properties->dd_dh_p = -d*Phi/(c*c);
 	properties->dd_dp_h = (1+Phi)/(c*c);
 }

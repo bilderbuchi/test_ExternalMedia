@@ -1,6 +1,7 @@
 #include "solvermap.h"
 #include "basesolver.h"
 #include "mediummap.h"
+#include "heliumlibsolver.h"
 #include "testsolver.h"
 
 #if (FLUIDPROP == 1)
