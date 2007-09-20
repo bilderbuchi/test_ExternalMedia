@@ -1,4 +1,5 @@
 #include "heliumlibsolver.h"
+#include "heliumlib.h"
 #include "twophasemediumproperties.h"
 #include "mediummap.h"
 #include <math.h>
@@ -36,16 +37,16 @@ void HeliumlibSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 
 void HeliumlibSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties){
     double Phi, c, d;
-	Phi = GRUNHE(p,T);
-	c = SNDHE(p,T);
-	d = DHE(p,T);
+	Phi = GRUNHE(&p,&T);
+	c = SNDHE(&p,&T);
+	d = DHE(&p,&T);
 	properties->p = p;
 	properties->T = T;
-	properties->h = HHE(p,T);
+	properties->h = HHE(&p,&T);
 	properties->d = d;
 	properties->phase = 1; // with pT input, always one-phase conditions!
-	properties->cp = CPHE(p,T);
-	properties->cv = CVHE(p,T);
+	properties->cp = CPHE(&p,&T);
+	properties->cv = CVHE(&p,&T);
 	properties->dd_dh_p = -d*Phi/(c*c);
 	properties->dd_dp_h = (1+Phi)/(c*c);
 }
