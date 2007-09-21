@@ -39,9 +39,9 @@ void HeliumlibSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 
 void HeliumlibSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties){
     double Phi, c, d;
-	double pp, TT;
-	pp = p;
-	TT = T;
+	float pp, TT;
+	pp = (float)p;
+	TT = (float)T;
 	Phi = GRUNHE(&pp,&TT);
 	c = SNDHE(&pp,&TT);
 	d = DHE(&pp,&TT);
