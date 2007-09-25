@@ -251,11 +251,29 @@
 			Name="Test solver"
 			>
 			<File
-				RelativePath="..\Sources\testsolver.cpp"
+				RelativePath="..\Sources\heliumlibsolver.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Sources\testsolver.h"
+				RelativePath="..\Sources\heliumlibsolver.h"
 				>
 			</File>
 		</Filter>
@@ -280,6 +298,18 @@
 			</File>
 			<File
 				RelativePath="..\Sources\errorhandling.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Heliumlib solver"
+			>
+			<File
+				RelativePath=".\heliumlibsolver.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\heliumlibsolver.h"
 				>
 			</File>
 		</Filter>

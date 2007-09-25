@@ -50,6 +50,7 @@ void HeliumlibSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties
 	properties->h = HHE(&pp,&TT);
 	properties->s = SHE(&pp,&TT);
 	properties->d = d;
+	properties->a = c;
 	properties->phase = 1; // with pT input, always one-phase conditions!
 	properties->cp = CPHE(&pp,&TT);
 	properties->cv = CVHE(&pp,&TT);
