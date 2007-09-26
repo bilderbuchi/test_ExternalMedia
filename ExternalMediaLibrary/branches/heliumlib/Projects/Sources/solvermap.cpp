@@ -29,7 +29,7 @@ BaseSolver *SolverMap::getSolver(const string &mediumName, const string &library
 	// CompilerTest solver
 	if (libraryName.compare("TestMedium") == 0)
 	  _solvers[solverKeyString] = new TestSolver(mediumName, libraryName, substanceName);
-    if (libraryName.compare("Heliumlib") == 0)
+    else if (libraryName.compare("Heliumlib") == 0)
 	  _solvers[solverKeyString] = new HeliumlibSolver(mediumName, libraryName, substanceName);
 #if (FLUIDPROP == 1)
 	else if (libraryName.find("FluidProp") == 0)
