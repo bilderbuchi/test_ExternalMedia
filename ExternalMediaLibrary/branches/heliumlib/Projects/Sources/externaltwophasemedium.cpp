@@ -557,7 +557,7 @@ double specificEntropy_(int uniqueID, int choice, double d, double h, double p, 
 	if (uniqueID == 0)
 	{
 		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName);
-        setStateDefault_(medium, choice, d, h, p, s, T, phase);
+		setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->s();
 	}
 	else 
@@ -952,9 +952,9 @@ void setStateDefault_(BaseTwoPhaseMedium *medium, int choice, double d, double h
 		medium->setState_dT(d,T,phase);
 	else if(choice == CHOICE_ph)
 		medium->setState_ph(p,h,phase);
-	else if(choice = CHOICE_ps)
+	else if(choice == CHOICE_ps)
 		medium->setState_ps(p,s,phase);
-	else if(choice = CHOICE_pT)
+	else if(choice == CHOICE_pT)
 		medium->setState_pT(p,T);
 	else
 		errorMessage("Wrong choice of inputs in setStateDefault_()\n");
