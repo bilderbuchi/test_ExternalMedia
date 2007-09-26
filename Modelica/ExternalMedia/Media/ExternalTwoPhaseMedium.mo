@@ -198,12 +198,14 @@ package ExternalTwoPhaseMedium
   end dDewEnthalpy_dPressure;
   
   redeclare replaceable function extends density_ph_der 
-  external "C" d_der=  density_ph_der_(uniqueID, p_der, h_der) 
+  external "C" d_der=  density_ph_der_(uniqueID, p_der, h_der, p, h, phase,
+                                       mediumName, libraryName, substanceName) 
     annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
   end density_ph_der;
   
   redeclare replaceable function extends temperature_ph_der 
-  external "C" T_der=  temperature_ph_der_(uniqueID, p_der, h_der) 
+  external "C" T_der=  temperature_ph_der_(uniqueID, p_der, h_der, p, h, phase,
+                                           mediumName, libraryName, substanceName) 
     annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
   end temperature_ph_der;
   
@@ -251,7 +253,7 @@ package ExternalTwoPhaseMedium
   end prandtlNumber;
   
   redeclare replaceable function extends surfaceTension 
-  external "C" sigma=  surfaceTension_(sat.psat, sat.Tsat, sat.uniqueID) 
+  external "C" sigma=  surfaceTension_(sat.psat, sat.Tsat, sat.uniqueID, mediumName, libraryName, substanceName) 
     annotation(Include="#include \"externaltwophasemedium.h\"", Library="ExternalTwoPhaseMedium");
   end surfaceTension;
   
