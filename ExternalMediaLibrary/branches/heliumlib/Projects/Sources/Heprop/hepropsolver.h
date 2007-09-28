@@ -1,19 +1,19 @@
-#ifndef HELIUMLIBSOLVER_H_
-#define HELIUMLIBSOLVER_H_
+#ifndef HEPROPSOLVER_H_
+#define HEPROPSOLVER_H_
 
-#include "../Sources/basesolver.h"
+#include "../basesolver.h"
 
 /*
-  Header file for the Heliumlib solver
+  Header file for the Heprop solver
 
   Francesco Casella, Barbara Fiori 2007
 */
 
 
-class HeliumlibSolver : public BaseSolver{
+class HepropSolver : public BaseSolver{
 public:
-	HeliumlibSolver(const string &mediumName, const string &libraryName, const string &substanceName);
-	~HeliumlibSolver();
+	HepropSolver(const string &mediumName, const string &libraryName, const string &substanceName);
+	~HepropSolver();
 	virtual void setFluidConstants();
 
     virtual void setSat_p(double &p, TwoPhaseMediumProperties *const properties);
@@ -26,4 +26,4 @@ public:
 	virtual void setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties);
 };
 
-#endif // HELIUMLIBSOLVER_H_
+#endif // HEPROPSOLVER_H_

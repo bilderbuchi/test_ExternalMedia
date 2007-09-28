@@ -311,22 +311,22 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="HeliumSolver"
+			Name="HepropSolver"
 			>
 			<File
-				RelativePath="..\Heliumlib\heliumlib.h"
+				RelativePath="..\Sources\Heprop\heprop.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Heliumlib\heliumlibsolver.cpp"
+				RelativePath="..\Visual Fortran 6\Release\hepropdouble.lib"
 				>
 			</File>
 			<File
-				RelativePath="..\Heliumlib\heliumlibsolver.h"
+				RelativePath="..\Sources\Heprop\hepropsolver.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\Documents and Settings\barbara\Desktop\Hepropdouble\Release\hepropdouble.lib"
+				RelativePath="..\Sources\Heprop\hepropsolver.h"
 				>
 			</File>
 		</Filter>
