@@ -5210,6 +5210,8 @@ C
       END
 C-----------------------------------------------------------------------
       FUNCTION SUPFLD (P,T)
+	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
+	!DEC$ ATTRIBUTES DLLEXPORT::SUPFLD
 C-----------------------------------------------------------------------
 C ######################################################################
 C #
@@ -5440,6 +5442,8 @@ C  bring up TT1
       END
 C-----------------------------------------------------------------------
       FUNCTION TTLAM(P)
+	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
+	!DEC$ ATTRIBUTES DLLEXPORT::TTLAM
 C-----------------------------------------------------------------------
 C
 C  Lambda Temperature [K] at input Pressure [Pa]
@@ -5456,6 +5460,8 @@ C
       END
 C-----------------------------------------------------------------------
       FUNCTION TTSAT(P)
+	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
+	!DEC$ ATTRIBUTES DLLEXPORT::TTSAT
 C-----------------------------------------------------------------------
 C
 C  Saturation Temperature [K] at input Pressure [Pa]
@@ -5480,6 +5486,8 @@ C
       END
 C-----------------------------------------------------------------------
       FUNCTION TTMELT(P)
+	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
+	!DEC$ ATTRIBUTES DLLEXPORT::TTMELT
 C-----------------------------------------------------------------------
 C
 C  Melting Temperature [K] at input Pressure [Pa]
@@ -5503,6 +5511,8 @@ C
       END
 C-----------------------------------------------------------------------
       FUNCTION PPLAM(T)
+	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
+	!DEC$ ATTRIBUTES DLLEXPORT::PPLAM
 C-----------------------------------------------------------------------
 C
 C  Lambda Pressure [Pa] at input Temperature [K]
@@ -5521,6 +5531,8 @@ C
       END
 C-----------------------------------------------------------------------
       FUNCTION PPSAT(T)
+	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
+	!DEC$ ATTRIBUTES DLLEXPORT::PPSAT
 C-----------------------------------------------------------------------
 C
 C  Saturation Pressure [Pa] at input Temperature [K]
@@ -5545,6 +5557,8 @@ C
       END
 C-----------------------------------------------------------------------
       FUNCTION PPMELT(T)
+	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
+	!DEC$ ATTRIBUTES DLLEXPORT::PPMELT
 C-----------------------------------------------------------------------
 C
 C  Melting Pressure [Pa] at input Temperature [K]
