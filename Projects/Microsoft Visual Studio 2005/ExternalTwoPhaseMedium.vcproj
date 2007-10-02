@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="ExternalTwoPhaseMedium"
 	ProjectGUID="{E327B299-277F-404B-B855-AA08D76243B5}"
 	RootNamespace="ExternalTwoPhaseMedium"
@@ -205,14 +205,14 @@
 				RelativePath="..\Sources\twophasemediumproperties.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Dymola"
-			>
-			<File
-				RelativePath="..\Sources\ModelicaUtilities.h"
+			<Filter
+				Name="Dymola"
 				>
-			</File>
+				<File
+					RelativePath="..\Sources\ModelicaUtilities.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="FluidProp solver"
@@ -307,6 +307,26 @@
 			</File>
 			<File
 				RelativePath="..\Sources\errorhandling.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="HepropSolver"
+			>
+			<File
+				RelativePath="..\Sources\Heprop\heprop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Visual Fortran 6\Release\hepropdouble.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\Sources\Heprop\hepropsolver.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Sources\Heprop\hepropsolver.h"
 				>
 			</File>
 		</Filter>
