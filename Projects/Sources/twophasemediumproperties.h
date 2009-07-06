@@ -13,11 +13,12 @@
 
   Francesco Casella, Christoph Richter, Sep 2006
   Copyright Politecnico di Milano and TU Braunschweig
+  modified by Andreas Joos (Hamburg University of Technology), Jun 2009
 */
 class TwoPhaseMediumProperties{
 public:
-	TwoPhaseMediumProperties();
-	void initializeFields();
+	TwoPhaseMediumProperties(const int nComp = 1);
+	void initializeFields(const int nComp = 1);
 
 	//! Phase 
 	/*!
@@ -25,6 +26,11 @@ public:
 	  2 for two-phase, 1 for one-phase.
 	*/
 	int phase;
+
+	//! Specific liquid phase composition
+	double x[MAX_NO_COMPONENTS];
+	//! Specific vapor phase composition
+	double y[MAX_NO_COMPONENTS];
 
 	//! Isobaric expansion coefficient
 	double beta;

@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BaseSolver" Collapsed="true">
+    <Position X="5.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAIAAAgBEgQAMAIAAAAAAAAADAAAAjEREJqA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\basesolver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseTwoPhaseMedium">
+    <Position X="2.5" Y="1.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQYIAQEIABAAEgFSpcAMBOQAgAAKCBA0QM1sJERMNig=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\basetwophasemedium.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_properties" />
+      <Field Name="_solver" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TwoPhaseMediumProperties" Collapsed="true">
+    <Position X="5.5" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAEIAAAAAAAABFAABCQAgAACAAA0QM1kIEBMFAg=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemediumproperties.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TFluidProp" Collapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkEECgJCEAAAAAKBAASCACZNEiYQghEQgAAAAgAFIAI=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\FluidProp_IF.H</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluidPropSolver">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAAAAYAAAAAAAAAgAAAAIEAAAgAAAAAAAAABERAIiA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\fluidpropsolver.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="FluidProp" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MediumMap">
+    <Position X="9.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAwAAAAAAAABQAiAABAAAAQAEAAIAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\mediummap.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_mediums" />
+      <Field Name="_solverMediums" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SolverMap">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAACAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\solvermap.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_solvers" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TestSolver">
+    <Position X="4.75" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQgAAAAAAAAAAABERAIiA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\testsolver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TwoPhaseMedium" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAACAAAAA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemedium.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TwoPhaseMixture" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemixture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;">
+    <Position X="12.75" Y="0.5" Width="2.75" />
+    <NestedTypes>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::reference" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::mapped_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::const_reference" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::referent_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::size_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::difference_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::key_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::key_compare" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::const_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::pointer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::reverse_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::const_pointer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::_Myt" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::_Mybase" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::allocator_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::value_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::value_compare" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;::const_reverse_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\programme\microsoft visual studio 9.0\vc\include\map</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\programme\microsoft visual studio 9.0\vc\include\map</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="FluidConstants" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAgAAIAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\fluidconstants.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IFluidProp_COM">
+    <Position X="2.25" Y="4.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AlEECgJCEAEAAAKBABSAgCYNEiYQghIAgIAAAoAFIAI=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\FluidProp_COM.H</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

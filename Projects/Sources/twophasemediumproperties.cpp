@@ -5,9 +5,9 @@
 /*!
   The constructor is calling initializeFields.
 */
-TwoPhaseMediumProperties::TwoPhaseMediumProperties(){
+TwoPhaseMediumProperties::TwoPhaseMediumProperties(const int nComp){
     // Initialize entire class
-	initializeFields();
+	initializeFields(nComp);
 }
 
 // ! Initialize all fields to the default/NAN values
@@ -15,9 +15,13 @@ TwoPhaseMediumProperties::TwoPhaseMediumProperties(){
   This function initializes all fields of TwoPhaseMediumProperties to the
   NAN value defined in include.h. The phase is initialized to zero.
 */
-void TwoPhaseMediumProperties::initializeFields(){
+void TwoPhaseMediumProperties::initializeFields(const int nComp){
 	phase = 0;
 
+	for (int i = 0; i < nComp; i++) {
+		x[i] = NAN;
+		y[i] = NAN;
+	}
 	beta = NAN;
 	cp = NAN;
 	cv = NAN;

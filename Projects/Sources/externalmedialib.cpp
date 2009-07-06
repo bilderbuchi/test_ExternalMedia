@@ -6,14 +6,16 @@
   PartialExternalTwoPhaseMedium.
 
   Francesco Casella, Christoph Richter, Sep 2006
+  modified by Andreas Joos, Jun 2009
 */
 
 #include "externalmedialib.h"
 #include "mediummap.h"
 #include "twophasemedium.h"
+#include "twophasemixture.h"
 
 // Header of private function
-void TwoPhaseMedium_setStateDefault_(BaseTwoPhaseMedium *medium, int choice, double d, double h, double p, double s, double T, int phase);
+void TwoPhaseMedium_setStateDefault_(BaseTwoPhaseMedium *medium, int choice, double d, double h, double p, double s, double T, int phase, int nComp = 1);
 
 
 //! Create medium
@@ -938,17 +940,452 @@ double TwoPhaseMedium_saturationTemperature_derp_(double p, const char *mediumNa
   @param s Specific entropy
   @param T Temperature
   @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
+  @param nComp Number of components in the mixture
 */
-void TwoPhaseMedium_setStateDefault_(BaseTwoPhaseMedium *medium, int choice, double d, double h, double p, double s, double T, int phase){
+void TwoPhaseMedium_setStateDefault_(BaseTwoPhaseMedium *medium, int choice, double d, double h, double p, double s, double T, int phase, int nComp){
 	if(choice == CHOICE_dT)
-		medium->setState_dT(d,T,phase);
+		medium->setState_dT(d,T,phase, nComp);
 	else if(choice == CHOICE_ph)
-		medium->setState_ph(p,h,phase);
+		medium->setState_ph(p,h,phase, nComp);
 	else if(choice == CHOICE_ps)
-		medium->setState_ps(p,s,phase);
+		medium->setState_ps(p,s,phase, nComp);
 	else if(choice == CHOICE_pT)
-		medium->setState_pT(p,T);
+		medium->setState_pT(p,T, nComp);
 	else
 		errorMessage("Wrong choice of inputs in setStateDefault_()\n");
 }
 
+//-----------------------------------------
+// Functions for Mixtures (TwoPhaseMixture)
+//-----------------------------------------
+
+//! Get molar mass
+/*!
+  This function returns the molar mass of the specified mixture.
+  @param mediumName Medium name
+  @param libraryName Library name
+  @param substanceName Substance name
+*/
+double TwoPhaseMixture_getMolarMass_(int nComp, double Conc[], const char *mediumName, const char *libraryName, const char *substanceName){
+	// Return molar mass
+	return SolverMap::getSolver(mediumName, libraryName, substanceName, nComp, Conc)->molarMass();
+}
+
+//! Compute properties from d, T, x and phase
+/*!
+  This function computes the properties for the specified inputs. If the function
+  is called with uniqueID == 0 a new transient unique ID is assigned and the function
+  is called again with this new transient unique ID number.
+  @param d Density
+  @param T Temperature
+  @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
+  @param nComp Number of Components in the Mixtures
+  @param Conc Vector of the Concentrations of each Component
+  @param uniqueID Unique ID number
+  @param state_uniqueID Pointer to return unique ID number for state record
+  @param state_phase Pointer to return phase for state record
+  @param state_d Pointer to return density for state record
+  @param state_h Pointer to return specific enthalpy for state record
+  @param state_p Pointer to return pressure for state record
+  @param state_s Pointer to return specific entropy for state record
+  @param state_T Pointer to return temperature for state record
+  @param state_x Pointer to return the liquid phase composition for state record
+  @param state_y Pointer to return the vapor phase composition for state record
+  @param mediumName Medium name
+  @param libraryName Library name
+  @param substanceName Substance name
+*/
+void TwoPhaseMixture_setState_dTx_(double d, double T, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y,
+								 const char *mediumName, const char *libraryName, const char *substanceName){
+	// Auxilary Pointer to get the equilibrium Concentrations
+	double *x, *y;
+
+	if (uniqueID == 0){
+	  // setState_dT was called with uniqueID == 0
+	  // create a new transient medium object and get a transientUniqueID
+	  int transientUniqueID = MediumMap::addTransientMedium(mediumName, libraryName, substanceName, nComp, Conc);
+      // run setState_dT_ with the transientUniqueID
+	  TwoPhaseMixture_setState_dTx_(d, T, phase, nComp, Conc, transientUniqueID, state_uniqueID, state_phase, state_d, state_h, state_p, state_s, state_T, state_x, state_y, mediumName, libraryName, substanceName);
+	} else {
+      // setState_dT was called with the uniqueID of an existing medium object
+ 	  // Call the medium object's setState_dT function
+	  BaseTwoPhaseMedium *medium = MediumMap::medium(uniqueID);
+	  medium->setState_dT(d, T, phase, nComp);
+	  // Return values
+	  if (state_uniqueID != NULL)
+  		  *state_uniqueID = uniqueID;
+	  if (state_phase != NULL)
+	 	  *state_phase = MediumMap::medium(uniqueID)->phase();
+	  if (state_d != NULL)
+		  *state_d = medium->d();
+	  if (state_h != NULL)
+		  *state_h = medium->h();
+	  if (state_p != NULL)
+		  *state_p = medium->p();
+	  if (state_s != NULL)
+		  *state_s = medium->s();
+	  if (state_T != NULL)
+		  *state_T = medium->T();
+	  x = medium->x();
+	  y = medium->y();
+	  for (int i = 0; i < nComp; i++) {
+			if (state_x != NULL)
+				  state_x[i] = x[i];
+			if (state_y != NULL)
+				  state_y[i] = y[i];
+	  } 
+    }
+}
+
+//! Compute properties from p, h, X and phase
+/*!
+  This function computes the properties for the specified inputs. If the function
+  is called with uniqueID == 0 a new transient unique ID is assigned and the function
+  is called again with this new transient unique ID number.
+  @param p Pressure
+  @param h Specific enthalpy
+  @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
+  @param nComp Number of Components in the Mixtures
+  @param Conc Vector of the Concentrations of each Component
+  @param uniqueID Unique ID number
+  @param state_uniqueID Pointer to return unique ID number for state record
+  @param state_phase Pointer to return phase for state record
+  @param state_d Pointer to return density for state record
+  @param state_h Pointer to return specific enthalpy for state record
+  @param state_p Pointer to return pressure for state record
+  @param state_s Pointer to return specific entropy for state record
+  @param state_T Pointer to return temperature for state record
+  @param state_x Pointer to return the liquid phase composition for state record
+  @param state_y Pointer to return the vapor phase composition for state record
+  @param mediumName Medium name
+  @param libraryName Library name
+  @param substanceName Substance name
+*/
+void TwoPhaseMixture_setState_phx_(double p, double h, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y,
+								 const char *mediumName, const char *libraryName, const char *substanceName){
+	// Auxilary Pointer to get the equilibrium Concentrations
+	double *x, *y;
+
+	if (uniqueID == 0){
+	  // setState_ph was called with uniqueID == 0
+	  // create a new transient medium object and get a transientUniqueID
+	  int transientUniqueID = MediumMap::addTransientMedium(mediumName, libraryName, substanceName, nComp, Conc);
+      // run setState_ph_ with the transientUniqueID
+	  TwoPhaseMixture_setState_phx_(p, h, phase, nComp, Conc, transientUniqueID, state_uniqueID, state_phase, state_d, state_h, state_p, state_s, state_T, state_x, state_y, mediumName, libraryName, substanceName);
+	} else {
+      // setState_ph was called with the uniqueID of an existing medium object
+ 	  // Call the medium object's setState_ph function
+	  BaseTwoPhaseMedium *medium = MediumMap::medium(uniqueID);
+	  medium->setState_ph(p, h, phase, nComp);
+	  // Return values
+	  if (state_uniqueID != NULL)
+  		  *state_uniqueID = uniqueID;
+	  if (state_phase != NULL)
+	 	  *state_phase = MediumMap::medium(uniqueID)->phase();
+	  if (state_d != NULL)
+		  *state_d = medium->d();
+	  if (state_h != NULL)
+		  *state_h = medium->h();
+	  if (state_p != NULL)
+		  *state_p = medium->p();
+	  if (state_s != NULL)
+		  *state_s = medium->s();
+	  if (state_T != NULL)
+		  *state_T = medium->T();
+	  x = medium->x();
+	  y = medium->y();
+	  for (int i = 0; i < nComp; i++) {
+			if (state_x != NULL)
+				  state_x[i] = x[i];
+			if (state_y != NULL)
+				  state_y[i] = y[i];
+	  } 
+    }
+}
+
+//! Compute properties from p, s, x and phase
+/*!
+  This function computes the properties for the specified inputs. If the function
+  is called with uniqueID == 0 a new transient unique ID is assigned and the function
+  is called again with this new transient unique ID number.
+  @param p Pressure
+  @param s Specific entropy
+  @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
+  @param nComp Number of Components in the Mixtures
+  @param Conc Vector of the Concentrations of each Component
+  @param uniqueID Unique ID number
+  @param state_uniqueID Pointer to return unique ID number for state record
+  @param state_phase Pointer to return phase for state record
+  @param state_d Pointer to return density for state record
+  @param state_h Pointer to return specific enthalpy for state record
+  @param state_p Pointer to return pressure for state record
+  @param state_s Pointer to return specific entropy for state record
+  @param state_T Pointer to return temperature for state record
+  @param state_x Pointer to return the liquid phase composition for state record
+  @param state_y Pointer to return the vapor phase composition for state record
+  @param mediumName Medium name
+  @param libraryName Library name
+  @param substanceName Substance name
+*/
+void TwoPhaseMixture_setState_psx_(double p, double s, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y,
+								 const char *mediumName, const char *libraryName, const char *substanceName){
+	
+	// Auxilary Pointer to get the equilibrium Concentrations
+	double *x, *y;
+
+	if (uniqueID == 0){
+	  // setState_ps was called with uniqueID == 0
+	  // create a new transient medium object and get a transientUniqueID
+	  int transientUniqueID = MediumMap::addTransientMedium(mediumName, libraryName, substanceName, nComp, Conc);
+      // run setState_ps_ with the transientUniqueID
+	  TwoPhaseMixture_setState_psx_(p, s, phase, nComp, Conc, transientUniqueID, state_uniqueID, state_phase, state_d, state_h, state_p, state_s, state_T, state_x, state_y, mediumName, libraryName, substanceName);
+	} else {
+      // setState_ps was called with the uniqueID of an existing medium object
+ 	  // Call the medium object's setState_ps function
+	  BaseTwoPhaseMedium *medium = MediumMap::medium(uniqueID);
+	  medium->setState_ps(p, s, phase, nComp);
+	  // Return values
+	  if (state_uniqueID != NULL)
+  		  *state_uniqueID = uniqueID;
+	  if (state_phase != NULL)
+	 	  *state_phase = MediumMap::medium(uniqueID)->phase();
+	  if (state_d != NULL)
+		  *state_d = medium->d();
+	  if (state_h != NULL)
+		  *state_h = medium->h();
+	  if (state_p != NULL)
+		  *state_p = medium->p();
+	  if (state_s != NULL)
+		  *state_s = medium->s();
+	  if (state_T != NULL)
+		  *state_T = medium->T();
+	  x = medium->x();
+	  y = medium->y();
+	  for (int i = 0; i < nComp; i++) {
+			if (state_x != NULL)
+				  state_x[i] = x[i];
+			if (state_y != NULL)
+				  state_y[i] = y[i];
+	  }
+    }
+}
+
+//! Compute properties from p, T, X and phase
+/*!
+  This function computes the properties for the specified inputs. If the function
+  is called with uniqueID == 0 a new transient unique ID is assigned and the function
+  is called again with this new transient unique ID number.
+
+  Attention: The phase input is ignored for this function!
+  @param p Pressure
+  @param T Temperature
+  @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
+  @param nComp Number of Components in the Mixtures
+  @param Conc Vector of the Concentrations of each Component
+  @param uniqueID Unique ID number
+  @param state_uniqueID Pointer to return unique ID number for state record
+  @param state_phase Pointer to return phase for state record
+  @param state_d Pointer to return density for state record
+  @param state_h Pointer to return specific enthalpy for state record
+  @param state_p Pointer to return pressure for state record
+  @param state_s Pointer to return specific entropy for state record
+  @param state_T Pointer to return temperature for state record
+  @param state_x Pointer to return the liquid phase composition for state record
+  @param state_y Pointer to return the vapor phase composition for state record
+  @param mediumName Medium name
+  @param libraryName Library name
+  @param substanceName Substance name
+*/
+void TwoPhaseMixture_setState_pTx_(double p, double T, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y,
+								 const char *mediumName, const char *libraryName, const char *substanceName){
+	
+	// Auxilary Pointer to get the equilibrium Concentrations
+	double *x, *y;
+
+	if (uniqueID == 0){
+		// setState_pT was called with uniqueID == 0
+		// create a new transient medium object and get a transientUniqueID
+		int transientUniqueID = MediumMap::addTransientMedium(mediumName, libraryName, substanceName, nComp, Conc);
+		// run setState_pT_ with the transientUniqueID
+		TwoPhaseMixture_setState_pTx_(p, T, phase, nComp, Conc, transientUniqueID, state_uniqueID, state_phase, state_d, state_h, state_p, state_s, state_T, state_x, state_y, mediumName, libraryName, substanceName);
+	} else {
+		// setState_pT was called with the uniqueID of an existing medium object
+ 		// Call the medium object's setState_pT function
+		BaseTwoPhaseMedium *medium = MediumMap::medium(uniqueID);
+		medium->setState_pT(p, T, nComp);
+		// Return values
+		if (state_uniqueID != NULL)
+  			  *state_uniqueID = uniqueID;
+		if (state_phase != NULL)
+	 		  *state_phase = 1;
+		if (state_d != NULL)
+			  *state_d = medium->d();
+		if (state_h != NULL)
+			  *state_h = medium->h();
+		if (state_p != NULL)
+			  *state_p = medium->p();
+		if (state_s != NULL)
+			  *state_s = medium->s();
+		if (state_T != NULL)
+			  *state_T = medium->T();
+		x = medium->x();
+		y = medium->y();
+		for (int i = 0; i < nComp; i++) {
+			if (state_x != NULL)
+				  state_x[i] = x[i];
+			if (state_y != NULL)
+				  state_y[i] = y[i];
+		} 
+	}
+}
+
+//! Return density of specified mixture
+double TwoPhaseMixture_density_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+							   const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->d();
+	}
+	else 
+	  return MediumMap::medium(uniqueID)->d();
+}
+
+//! Return pressure of specified mixture
+double TwoPhaseMixture_pressure_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+								const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->p();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->p();
+}
+
+//! Return specific enthalpy of specified mixture
+double TwoPhaseMixture_specificEnthalpy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+										const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->h();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->h();
+}
+
+//! Return specific entropy of specified mixture
+double TwoPhaseMixture_specificEntropy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+									   const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->s();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->s();
+}
+
+//! Return temperature of specified mixture
+double TwoPhaseMixture_temperature_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+								   const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->T();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->T();
+}
+
+//! Compute bubble temperature for specified mixture composition and pressure
+double TwoPhaseMixture_bubbleTemperature_(double p, int nComp, double Conc[], const char *mediumName, const char *libraryName, const char *substanceName){
+	// Get medium object
+	BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+	// Compute saturation pressure
+	medium->setSat_p(p);
+	return medium->T();
+}
+
+//! Compute dew temperature for specified mixture composition and pressure
+double TwoPhaseMixture_dewTemperature_(double p, int nComp, double Conc[], const char *mediumName, const char *libraryName, const char *substanceName){
+	// Get medium object
+	BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+	// Compute saturation pressure
+	medium->setSat_p(p);
+	return medium->Ts();
+}
+
+//! Return derivative of density wrt pressure and specific enthalpy of specified medium
+double TwoPhaseMixture_density_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
+									  const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        medium->setState_ph(p, h, phase, nComp);
+		return medium->dd_dp_h()*p_der +
+		       medium->dd_dh_p()*h_der;
+	}
+	else 
+		return MediumMap::medium(uniqueID)->dd_dp_h()*p_der +
+			   MediumMap::medium(uniqueID)->dd_dh_p()*h_der;
+}
+
+
+//! Return specific heat capacity cp of specified mixture
+double TwoPhaseMixture_specificHeatCapacityCp_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+											  const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->cp();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->cp();
+}
+
+//! Return specific heat capacity cv of specified mixture
+double TwoPhaseMixture_specificHeatCapacityCv_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+											  const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->cv();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->cv();
+}
+
+//! Return dynamic viscosity of specified mixture
+double TwoPhaseMixture_dynamicViscosity_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+										const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->eta();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->eta();
+}
+
+//! Return thermal conductivity of specified mixture
+double TwoPhaseMixture_thermalConductivity_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+										   const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->lambda();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->lambda();
+}

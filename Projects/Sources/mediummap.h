@@ -19,11 +19,13 @@ class BaseTwoPhaseMedium;
 
   Francesco Casella, Christoph Richter, Sep 2006  
   Copyright Politecnico di Milano and TU Braunschweig
+  modified by Andreas Joos, Jun 2009
+  Hamburg University of Technology
 */
 class MediumMap{
 public:
 	static int addMedium(const string &mediumName, const string &libraryName, const string &substanceName);
-	static int addTransientMedium(const string &mediumName, const string &libraryName, const string &substanceName);
+	static int addTransientMedium(const string &mediumName, const string &libraryName, const string &substanceName, const int nComp = 1, double* Conc = 0);
 	static void addSolverMedium(const string &solverKey, BaseSolver *const solver);
 
 	static void changeMedium(const string &mediumName, const string &libraryName, const string &substanceName, const int &uniqueID);
@@ -31,7 +33,7 @@ public:
 	
 	static BaseTwoPhaseMedium *medium(const int &uniqueID);
 	static BaseTwoPhaseMedium *solverMedium(BaseSolver *const solver);
-	static BaseTwoPhaseMedium *solverMedium(const string &mediumName, const string &libraryName, const string &substanceName);
+	static BaseTwoPhaseMedium *solverMedium(const string &mediumName, const string &libraryName, const string &substanceName, const int nComp = 1, double* Conc = 0);
 
 protected:
 	//! Static counter for the positive unique ID number used by permanent medium objects

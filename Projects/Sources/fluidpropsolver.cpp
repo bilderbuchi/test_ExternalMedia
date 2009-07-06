@@ -2,8 +2,10 @@
  * Implementation of class FluidProp solver
  *
  * Francesco Casella, Christoph Richter, Oct 2006 - May 2007
+ * modified by Andreas Joos (Hamburg University of Technology), Jun 2009
  ********************************************************************/
 
+#include <sstream>
 #include "fluidpropsolver.h"
 #include "twophasemediumproperties.h"
 
@@ -14,8 +16,8 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 								 const string &substanceName)
 	: BaseSolver(mediumName, libraryName, substanceName){
 	string ErrorMsg;
-	string Comp[20];
-    double Conc[20];
+	string Comp[MAX_NO_COMPONENTS];
+    double Conc[MAX_NO_COMPONENTS];
 
     // Build FluidProp object with the libraryName and substanceName info
 	Comp[0] = substanceName.c_str();
@@ -28,8 +30,75 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 		errorMessage(error);
 	}
 
-	// Set SI units 
-	FluidProp.SetUnits("SI", " ", " ", " ", &ErrorMsg);
+	// Set SI units and if requested molar specific units, Molar Mass always in g/mol!
+	if (libraryName.find("Molar") != string::npos)
+		FluidProp.SetUnits("SI", "PerMole", "Mmol", "g/mol", &ErrorMsg);
+	else
+		FluidProp.SetUnits("SI", "PerMass", "Mmol", "g/mol", &ErrorMsg);
+	if (isError(ErrorMsg))  // An error occurred
+	{
+		// Build error message and pass it to the Modelica environment
+		char error[300];
+		sprintf(error, "FluidProp error: %s\n", ErrorMsg.c_str());
+		errorMessage(error);
+	}
+
+	// Set fluid constants
+	setFluidConstants();
+}
+
+FluidPropSolver::FluidPropSolver(const string &mediumName,
+								 const string &libraryName,
+								 const string &substanceName,
+								 const int nComp,
+								 double* Conc)
+	: BaseSolver(mediumName, libraryName, substanceName, nComp, Conc){
+	string ErrorMsg;
+	string Comp[MAX_NO_COMPONENTS];
+
+	// Anfang ÜBERPRÜFEN
+	// aux variables
+	string substanceName_cpy = substanceName;
+	int loc, nb = 0;
+
+	//Build table of substance name from "-" separated string
+	while ((loc = substanceName_cpy.find("-")) != string::npos) {
+		if (loc == 0) {
+			substanceName_cpy = substanceName_cpy.erase(0, loc+1);
+			continue;
+		}
+		Comp[nb] = substanceName_cpy.substr(0, loc);
+		substanceName_cpy = substanceName_cpy.erase(0, loc+1);
+		nb++;
+	}
+	if (substanceName_cpy.length() != 0)
+		Comp[nb++] = substanceName_cpy;
+
+	// StanMix needs one String for the components names, RefProp an array with a string for each component 
+	if (libraryName.substr(libraryName.find(".")+1) == "StanMix") {
+		for (int i = 1; i < nb; i++) {
+			if (i != nb)
+				Comp[0] += "-";
+			Comp[0] += Comp[i];
+		}
+	}
+	// ENDE ÜBERPRÜFEN
+
+	// Build FluidProp object with the libraryName and substanceName info
+	FluidProp.SetFluid(libraryName.substr(libraryName.find(".")+1), nComp, Comp, Conc, &ErrorMsg);
+	if (isError(ErrorMsg))  // An error occurred
+	{
+		// Build error message and pass it to the Modelica environment
+		char error[300];
+		sprintf(error, "FluidProp error: %s\n", ErrorMsg.c_str());
+		errorMessage(error);
+	}
+
+	// Set SI units and if requested molar specific units, Molar Mass always in g/mol!
+	if (libraryName.find("Molar") != string::npos)
+		FluidProp.SetUnits("SI", "PerMole", "Mmol", "g/mol", &ErrorMsg);
+	else
+		FluidProp.SetUnits("SI", "PerMass", "Mmol", "g/mol", &ErrorMsg);
 	if (isError(ErrorMsg))  // An error occurred
 	{
 		// Build error message and pass it to the Modelica environment
@@ -85,10 +154,10 @@ void FluidPropSolver::setFluidConstants(){
 	}
 }
 
-void FluidPropSolver::setSat_p(double &p, TwoPhaseMediumProperties *const properties){
+void FluidPropSolver::setSat_p(double &p, TwoPhaseMediumProperties *const properties, const int nComp){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[MAX_NO_COMPONENTS], y_[MAX_NO_COMPONENTS], 
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
 		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
@@ -107,8 +176,16 @@ void FluidPropSolver::setSat_p(double &p, TwoPhaseMediumProperties *const proper
 	}
 
     // Fill in the TwoPhaseMedium variables (in SI units)
+	
+	//equilibrium concentrations
+	for (int i = 0; i < nComp; i++) {
+		properties->x[i] = x_[i];
+		properties->y[i] = y_[i];
+	}
+
     properties->ps = p;             // saturation pressure
 	properties->Ts = T_sat_;		// saturation temperature
+	properties->T  = T_;			// bubble point temperature
 
 	properties->dl = d_liq_;	// bubble density
 	properties->dv = d_vap_;	// dew density
@@ -122,10 +199,10 @@ void FluidPropSolver::setSat_p(double &p, TwoPhaseMediumProperties *const proper
 	properties->d_hv_dp = dh_vap_dP_; // derivative of hvs by pressure
 }
 
-void FluidPropSolver::setSat_T(double &T, TwoPhaseMediumProperties *const properties){
+void FluidPropSolver::setSat_T(double &T, TwoPhaseMediumProperties *const properties, const int nComp){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[MAX_NO_COMPONENTS], y_[MAX_NO_COMPONENTS], 
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
 		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
@@ -144,6 +221,13 @@ void FluidPropSolver::setSat_T(double &T, TwoPhaseMediumProperties *const proper
 	}
 
     // Fill in the TwoPhaseMedium variables (in SI units)
+
+	//equilibrium concentrations
+	for (int i = 0; i < nComp; i++) {
+		properties->x[i] = x_[i];
+		properties->y[i] = y_[i];
+	}
+
     properties->ps = P_;        // saturation pressure
 	properties->Ts = T;			// saturation temperature
 
@@ -167,10 +251,10 @@ void FluidPropSolver::setSat_p_state(TwoPhaseMediumProperties *const properties)
 // Computes the properties of the state vector *and* the saturation properties at the medium pressure
 // for later use by setState_p_state
 // Note: the phase input is currently not supported
-void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMediumProperties *const properties){
+void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMediumProperties *const properties, const int nComp){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[MAX_NO_COMPONENTS], y_[MAX_NO_COMPONENTS], 
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
 		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
@@ -203,6 +287,13 @@ void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 		properties->phase = phase;
 
     // Fill in the TwoPhaseMedium variables (in SI units)
+
+	//equilibrium concentrations
+	for (int i = 0; i < nComp; i++) {
+		properties->x[i] = x_[i];
+		properties->y[i] = y_[i];
+	}
+
 	properties->beta = theta_;			// isothermal expansion coefficient
 	properties->cp = cp_; 		        // specific heat capacity cp
 	properties->cv = cv_;		        // specific heat capacity cv
@@ -247,10 +338,11 @@ void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 // Computes the properties of the state vector *and* the saturation properties at the medium pressure
 // for later use by setState_p_state
 // Note: the phase input is currently not supported
-void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties){
+void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties, const int nComp){
 	string ErrorMsg;
+
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[MAX_NO_COMPONENTS], y_[MAX_NO_COMPONENTS], 
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
 		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
@@ -277,6 +369,12 @@ void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties
 	properties->phase = 1;  // Always one-phase with pT inputs
 
 	// Fill in the TwoPhaseMedium variables (in SI units)
+
+	//equilibrium concentrations
+	for (int i = 0; i < nComp; i++) {
+		properties->x[i] = x_[i];
+		properties->y[i] = y_[i];
+	}
 	properties->beta = theta_;			// isothermal expansion coefficient
 	properties->cp = cp_; 		        // specific heat capacity cp
 	properties->cv = cv_;		        // specific heat capacity cv
@@ -315,10 +413,10 @@ void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties
 // Computes the properties of the state vector *and* the saturation properties at the medium pressure
 // for later use by setState_p_state
 // Note: the phase input is currently not supported
-void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMediumProperties *const properties){
+void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMediumProperties *const properties, const int nComp){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[MAX_NO_COMPONENTS], y_[MAX_NO_COMPONENTS], 
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
 		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
@@ -350,6 +448,13 @@ void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMedi
 		properties->phase = phase;
 
 	// Fill in the TwoPhaseMedium variables (in SI units)
+	
+	//equilibrium concentrations
+	for (int i = 0; i < nComp; i++) {
+		properties->x[i] = x_[i];
+		properties->y[i] = y_[i];
+	}
+
 	properties->beta = theta_;			// isothermal expansion coefficient
 	properties->cp = cp_; 		        // specific heat capacity cp
 	properties->cv = cv_;		        // specific heat capacity cv
@@ -395,10 +500,10 @@ void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMedi
 // Computes the properties of the state vector *and* the saturation properties at the medium pressure
 // for later use by setState_p_state
 // Note: the phase input is currently not supported
-void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMediumProperties *const properties){
+void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMediumProperties *const properties, const int nComp){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[MAX_NO_COMPONENTS], y_[MAX_NO_COMPONENTS], 
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
 		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
@@ -431,6 +536,13 @@ void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMedi
 		properties->phase = phase;
 
 	// Fill in the TwoPhaseMedium variables (in SI units)
+
+	//equilibrium concentrations
+	for (int i = 0; i < nComp; i++) {
+		properties->x[i] = x_[i];
+		properties->y[i] = y_[i];
+	}
+
 	properties->beta = theta_;			// isothermal expansion coefficient
 	properties->cp = cp_; 		        // specific heat capacity cp
 	properties->cv = cv_;		        // specific heat capacity cv
@@ -528,7 +640,6 @@ double FluidPropSolver::isentropicEnthalpy(double &p, TwoPhaseMediumProperties *
 	}
 	return h;
 }
-
 
 bool FluidPropSolver::isError(string ErrorMsg)
 {

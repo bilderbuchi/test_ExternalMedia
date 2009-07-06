@@ -1,5 +1,6 @@
 #include "mediummap.h"
 #include "twophasemedium.h"
+#include "twophasemixture.h"
 
 //! Add a new medium object to the medium map
 /*!
@@ -32,8 +33,10 @@ int MediumMap::addMedium(const string &mediumName, const string &libraryName, co
   @param mediumName Medium name
   @param libraryName Library name
   @param substanceName Substance name
+  @param nComp Number of Components in the Mixtures
+  @param Conc Vector of the Concentrations of each Component
 */
-int MediumMap::addTransientMedium(const string &mediumName, const string &libraryName, const string &substanceName){
+int MediumMap::addTransientMedium(const string &mediumName, const string &libraryName, const string &substanceName, const int nComp, double* Conc){
     // transientUniqueID wrapped to stay within the finite number of
 	// available objects in the map.
 	// -1 >= transientUniqueID >= -MAX_TRANSIENT_MEDIUM
@@ -44,17 +47,27 @@ int MediumMap::addTransientMedium(const string &mediumName, const string &librar
 	// Get a pointer to the solver (and create it if it doesn't exist)
 	// based on the libraryName, substanceName and possibly mediumName
 	// strings
-	BaseSolver *solver = SolverMap::getSolver(mediumName, libraryName, substanceName);
+	BaseSolver *solver = SolverMap::getSolver(mediumName, libraryName, substanceName, nComp, Conc);
 	// Create new medium
 	/* ***************************************************/
 	/* This is the place where one could specify a more  */
 	/* advanced medium extending from BaseTwoPhaseMedium */
 	/* ***************************************************/
 	if (_transientUniqueID <= MAX_TRANSIENT_MEDIUM)
-  	  // For the first MAX_TRANSIENT_MEDIUM calls, create a new object
+	{
+ 	  // For the first MAX_TRANSIENT_MEDIUM calls, create a new object
 	  // and assign it to a negative entry in the medium map
+	  if (nComp == 1)
+	  {
 	  _mediums[transientUniqueIDWrapped] = new TwoPhaseMedium(
-	     mediumName, libraryName, substanceName, solver, transientUniqueIDWrapped);
+	  mediumName, libraryName, substanceName, solver, transientUniqueIDWrapped);
+	  }
+	  else
+	  {
+	  _mediums[transientUniqueIDWrapped] = new TwoPhaseMixture(
+	  mediumName, libraryName, substanceName, solver, transientUniqueIDWrapped);
+	  }
+	}
 	else
  	  // For the subsequent ones, re-initialize the properties of
 	  // an already existing object in the medium map, using the wrapped uniqueID
@@ -132,7 +145,7 @@ BaseTwoPhaseMedium *MediumMap::medium(const int &uniqueID){
 */
 BaseTwoPhaseMedium *MediumMap::solverMedium(BaseSolver *const solver){
 	// Return solver medium for specified solver
-	return _solverMediums[SolverMap::solverKey(solver->libraryName, solver->substanceName)];
+	return _solverMediums[SolverMap::solverKey(solver->libraryName, solver->substanceName, solver->nComp, solver->Conc)];
 }
 
 //! Return a pointer to the default medium for the solver
@@ -143,10 +156,12 @@ BaseTwoPhaseMedium *MediumMap::solverMedium(BaseSolver *const solver){
   @param mediumName Medium name
   @param libraryName Library name
   @param substanceName Substance name
+  @param nComp Number of Components in the Mixtures
+  @param Conc Vector of the Concentrations of each Component
 */
-BaseTwoPhaseMedium *MediumMap::solverMedium(const string &mediumName, const string &libraryName, const string &substanceName){
+BaseTwoPhaseMedium *MediumMap::solverMedium(const string &mediumName, const string &libraryName, const string &substanceName, const int nComp, double* Conc){
 	// Make sure, that solver currently exists
-	BaseSolver *solver = SolverMap::getSolver(mediumName, libraryName, substanceName);
+	BaseSolver *solver = SolverMap::getSolver(mediumName, libraryName, substanceName, nComp, Conc);
 	// Return pointer to current solver medium
 	return solverMedium(solver);
 }

@@ -16,6 +16,7 @@
 
   Francesco Casella, Christoph Richter, Sep 2006
   Copyright Politecnico di Milano and TU Braunschweig
+  modified by Andreas Joos (Hamburg University of Technology), Jun 2009
 */
 class BaseTwoPhaseMedium{
 public:
@@ -64,7 +65,10 @@ public:
 	double sl() const;
 	double sv() const;
 
-    double d_Ts_dp() const;
+	virtual double *x() const;
+	virtual double *y() const;
+
+	double d_Ts_dp() const;
 	double d_dl_dp() const;
 	double d_dv_dp() const;
 	double d_hl_dp() const;
@@ -81,10 +85,10 @@ public:
 	virtual void setSat_T(double &T);
 	virtual void setSat_p_state();
 
-	virtual void setState_dT(double &d, double &T, int &phase);
-	virtual void setState_ph(double &p, double &h, int &phase);
-	virtual void setState_ps(double &p, double &s, int &phase);
-	virtual void setState_pT(double &p, double &T);
+	virtual void setState_dT(double &d, double &T, int &phase, const int nComp = 1);
+	virtual void setState_ph(double &p, double &h, int &phase, const int nComp = 1);
+	virtual void setState_ps(double &p, double &s, int &phase, const int nComp = 1);
+	virtual void setState_pT(double &p, double &T, const int nComp = 1);
 
 	virtual int  getBubbleUniqueID(int phase);
 	virtual int  getDewUniqueID(int phase);

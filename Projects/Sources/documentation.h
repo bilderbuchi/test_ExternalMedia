@@ -147,7 +147,7 @@
   you might omit implementing the setState functions corresponding to the
   other ones.
 
-  Then you must modify the SolverMap::addSolver() function, so that it
+  Then you must modify the SolverMap::getSolver() function, so that it
   will instantiate your new solver when it is called with the appropriate
   libraryName string. You are free to invent you own syntax for the
   libraryName string, in case you'd like to be able to set up the

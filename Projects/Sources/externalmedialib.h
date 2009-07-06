@@ -11,6 +11,7 @@
 
   Francesco Casella, Christoph Richter, Sep 2006
   Copyright Politecnico di Milano and TU Braunschweig
+  modified by Andreas Joos (Hamburg University of Technology), Jun 2009
 */
 
 #ifndef EXTERNALMEDIALIB_H_
@@ -32,6 +33,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
+
+	// Functions for pure Substances (TwoPhaseMedium)
 
 	EXPORT int TwoPhaseMedium_createMedium_(const char *mediumName, const char *libraryName, const char *substanceName, int oldUniqueID);
 	
@@ -67,7 +70,7 @@ extern "C" {
 	EXPORT void TwoPhaseMedium_setState_ph_(double p, double h, int phase, int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void TwoPhaseMedium_setState_ps_(double p, double s, int phase, int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void TwoPhaseMedium_setState_pT_(double p, double T, int phase, int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT double TwoPhaseMedium_density_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase,
 		const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double TwoPhaseMedium_density_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase,
@@ -113,6 +116,42 @@ extern "C" {
 	EXPORT double TwoPhaseMedium_dDensity_dEnthalpy_p_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase,
 		const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double TwoPhaseMedium_temperature_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase,
+		const char *mediumName, const char *libraryName, const char *substanceName);
+
+	// Functions for Mixtures (TwoPhaseMixture)
+
+	EXPORT double TwoPhaseMixture_getMolarMass_(int nComp, double Conc[], const char *mediumName, const char *libraryName, const char *substanceName);
+
+	EXPORT double TwoPhaseMixture_bubbleTemperature_(double p, int nComp, double Conc[], const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_dewTemperature_(double p, int nComp, double Conc[], const char *mediumName, const char *libraryName, const char *substanceName);
+
+	EXPORT void TwoPhaseMixture_setState_dTx_(double d, double T, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y, const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT void TwoPhaseMixture_setState_phx_(double p, double h, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y, const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT void TwoPhaseMixture_setState_psx_(double p, double s, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y, const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT void TwoPhaseMixture_setState_pTx_(double p, double T, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y, const char *mediumName, const char *libraryName, const char *substanceName);
+
+	EXPORT double TwoPhaseMixture_density_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_pressure_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_specificEnthalpy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_specificEntropy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_temperature_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+
+	EXPORT double TwoPhaseMixture_density_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+
+	EXPORT double TwoPhaseMixture_specificHeatCapacityCp_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_specificHeatCapacityCv_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+
+	EXPORT double TwoPhaseMixture_dynamicViscosity_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_thermalConductivity_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
 		const char *mediumName, const char *libraryName, const char *substanceName);
 
 #ifdef __cplusplus

@@ -13,11 +13,12 @@ class BaseSolver;
 
   Francesco Casella, Christoph Richter, Sep 2006
   Copyright Politecnico di Milano and TU Braunschweig
+  modified by Andreas Joos (Hamburg University of Technology), Jun 2009
 */
 class SolverMap{
 public:
-	static BaseSolver *getSolver(const string &mediumName, const string &libraryName, const string &substanceName);
-	static string solverKey(const string &libraryName, const string &substanceName);
+	static BaseSolver *getSolver(const string &mediumName, const string &libraryName, const string &substanceName, const int nComp = 1, double *Conc = 0);
+	static string solverKey(const string &libraryName, const string &substanceName, const int nComp = 1, double *Conc = 0);
 
 protected:
 	//! Map for all solver instances identified by the SolverKey

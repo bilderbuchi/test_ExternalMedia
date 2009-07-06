@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="ExternalMediaLib"
 	ProjectGUID="{E5E8CFA2-9107-41F1-B39A-C3C1A8EC2889}"
 	RootNamespace="MicrosoftVisualStudio2008"
@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				FavorSizeOrSpeed="1"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MICROSOFTVISUALSTUDIO2008_EXPORTS;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -112,8 +113,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
+				Optimization="3"
 				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				EnableFiberSafeOptimizations="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MICROSOFTVISUALSTUDIO2008_EXPORTS;_CRT_SECURE_NO_DEPRECATE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -305,6 +308,22 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Two-phase mixture"
+			>
+			<File
+				RelativePath="..\Sources\twophasemixture.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Sources\twophasemixture.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\ClassDiagrammOverview.cd"
+			>
+		</File>
 		<File
 			RelativePath="..\Sources\documentation.h"
 			>

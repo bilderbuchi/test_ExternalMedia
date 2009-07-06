@@ -264,6 +264,18 @@ double BaseTwoPhaseMedium::sv() const{
 	return _properties->sv;
 }
 
+//! Return equilibrium molar fraction of liquid phase (error handling included)
+double *BaseTwoPhaseMedium::x() const{
+		errorMessage("Internal error in BaseTwoPhaseMedium object:\nthe _properties->x field was not set");
+	return 0;
+}
+
+//! Return equilibrium molar fraction of vapor phase (error handling included)
+double *BaseTwoPhaseMedium::y() const{
+		errorMessage("Internal error in BaseTwoPhaseMedium object:\nthe _properties->y field was not set");
+	return 0;
+}
+
 //! Return derivative of saturation temperature wrt pressure (error handling included)
 double BaseTwoPhaseMedium::d_Ts_dp() const{
 	if (ISNAN(_properties->d_Ts_dp))
@@ -368,8 +380,8 @@ void BaseTwoPhaseMedium::setSat_p_state(){
   @param T Temperature
   @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
 */
-void BaseTwoPhaseMedium::setState_dT(double &d, double &T, int &phase){
-	_solver->setState_dT(d, T, phase, _properties);
+void BaseTwoPhaseMedium::setState_dT(double &d, double &T, int &phase, const int nComp){
+	_solver->setState_dT(d, T, phase, _properties, nComp);
 }
 
 //! Set properties from p, h, and phase
@@ -379,8 +391,8 @@ void BaseTwoPhaseMedium::setState_dT(double &d, double &T, int &phase){
   @param h Specific enthalpy
   @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
 */
-void BaseTwoPhaseMedium::setState_ph(double &p, double &h, int &phase){
-	_solver->setState_ph(p, h, phase, _properties);
+void BaseTwoPhaseMedium::setState_ph(double &p, double &h, int &phase, const int nComp){
+	_solver->setState_ph(p, h, phase, _properties, nComp);
 }
 
 //! Set properties from p, s, and phase
@@ -390,8 +402,8 @@ void BaseTwoPhaseMedium::setState_ph(double &p, double &h, int &phase){
   @param s Specific entropy
   @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
 */
-void BaseTwoPhaseMedium::setState_ps(double &p, double &s, int &phase){
-	_solver->setState_ps(p, s, phase, _properties);
+void BaseTwoPhaseMedium::setState_ps(double &p, double &s, int &phase, const int nComp){
+	_solver->setState_ps(p, s, phase, _properties, nComp);
 }
 
 //! Set properties from p and T
@@ -400,8 +412,8 @@ void BaseTwoPhaseMedium::setState_ps(double &p, double &s, int &phase){
   @param p Pressure
   @param T Temperature
 */
-void BaseTwoPhaseMedium::setState_pT(double &p, double &T){
-	_solver->setState_pT(p, T, _properties);
+void BaseTwoPhaseMedium::setState_pT(double &p, double &T, const int nComp){
+	_solver->setState_pT(p, T, _properties, nComp);
 }
 
 //! Get bubble unique ID

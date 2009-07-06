@@ -28,6 +28,8 @@
 
   libraryName = "TestMedium";
 
+  At the moment the test solver class can only handle pure substances.
+
   Francesco Casella, Christoph Richter, Oct 2006
   Copyright Politecnico di Milano and TU Braunschweig
 */

@@ -11,8 +11,8 @@
   @param libraryName Name of the external fluid property library
   @param substanceName Substance name
 */
-BaseSolver::BaseSolver(const string &mediumName, const string &libraryName, const string &substanceName)
-	: mediumName(mediumName), libraryName(libraryName), substanceName(substanceName){
+BaseSolver::BaseSolver(const string &mediumName, const string &libraryName, const string &substanceName, const int nComp, double* Conc)
+	: mediumName(mediumName), libraryName(libraryName), substanceName(substanceName), nComp(nComp), Conc(Conc){
 }
 
 //! Destructor
@@ -77,7 +77,7 @@ void BaseSolver::setFluidConstants(){
   @param p Pressure
   @param properties Two phase medium property record
 */
-void BaseSolver::setSat_p(double &p, TwoPhaseMediumProperties *const properties){
+void BaseSolver::setSat_p(double &p, TwoPhaseMediumProperties *const properties, const int nComp){
     // Base function returns an error if called - should be redeclared by the solver object
 	errorMessage("Internal error: setSat_p() not implemented in the Solver object");
 }
@@ -91,7 +91,7 @@ void BaseSolver::setSat_p(double &p, TwoPhaseMediumProperties *const properties)
   @param T Temperature
   @param properties Two phase medium property record
 */
-void BaseSolver::setSat_T(double &T, TwoPhaseMediumProperties *const properties){
+void BaseSolver::setSat_T(double &T, TwoPhaseMediumProperties *const properties, const int nComp){
     // Base function returns an error if called - should be redeclared by the solver object
 	errorMessage("Internal error: setSat_T() not implemented in the Solver object");
 }
@@ -123,7 +123,7 @@ void BaseSolver::setSat_p_state(TwoPhaseMediumProperties *const properties){
   @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
   @param properties Two phase medium property record
 */
-void BaseSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMediumProperties *const properties){
+void BaseSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMediumProperties *const properties, const int nComp){
     // Base function returns an error if called - should be redeclared by the solver object
 	errorMessage("Internal error: setState_dT() not implemented in the Solver object");
 }
@@ -140,7 +140,7 @@ void BaseSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMediumPro
   @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
   @param properties Two phase medium property record
 */
-void BaseSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMediumProperties *const properties){
+void BaseSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMediumProperties *const properties, const int nComp){
     // Base function returns an error if called - should be redeclared by the solver object
 	errorMessage("Internal error: setState_ph() not implemented in the Solver object");
 }
@@ -157,7 +157,7 @@ void BaseSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMediumPro
   @param phase Phase (2 for two-phase, 1 for one-phase, 0 if not known)
   @param properties Two phase medium property record
 */
-void BaseSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMediumProperties *const properties){
+void BaseSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMediumProperties *const properties, const int nComp){
     // Base function returns an error if called - should be redeclared by the solver object
 	errorMessage("Internal error: setState_ps() not implemented in the Solver object");
 }
@@ -173,7 +173,7 @@ void BaseSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMediumPro
   @param T Temperature
   @param properties Two phase medium property record
 */
-void BaseSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties){
+void BaseSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties, const int nComp){
     // Base function returns an error if called - should be redeclared by the solver object
 	errorMessage("Internal error: setState_pT() not implemented in the Solver object");
 }

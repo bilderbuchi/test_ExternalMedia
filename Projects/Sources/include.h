@@ -10,6 +10,7 @@
 
   Francesco Casella, Christoph Richter, Oct 2006
   Copyright Politecnico di Milano and TU Braunschweig
+  modified by Andreas Joos (Hamburg University of Technology), Jun 2009
 */
 #ifndef INCLUDE_H_
 #define INCLUDE_H_
@@ -40,7 +41,7 @@
   Set this preprocessor variable to 1 to include the interface to the
   FluidProp solver developed and maintained by Francesco Casella.
 */
-#define FLUIDPROP 0
+#define FLUIDPROP 1
 
 // Selection of build type for this project
 //! Build project into a DLL
@@ -58,6 +59,12 @@
   outside BaseProperties records, and without explicit uniqueID handling
 */
 #define MAX_TRANSIENT_MEDIUM 1000
+
+//! Maximum number of components in a mixture
+/*!
+  Increase this number if you ran a model that includes a mixture with more components
+*/
+#define MAX_NO_COMPONENTS 20
 
 //! Not a number
 /*!
