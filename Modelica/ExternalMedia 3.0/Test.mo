@@ -622,13 +622,17 @@ package Test
       //Testing
       SI.Temperature Tb;
       SI.Temperature Td;
-      SI.SpecificHeatCapacity cp;
-      SI.SpecificHeatCapacity cv;
-      SI.Density rho;
+      SI.MolarHeatCapacity cp;
+      SI.MolarHeatCapacity cv;
+      Common.MolarDensity rho;
+      Common.MolarDensity rho_phx;
       SI.Pressure p_fun;
-      SI.SpecificEnthalpy h;
-      SI.SpecificEntropy s;
+      Common.MolarEnthalpy h;
+      SI.MolarEntropy s;
       SI.Temperature t;
+      SI.Temperature t_phx;
+      SI.Temperature t_bubble;
+      SI.Temperature t_dew;
       SI.DynamicViscosity eta;
       SI.ThermalConductivity lambda;
       SI.MolarMass MM;
@@ -643,32 +647,46 @@ package Test
 
     equation
       T = 320;//+time*5;
-      X[1]=time/50;
-      X[2]=1-X[1];
-     (state_pT,x_pT,y_pT) = Medium.setState_pTx(p,T,phase,nComp,X,0);
-     (state,x,y) = Medium.setState_psx(p,state_pT.s,phase,nComp,X,0);
-      Tb= Medium.bubbleTemperature(p,nComp,X);
-      Td = Medium.dewTemperature(p,nComp,X);
+      X[1] = time/50;
+      X[2] = 1 - X[1];
+      (state_pT,x_pT,y_pT) = Medium.setState_pTx(
+        p,
+        T,
+        phase,
+        X,
+        0);
+      (state,x,y) = Medium.setState_psx(
+        p,
+        state_pT.s,
+        phase,
+        X,
+        0);
+      Tb = Medium.bubbleTemperature(p, X);
+      Td = Medium.dewTemperature(p, X);
       cp = ExternalMedia.Media.ExternalTwoPhaseMixture.specificHeatCapacityCp(
-                                            state_pT, nComp, X);
+        state_pT, X);
       cv = ExternalMedia.Media.ExternalTwoPhaseMixture.specificHeatCapacityCv(
-                                            state_pT, nComp, X);
-      rho = ExternalMedia.Media.ExternalTwoPhaseMixture.molarDensity(
-                                              state_pT, nComp, X);
-      p_fun = ExternalMedia.Media.ExternalTwoPhaseMixture.pressure(
-                                              state_pT, nComp, X);
-      h = ExternalMedia.Media.ExternalTwoPhaseMixture.specificEnthalpy(
-                                          state_pT, nComp, X);
-      s = ExternalMedia.Media.ExternalTwoPhaseMixture.specificEntropy(
-                                          state_pT, nComp, X);
-      t = ExternalMedia.Media.ExternalTwoPhaseMixture.temperature(
-                                          state_pT, nComp, X);
-      eta = ExternalMedia.Media.ExternalTwoPhaseMixture.dynamicViscosity(
-                                              state_pT, nComp, X);
+        state_pT, X);
+      rho = ExternalMedia.Media.ExternalTwoPhaseMixture.molarDensity(state_pT, X);
+      rho_phx = ExternalMedia.Media.ExternalTwoPhaseMixture.molarDensity_phx(
+        p,
+        state_pT.h,
+        X);
+      p_fun = ExternalMedia.Media.ExternalTwoPhaseMixture.pressure(state_pT, X);
+      h = ExternalMedia.Media.ExternalTwoPhaseMixture.specificEnthalpy(state_pT, X);
+      s = ExternalMedia.Media.ExternalTwoPhaseMixture.specificEntropy(state_pT, X);
+      t = ExternalMedia.Media.ExternalTwoPhaseMixture.temperature(state_pT, X);
+      t_bubble = ExternalMedia.Media.ExternalTwoPhaseMixture.bubbleTemperature(p, X);
+      t_dew = ExternalMedia.Media.ExternalTwoPhaseMixture.dewTemperature(p, X);
+      t_phx = ExternalMedia.Media.ExternalTwoPhaseMixture.temperature_phx(
+        p,
+        state_pT.h,
+        X);
+      eta = ExternalMedia.Media.ExternalTwoPhaseMixture.dynamicViscosity(state_pT,
+        X);
       lambda = ExternalMedia.Media.ExternalTwoPhaseMixture.thermalConductivity(
-                                                    state_pT, nComp, X);
-      MM = ExternalMedia.Media.ExternalTwoPhaseMixture.getMolarMass(
-                                            nComp, X);
+        state_pT, X);
+      MM = ExternalMedia.Media.ExternalTwoPhaseMixture.getMolarMass(X);
       annotation (experiment(StopTime=50), experimentSetupOutput);
     end Test_setState;
 
