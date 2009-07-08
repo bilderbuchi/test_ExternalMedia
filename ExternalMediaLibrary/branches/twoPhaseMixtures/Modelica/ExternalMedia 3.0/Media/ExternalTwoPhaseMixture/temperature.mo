@@ -4,7 +4,7 @@ function temperature
     extends Modelica.Icons.Function;
     input ThermodynamicState state "state record";
     input Real X[nComp] "molar fractions of the species";
-   output SI.Temperature t "specific Entropy";
+   output SI.Temperature t "Temperature";
 external "C" t = TwoPhaseMixture_temperature_(
     state.uniqueID,
     3,

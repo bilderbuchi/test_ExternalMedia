@@ -1337,6 +1337,20 @@ double TwoPhaseMixture_density_ph_der_(int uniqueID, double p_der, double h_der,
 			   MediumMap::medium(uniqueID)->dd_dh_p()*h_der;
 }
 
+//! Return derivative of temperature wrt pressure and specific enthalpy of specified medium
+double TwoPhaseMixture_temperature_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
+									  const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        medium->setState_ph(p, h, phase, nComp);
+		return medium->dT_dp_h()*p_der +
+			   medium->dT_dh_p()*h_der;
+	}
+	else 
+		return MediumMap::medium(uniqueID)->dT_dp_h()*p_der +
+			   MediumMap::medium(uniqueID)->dT_dh_p()*h_der;
+}
 
 //! Return specific heat capacity cp of specified mixture
 double TwoPhaseMixture_specificHeatCapacityCp_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
