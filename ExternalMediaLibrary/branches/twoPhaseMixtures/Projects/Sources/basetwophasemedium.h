@@ -47,6 +47,7 @@ public:
 	double dd_dp_h() const;
 	double dd_dh_p() const;
 	double h() const;
+	double u() const;
 	double kappa() const;
 	double p() const;
 	double s() const;

@@ -628,6 +628,8 @@ package Test
       Common.MolarDensity rho_phx;
       SI.Pressure p_fun;
       Common.MolarEnthalpy h;
+      SI.MolarInternalEnergy u;
+      SI.MolarInternalEnergy u_fun;
       SI.MolarEntropy s;
       SI.Temperature t;
       SI.Temperature t_phx;
@@ -674,6 +676,8 @@ package Test
         X);
       p_fun = ExternalMedia.Media.ExternalTwoPhaseMixture.pressure(state_pT, X);
       h = ExternalMedia.Media.ExternalTwoPhaseMixture.specificEnthalpy(state_pT, X);
+      u = h - p/rho;
+      u_fun = ExternalMedia.Media.ExternalTwoPhaseMixture.specificInternalEnergy(state_pT, X);
       s = ExternalMedia.Media.ExternalTwoPhaseMixture.specificEntropy(state_pT, X);
       t = ExternalMedia.Media.ExternalTwoPhaseMixture.temperature(state_pT, X);
       t_bubble = ExternalMedia.Media.ExternalTwoPhaseMixture.bubbleTemperature(p, X);
