@@ -46,6 +46,8 @@ public:
 	double dd_dh_p;
 	//! Specific enthalpy
 	double h;
+	//! Specific internal energy
+	double u;
 	//! Compressibility
 	double kappa;
 	//! Pressure

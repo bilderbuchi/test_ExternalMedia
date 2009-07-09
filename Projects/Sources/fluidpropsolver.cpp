@@ -301,6 +301,7 @@ void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 	properties->dd_dp_h = psi_;         // derivative of density by pressure at constant h
 	properties->dd_dh_p = ksi_;         // derivative of density by enthalpy at constant p
 	properties->h = h;					// specific enthalpy
+	properties->u = u_;					// specific internal energy
 	properties->kappa = kappa_;			// compressibility
 	properties->p = p;					// pressure
 	properties->s = s_;     		    // specific entropy
@@ -382,6 +383,7 @@ void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties
 	properties->dd_dp_h = psi_;         // derivative of density by pressure at constant h
 	properties->dd_dh_p = ksi_;         // derivative of density by enthalpy at constant p
 	properties->h = h_;					// specific enthalpy
+	properties->u = u_;					// specific internal energy
 	properties->kappa = kappa_;			// compressibility
 	properties->beta = theta_;			// thermal expansion coefficient
 	properties->p = p;					// pressure
@@ -462,6 +464,7 @@ void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMedi
 	properties->dd_dp_h = psi_;         // derivative of density by pressure at constant h
 	properties->dd_dh_p = ksi_;         // derivative of density by enthalpy at constant p
 	properties->h = h_;					// specific enthalpy
+	properties->u = u_;					// specific internal energy
 	properties->kappa = kappa_;			// compressibility
 	properties->p = P_;					// pressure
 	properties->s = s_;     		    // specific entropy
@@ -550,6 +553,7 @@ void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMedi
 	properties->dd_dp_h = psi_;         // derivative of density by pressure at constant h
 	properties->dd_dh_p = ksi_;         // derivative of density by enthalpy at constant p
 	properties->h = h_;					// specific enthalpy
+	properties->u = u_;					// specific internal energy
 	properties->kappa = kappa_;			// compressibility
 	properties->p = p;					// pressure
 	properties->s = s;     			    // specific entropy

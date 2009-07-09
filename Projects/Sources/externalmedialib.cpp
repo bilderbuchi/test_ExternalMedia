@@ -1278,6 +1278,19 @@ double TwoPhaseMixture_specificEnthalpy_(int uniqueID, int choice, double d, dou
 		return MediumMap::medium(uniqueID)->h();
 }
 
+//! Return specific enthalpy of specified mixture
+double TwoPhaseMixture_specificInternalEnergy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+										const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
+		return medium->u();
+	}
+	else 
+		return MediumMap::medium(uniqueID)->u();
+}
+
 //! Return specific entropy of specified mixture
 double TwoPhaseMixture_specificEntropy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
 									   const char *mediumName, const char *libraryName, const char *substanceName){

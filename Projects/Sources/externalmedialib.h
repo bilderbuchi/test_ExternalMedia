@@ -136,6 +136,8 @@ extern "C" {
 		const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double TwoPhaseMixture_specificEnthalpy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
 		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_specificInternalEnergy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double TwoPhaseMixture_specificEntropy_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
 		const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double TwoPhaseMixture_temperature_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
@@ -145,7 +147,6 @@ extern "C" {
 		const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double TwoPhaseMixture_temperature_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
 		const char *mediumName, const char *libraryName, const char *substanceName);
-
 
 	EXPORT double TwoPhaseMixture_specificHeatCapacityCp_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase, int nComp, double Conc[],
 		const char *mediumName, const char *libraryName, const char *substanceName);

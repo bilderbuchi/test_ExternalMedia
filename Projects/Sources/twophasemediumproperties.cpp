@@ -29,6 +29,7 @@ void TwoPhaseMediumProperties::initializeFields(const int nComp){
 	dd_dp_h = NAN;
 	dd_dh_p = NAN;
 	h = NAN;
+	u = NAN;
 	kappa = NAN;
 	p = NAN;
 	s = NAN;

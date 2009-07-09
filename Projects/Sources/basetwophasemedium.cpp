@@ -161,6 +161,13 @@ double BaseTwoPhaseMedium::h() const{
 	return _properties->h;
 }
 
+//! Return specific internal energy (error handling included)
+double BaseTwoPhaseMedium::u() const{
+	if (ISNAN(_properties->u))
+		errorMessage("Internal error in TwoPhaseMedium object:\nthe _properties->u field was not set");
+	return _properties->u;
+}
+
 //! Return compressibility (error handling included)
 double BaseTwoPhaseMedium::kappa() const{
 	if (ISNAN(_properties->kappa))
