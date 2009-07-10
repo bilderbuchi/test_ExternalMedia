@@ -145,6 +145,8 @@ extern "C" {
 
 	EXPORT double TwoPhaseMixture_density_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
 		const char *mediumName, const char *libraryName, const char *substanceName);
+	EXPORT double TwoPhaseMixture_specificInternalEnergy_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
+		const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double TwoPhaseMixture_temperature_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
 		const char *mediumName, const char *libraryName, const char *substanceName);
 
