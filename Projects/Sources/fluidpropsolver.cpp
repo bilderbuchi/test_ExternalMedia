@@ -6,11 +6,22 @@
  ********************************************************************/
 
 #include <sstream>
+#include "math.h"
 #include "fluidpropsolver.h"
 #include "twophasemediumproperties.h"
 
 #if (FLUIDPROP == 1)
 #define _AFXDLL
+
+double Round(double Zahl, int Stellen)
+{
+	double Base = 10;
+    Zahl *= pow(Base, Stellen);
+	Zahl = ceil(Zahl - 0.5);
+	Zahl /= pow(Base, Stellen);
+	return Zahl;
+}
+
 FluidPropSolver::FluidPropSolver(const string &mediumName,
 								 const string &libraryName,
 								 const string &substanceName)
@@ -56,7 +67,6 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 	string ErrorMsg;
 	string Comp[MAX_NO_COMPONENTS];
 
-	// Anfang ÜBERPRÜFEN
 	// aux variables
 	string substanceName_cpy = substanceName;
 	int loc, nb = 0;
@@ -82,7 +92,35 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 			Comp[0] += Comp[i];
 		}
 	}
-	// ENDE ÜBERPRÜFEN
+	
+	//Testing
+	//BEGINN
+	//guarantee sum x_i = 1, if Tolerance of Dymola does not guarantee this!
+
+	double Conc_sum = 0;
+	double decimal_12 = 0;
+	double decimal_3 = 0;
+	
+	//calculate sum x_i
+	for (int i = 0; i<nComp; i++) {
+		Conc_sum += Conc[i];
+	}
+	// round sum
+	decimal_12 = Round(Conc_sum,12);
+	decimal_3 = Round(Conc_sum,3);
+	
+	// check wether the dymola x_i lead to a sum that is accepted by FluidProp and correct it, if necessary
+	// 
+	if (decimal_12 != 1){
+		if (decimal_3 == 1){
+			for (int i = 0; i<nComp; i++)
+				Conc[i] = Conc[i]/Conc_sum;
+		}
+	}
+
+	//END
+	//Testing
+
 
 	// Build FluidProp object with the libraryName and substanceName info
 	FluidProp.SetFluid(libraryName.substr(libraryName.find(".")+1), nComp, Comp, Conc, &ErrorMsg);
