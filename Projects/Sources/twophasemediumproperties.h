@@ -101,6 +101,11 @@ public:
     double d_hl_dp;
 	//! Derivative of hvs wrt pressure
 	double d_hv_dp;
+
+	//! Derivative of u wrt pressure
+	double du_dp;
+	//! Derivative of u wrt h
+	double du_dh;
 };
 
 #endif // TWOPHASEMEDIUMPROPERTIES_H_

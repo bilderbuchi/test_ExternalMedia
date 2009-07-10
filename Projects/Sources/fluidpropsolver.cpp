@@ -334,6 +334,9 @@ void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 
 	properties->eta = eta_;	    // dynamic viscosity
 	properties->lambda = lambda_;	// thermal conductivity
+
+	properties->du_dp = 1/beta_;  // derivative of u by pressure
+	properties->du_dh = 1/beta_ * 1/psi_ * ksi_ ; // derivative of u by enthalpy
 }
 
 // Computes the properties of the state vector *and* the saturation properties at the medium pressure
@@ -410,6 +413,9 @@ void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties
 
 	properties->eta = eta_;	    // dynamic viscosity
 	properties->lambda = lambda_;	// thermal conductivity
+
+	properties->du_dp = 1/beta_;  // derivative of u by pressure
+	properties->du_dh = 1/beta_ * 1/psi_ * ksi_ ; // derivative of u by enthalpy
 }
 
 // Computes the properties of the state vector *and* the saturation properties at the medium pressure
@@ -498,6 +504,9 @@ void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMedi
 
 	properties->eta = eta_;	    // dynamic viscosity
 	properties->lambda = lambda_;	// thermal conductivity
+
+	properties->du_dp = 1/beta_;  // derivative of u by pressure
+	properties->du_dh = 1/beta_ * 1/psi_ * ksi_ ; // derivative of u by enthalpy
 }
 
 // Computes the properties of the state vector *and* the saturation properties at the medium pressure
@@ -587,6 +596,9 @@ void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMedi
 
 	properties->eta = eta_;	    // dynamic viscosity
 	properties->lambda = lambda_;	// thermal conductivity
+	
+	properties->du_dp = 1/beta_;  // derivative of u by pressure
+	properties->du_dh = 1/beta_ * 1/psi_ * ksi_ ; // derivative of u by enthalpy
 }
 
 void FluidPropSolver::setBubbleState(int phase, TwoPhaseMediumProperties *const properties,

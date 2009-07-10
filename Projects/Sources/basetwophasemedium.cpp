@@ -215,6 +215,20 @@ double BaseTwoPhaseMedium::dT_dh_p() const{
 	return _properties->dT_dh_p;
 }
 
+//! Return derivative of specific internal energy wrt pressure (error handling included)
+double BaseTwoPhaseMedium::du_dp() const{
+	if (ISNAN(_properties->du_dp))
+		errorMessage("Internal error in TwoPhaseMedium object:\nthe _properties->du_dp field was not set");
+	return _properties->du_dp;
+}
+
+//! Return derivative of tspecific internal energy wrt specific enthalpy (error handling included)
+double BaseTwoPhaseMedium::du_dh() const{
+	if (ISNAN(_properties->du_dh))
+		errorMessage("Internal error in TwoPhaseMedium object:\ndu_dh field was not set");
+	return _properties->du_dh;
+}
+
 //! Return saturation pressure (error handling included)
 double BaseTwoPhaseMedium::ps() const{
 	if (ISNAN(_properties->ps))

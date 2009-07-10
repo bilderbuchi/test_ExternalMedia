@@ -56,6 +56,9 @@ public:
 	double dT_dp_h() const;
 	double dT_dh_p() const;
 
+	double du_dp() const;
+	double du_dh() const;
+
 	double ps() const;
 	double Ts() const;
 

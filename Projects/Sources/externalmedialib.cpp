@@ -1350,6 +1350,21 @@ double TwoPhaseMixture_density_ph_der_(int uniqueID, double p_der, double h_der,
 			   MediumMap::medium(uniqueID)->dd_dh_p()*h_der;
 }
 
+//! Return derivative of specific internal energy wrt pressure and specific enthalpy of specified medium
+double TwoPhaseMixture_specificInternalEnergy_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
+										  const char *mediumName, const char *libraryName, const char *substanceName){
+	if (uniqueID == 0)
+	{
+		BaseTwoPhaseMedium *medium = MediumMap::solverMedium(mediumName, libraryName, substanceName, nComp, Conc);
+        medium->setState_ph(p,h,phase, nComp);
+		return medium->du_dp()*p_der +
+			   medium->du_dh()*h_der;
+	}
+	else 
+		return MediumMap::medium(uniqueID)->du_dp()*p_der +
+			   MediumMap::medium(uniqueID)->du_dh()*h_der;
+}
+
 //! Return derivative of temperature wrt pressure and specific enthalpy of specified medium
 double TwoPhaseMixture_temperature_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase, int nComp, double Conc[],
 									  const char *mediumName, const char *libraryName, const char *substanceName){
