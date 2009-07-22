@@ -23,6 +23,10 @@ public:
 protected:
 	//! Map for all solver instances identified by the SolverKey
 	static map<string, BaseSolver*> _solvers;
+	//! Map number the solver instances or rather the SolverKeys with unique ID as identifier
+	static map<int, string> _solverKeys;
+	//! Static counter for the negative unique ID number used by solver objects
+	static int _solverUniqueID;
 };
 
 #endif // SOLVERMAP_H_

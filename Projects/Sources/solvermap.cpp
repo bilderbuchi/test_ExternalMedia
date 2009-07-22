@@ -28,12 +28,35 @@ BaseSolver *SolverMap::getSolver(const string &mediumName, const string &library
 	if (_solvers.find(solverKeyString) != _solvers.end())
 		return _solvers[solverKeyString];
 	// Create new solver if it doesn't exist
+
+	// solverUniqueID wrapped to stay within the finite number of
+	// available objects in the map.
+	// -1 >= solverUniqueID >= -MAX_SOLVER
+	int solverUniqueIDWrapped;
+	// Get a new solver unique ID number
+	++_solverUniqueID;
+    solverUniqueIDWrapped = -(((_solverUniqueID - 1) % MAX_SOLVER) + 1);
+
+	if (_solverUniqueID <= MAX_SOLVER)	
+	{
+		// For the first MAX_SOLVER calls, create a new object
+		// and assign it to a negative entry in the solverKeys map
+		_solverKeys[solverUniqueIDWrapped] = solverKeyString;
+	}
+	else{
+		//Delete the "oldest" element
+		//first the object to which the pointer points
+		delete _solvers[_solverKeys[solverUniqueIDWrapped]];
+		//second the entry in the map
+		_solvers.erase(_solverKeys[solverUniqueIDWrapped]);
+		// new map entry for the new solver object
+		_solverKeys[solverUniqueIDWrapped] = solverKeyString;
+		}
 	// CompilerTest solver
 	if (libraryName.compare("TestMedium") == 0)
-	  _solvers[solverKeyString] = new TestSolver(mediumName, libraryName, substanceName);
+	_solvers[solverKeyString] = new TestSolver(mediumName, libraryName, substanceName);
 #if (FLUIDPROP == 1)
-	else if (libraryName.find("FluidProp") == 0)
-	{
+	else if (libraryName.find("FluidProp") == 0){
 		if (nComp == 1)
 			_solvers[solverKeyString] = new FluidPropSolver(mediumName, libraryName, substanceName);
 		else 
@@ -41,13 +64,17 @@ BaseSolver *SolverMap::getSolver(const string &mediumName, const string &library
 	}
 #endif // FLUIDPROP == 1
 	else {
-	  // Generate error message
-	  char error[100];
-	  sprintf(error, "Error: libraryName = %s is not supported by any external solver\n", libraryName.c_str());
-	  errorMessage(error);
+	// Generate error message
+	char error[100];
+	sprintf(error, "Error: libraryName = %s is not supported by any external solver\n", libraryName.c_str());
+	errorMessage(error);
 	}
+
 	// Create new medium object for function calls without specified unique ID
+	if (nComp == 1)
 	MediumMap::addSolverMedium(solverKeyString, _solvers[solverKeyString]);
+	else
+	MediumMap::addSolverMedium(solverKeyString, _solvers[solverKeyString], nComp);
 	// Return pointer to solver
 	return _solvers[solverKeyString];  
 };
@@ -97,3 +124,5 @@ string SolverMap::solverKey(const string &libraryName, const string &substanceNa
 }
 
 map<string, BaseSolver*> SolverMap::_solvers;
+map<int, string> SolverMap::_solverKeys;
+int SolverMap::_solverUniqueID(0);
