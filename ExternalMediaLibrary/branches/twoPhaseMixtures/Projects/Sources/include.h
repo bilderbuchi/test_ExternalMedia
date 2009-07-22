@@ -60,6 +60,12 @@
 */
 #define MAX_TRANSIENT_MEDIUM 1000
 
+//! Maximum number of non-overlapping solver objects
+/*!
+  To be done...
+*/
+#define MAX_SOLVER 100
+
 //! Maximum number of components in a mixture
 /*!
   Increase this number if you ran a model that includes a mixture with more components

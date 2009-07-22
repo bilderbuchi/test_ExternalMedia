@@ -57,6 +57,8 @@ int MediumMap::addTransientMedium(const string &mediumName, const string &librar
 	{
  	  // For the first MAX_TRANSIENT_MEDIUM calls, create a new object
 	  // and assign it to a negative entry in the medium map
+
+	  // for a pure component create a new TwoPhaseMedium, else an new TwoPhaseMixture
 	  if (nComp == 1)
 	  {
 	  _mediums[transientUniqueIDWrapped] = new TwoPhaseMedium(
@@ -86,9 +88,13 @@ int MediumMap::addTransientMedium(const string &mediumName, const string &librar
   @param solverKey Solver key
   @param solver Pointer to solver
 */
-void MediumMap::addSolverMedium(const string &solverKey, BaseSolver *const solver){
+void MediumMap::addSolverMedium(const string &solverKey, BaseSolver *const solver, const int nComp){
+
 	// Create new medium
-	_solverMediums[solverKey] = new TwoPhaseMedium(solver->mediumName, solver->libraryName, solver->substanceName, solver, 0);
+	if (nComp == 1)
+		_solverMediums[solverKey] = new TwoPhaseMedium(solver->mediumName, solver->libraryName, solver->substanceName, solver, 0);
+	else
+		_solverMediums[solverKey] = new TwoPhaseMixture(solver->mediumName, solver->libraryName, solver->substanceName, solver, 0);
 }
 
 //! Change a medium

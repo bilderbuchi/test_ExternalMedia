@@ -26,7 +26,7 @@ class MediumMap{
 public:
 	static int addMedium(const string &mediumName, const string &libraryName, const string &substanceName);
 	static int addTransientMedium(const string &mediumName, const string &libraryName, const string &substanceName, const int nComp = 1, double* Conc = 0);
-	static void addSolverMedium(const string &solverKey, BaseSolver *const solver);
+	static void addSolverMedium(const string &solverKey, BaseSolver *const solver, const int nComp = 0);
 
 	static void changeMedium(const string &mediumName, const string &libraryName, const string &substanceName, const int &uniqueID);
 	static void deleteMedium(const int &uniqueID);

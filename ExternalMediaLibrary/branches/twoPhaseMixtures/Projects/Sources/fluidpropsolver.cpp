@@ -99,7 +99,7 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 
 	double Conc_sum = 0;
 	double decimal_12 = 0;
-	double decimal_3 = 0;
+	double decimal_4 = 0;
 	
 	//calculate sum x_i
 	for (int i = 0; i<nComp; i++) {
@@ -107,15 +107,15 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 	}
 	// round sum
 	decimal_12 = Round(Conc_sum,12);
-	decimal_3 = Round(Conc_sum,3);
+	decimal_4 = Round(Conc_sum,4);
 	
 	// check wether the dymola x_i lead to a sum that is accepted by FluidProp and correct it, if necessary
 	// 
 	if (decimal_12 != 1){
-		if (decimal_3 == 1){
+	//	if (decimal_3 == 1){
 			for (int i = 0; i<nComp; i++)
 				Conc[i] = Conc[i]/Conc_sum;
-		}
+	//	}
 	}
 
 	//END
@@ -166,7 +166,8 @@ void FluidPropSolver::setFluidConstants(){
 
   _fluidConstants.Tc = FluidProp.Tcrit(&ErrorMsg);
   if (isError(ErrorMsg))  // An error occurred
-	{
+	{/*int* horst = 0;
+	int horst2 = *horst;*/
 	// Build error message and pass it to the Modelica environment
 	char error[300];
 	sprintf(error, "FluidProp error in FluidPropSolver::setFluidConstants: can't compute critical temperature\n %s\n", ErrorMsg.c_str());
