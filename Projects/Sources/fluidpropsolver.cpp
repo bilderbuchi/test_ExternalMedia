@@ -13,7 +13,7 @@
 #if (FLUIDPROP == 1)
 #define _AFXDLL
 
-double Round(double Zahl, int Stellen)
+double FluidPropSolver::Round(double Zahl, int Stellen)
 {
 	double Base = 10;
     Zahl *= pow(Base, Stellen);
@@ -166,8 +166,10 @@ void FluidPropSolver::setFluidConstants(){
 
   _fluidConstants.Tc = FluidProp.Tcrit(&ErrorMsg);
   if (isError(ErrorMsg))  // An error occurred
-	{/*int* horst = 0;
-	int horst2 = *horst;*/
+	{
+	int horst;
+	int* pHorst = 0;
+	horst = *pHorst;
 	// Build error message and pass it to the Modelica environment
 	char error[300];
 	sprintf(error, "FluidProp error in FluidPropSolver::setFluidConstants: can't compute critical temperature\n %s\n", ErrorMsg.c_str());

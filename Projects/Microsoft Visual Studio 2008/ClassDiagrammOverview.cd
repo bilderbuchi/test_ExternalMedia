@@ -3,18 +3,15 @@
   <Class Name="BaseSolver" Collapsed="true">
     <Position X="5.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAIAAAgBEgQAMAIAAAAAAAAADAAAAjEREJqA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\basesolver.h</FileName>
+      <HashCode>AgAAAAAAAIAAEgBEgQCMAIAAAAAAAAADAAAAjEREJqA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\basesolver.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BaseTwoPhaseMedium">
     <Position X="2.5" Y="1.5" Width="2" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
     <TypeIdentifier>
-      <HashCode>AQYIAQEIABAAEgFSpcAMBOQAgAAKCBA0QM1sJERMNig=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\basetwophasemedium.h</FileName>
+      <HashCode>AQYIAQEIABAAEgFSpcAMBOQAgAAqCBA0QM9sJExMNig=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\basetwophasemedium.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_properties" />
@@ -24,15 +21,15 @@
   <Class Name="TwoPhaseMediumProperties" Collapsed="true">
     <Position X="5.5" Y="1.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AQAAAAEIAAAAAAAABFAABCQAgAACAAA0QM1kIEBMFAg=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemediumproperties.h</FileName>
+      <HashCode>AQAAAAEIAAAAAAAABFAABCQAgAAiAAA0QM9kIEhMFAg=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemediumproperties.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TFluidProp" Collapsed="true">
     <Position X="6.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AkEECgJCEAAAAAKBAASCACZNEiYQghEQgAAAAgAFIAI=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\FluidProp_IF.H</FileName>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\FluidProp_IF.H</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FluidPropSolver">
@@ -41,8 +38,8 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AgAAAAYAAAAAAAAAgAAAAIEAAAgAAAAAAAAABERAIiA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\fluidpropsolver.h</FileName>
+      <HashCode>AgAAAAYAAAAAAAAAgAAAAIEAAAgAAAAAAAAABEZAIiA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\fluidpropsolver.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="FluidProp" />
@@ -52,7 +49,7 @@
     <Position X="9.25" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAwAAAAAAAABQAiAABAAAAQAEAAIAAAAAAAgAAAAAAA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\mediummap.h</FileName>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\mediummap.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_mediums" />
@@ -62,8 +59,8 @@
   <Class Name="SolverMap">
     <Position X="9.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAACAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\solvermap.h</FileName>
+      <HashCode>AAgAAAAAgCAAAAACAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\solvermap.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_solvers" />
@@ -71,26 +68,23 @@
   </Class>
   <Class Name="TestSolver">
     <Position X="4.75" Y="3.25" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQgAAAAAAAAAAABERAIiA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\testsolver.h</FileName>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\testsolver.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TwoPhaseMedium" Collapsed="true">
     <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAACAAAAA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemedium.h</FileName>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemedium.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TwoPhaseMixture" Collapsed="true">
     <Position X="0.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemixture.h</FileName>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\twophasemixture.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;">
@@ -201,17 +195,17 @@
     <Position X="0.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ADAgAAIAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\fluidconstants.h</FileName>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\fluidconstants.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="IFluidProp_COM">
-    <Position X="2.25" Y="4.25" Width="1.5" />
+    <Position X="0.5" Y="5.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AlEECgJCEAEAAAKBABSAgCYNEiYQghIAgIAAAoAFIAI=</HashCode>
-      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\Privat\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\FluidProp_COM.H</FileName>
+      <FileName>c:\Dokumente und Einstellungen\joos\Desktop\ExternalMediaLibrary\branches\twoPhaseMixtures\Projects\Sources\FluidProp_COM.H</FileName>
     </TypeIdentifier>
   </Struct>
   <Font Name="Tahoma" Size="8.25" />
