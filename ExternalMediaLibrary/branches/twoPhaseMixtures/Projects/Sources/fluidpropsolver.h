@@ -65,6 +65,7 @@ public:
 protected:
     TFluidProp FluidProp;  // Instance of FluidProp wrapper object
 	bool isError(string ErrorMsg);
+	double Round(double Zahl, int Stellen);
 };
 
 #endif // FLUIDPROP == 1
