@@ -121,6 +121,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalLibraryDirectories=""
 				IgnoreAllDefaultLibraries="false"
 			/>
 			<Tool
