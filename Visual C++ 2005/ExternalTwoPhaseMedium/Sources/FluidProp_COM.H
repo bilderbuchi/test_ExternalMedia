@@ -26,7 +26,7 @@
 
 #ifndef   comutil_h
 #include <comutil.h>
-#endif 
+#endif
 
 
 // An IFluidProp interface

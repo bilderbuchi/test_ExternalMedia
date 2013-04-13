@@ -2,8 +2,8 @@
  * Implementation of class TwoPhaseMedium
  *
  * TwoPhaseMedium is the default object embedding the fluid property
- * computations at a given point of the plant. 
- * 
+ * computations at a given point of the plant.
+ *
  * TwoPhaseMedium extends BaseTwoPhaseMedium.
  *
  * See the header file for further documentation
@@ -18,7 +18,7 @@
 TwoPhaseMedium::TwoPhaseMedium(const string &mediumName) : BaseTwoPhaseMedium(mediumName){
 #if defined (COMPILER_TEST)
 	 // The (constant) molar mass should be defined when the object is created
-	_MM = 0.18; 
+	_MM = 0.18;
 #elif defined (FLUIDPROP)
 	char* ErrorMsg;
     char* Comp[20];
@@ -65,7 +65,7 @@ void TwoPhaseMedium::setState_ph(const double &p, const double &h, const int &ph
 #elif defined (FLUIDPROP)
 	// FluidProp variables (with their default units)
     char* ErrorMsg;
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, gamma_, eta_, lambda_;
 	// Compute all FluidProp variables

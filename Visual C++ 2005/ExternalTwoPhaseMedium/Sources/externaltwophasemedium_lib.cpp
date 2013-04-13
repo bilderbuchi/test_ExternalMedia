@@ -1,5 +1,5 @@
 /* *****************************************************************
- * C/C++ layer for external medium models extending from 
+ * C/C++ layer for external medium models extending from
  * PartialExternalTwoPhaseMedium.
  *
  * Francesco Casella, Christoph Richter, Sep 2006
@@ -79,7 +79,7 @@ void setSat_T_(double T, int uniqueID, double *sat_psat, double *sat_Tsat, int *
 		initializeLibrary();
 
 	MediumMap::mediums[uniqueID]->setSat_T(T);
-	
+
 	if (sat_uniqueID != NULL)
 		*sat_uniqueID = uniqueID;
 	if (sat_psat != NULL)

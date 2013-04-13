@@ -1,5 +1,5 @@
 /* *****************************************************************
- * Header file to include in the Dymola/Source directory 
+ * Header file to include in the Dymola/Source directory
  *
  * Provides function prototypes for all the external functions needed
  * by medium model extending from PartialExternalTwoPhaseMedium

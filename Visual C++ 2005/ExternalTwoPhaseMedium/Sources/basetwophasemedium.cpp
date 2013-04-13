@@ -4,7 +4,7 @@
  * The BaseTwoPhaseMedium class defines all the variables and member
  * functions which are needed to use external Modelica medium models
  * extending from PartialExternalTwoPhaseMedium.
- * 
+ *
  * The functions defined here are not fluid-specific, thus need not
  * be adapted to your own specific fluid property computation code.
  *
@@ -129,7 +129,7 @@ double BaseTwoPhaseMedium::Pr() const{
 double BaseTwoPhaseMedium::sigma() const{
 	return _sigma;
 }
-	
+
 void BaseTwoPhaseMedium::initializeLibrary() const{
 	return;  // do nothing by default
 }
