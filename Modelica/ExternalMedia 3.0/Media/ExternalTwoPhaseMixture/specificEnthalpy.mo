@@ -17,6 +17,6 @@ external "C" h = TwoPhaseMixture_specificEnthalpy_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end specificEnthalpy;

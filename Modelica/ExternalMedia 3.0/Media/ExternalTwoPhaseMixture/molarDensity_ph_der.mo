@@ -20,6 +20,6 @@ external "C" d_der = TwoPhaseMixture_density_ph_der_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end molarDensity_ph_der;

@@ -62,7 +62,7 @@ double BaseSolver::criticalEntropy() const{
   This function sets the fluid constants which are defined in the
   FluidConstants record in Modelica. It should be called when a new
   solver is created.
-  
+
   Must be re-implemented in the specific solver
 */
 void BaseSolver::setFluidConstants(){
@@ -100,7 +100,7 @@ void BaseSolver::setSat_T(double &T, TwoPhaseMediumProperties *const properties,
 /*!
   This function sets the saturation properties for the given pressure p
   and is desined to be used from within the BaseProperties model in
-  Modelica. The computed values are written to the two phase medium propery 
+  Modelica. The computed values are written to the two phase medium propery
   struct.
 
   Must be re-implemented in the specific solver
@@ -180,11 +180,11 @@ void BaseSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *con
 
 //! Set bubble state
 /*!
-  This function sets the bubble state record bubbleProperties corresponding to the 
+  This function sets the bubble state record bubbleProperties corresponding to the
   saturation data contained in the properties record.
 
-  The default implementation of the setBubbleState function is relying on the correct 
-  behaviour of setState_ph with respect to the state input. Can be overridden 
+  The default implementation of the setBubbleState function is relying on the correct
+  behaviour of setState_ph with respect to the state input. Can be overridden
   in the specific solver code to get more efficient or correct handling of this situation.
   @param phase Phase (1: one-phase, 2: two-phase)
   @param properties Two phase medium property record with saturation properties data
@@ -198,11 +198,11 @@ void BaseSolver::setBubbleState(int phase, TwoPhaseMediumProperties *const prope
 
 //! Set dew state
 /*!
-  This function sets the dew state record dewProperties corresponding to the 
+  This function sets the dew state record dewProperties corresponding to the
   saturation data contained in the properties record.
 
-  The default implementation of the setDewState function is relying on the correct 
-  behaviour of setState_ph with respect to the state input. Can be overridden 
+  The default implementation of the setDewState function is relying on the correct
+  behaviour of setState_ph with respect to the state input. Can be overridden
   in the specific solver code to get more efficient or correct handling of this situation.
   @param phase Phase (1: one-phase, 2: two-phase)
   @param properties Two phase medium property record with saturation properties data
@@ -218,7 +218,7 @@ void BaseSolver::setDewState(int phase, TwoPhaseMediumProperties *const properti
 /*!
   This function computes the derivatives according to the Bridgman's table.
   The computed values are written to the two phase medium property struct.
-  This function can be called from within the setState_XX routines 
+  This function can be called from within the setState_XX routines
   when implementing a new solver. Please be aware that cp, beta and
   kappa have to be provided to allow the computation of the derivatives. It
   returns false if the computation failed.

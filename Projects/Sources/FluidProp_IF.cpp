@@ -3,7 +3,7 @@
 
   This is an example of a client application in Microsoft Visual C++ 2005 for FluidProp,
   a COM server module for the calculation of fluid properties. FluidProp is a common
-  interface to GasMix, IF97, Refprop, StanMix, TPSI and is developed by Piero Colonna 
+  interface to GasMix, IF97, Refprop, StanMix, TPSI and is developed by Piero Colonna
   and Teus van der Stelt.
 
   The class implemented in this file, TFluidProp, is as a wrapper class for the base
@@ -179,7 +179,7 @@ void TFluidProp::GetFluid( string* ModelName, int* nComp, string* Comp, double* 
    SafeArrayDestroy( sa_Conc);
 }
 
-void TFluidProp::GetFluidNames( string LongShort, string ModelName, int* nFluids, 
+void TFluidProp::GetFluidNames( string LongShort, string ModelName, int* nFluids,
                                 string* FluidNames, string* ErrorMsg)
 {
    long long_nFluids;
@@ -591,7 +591,7 @@ void TFluidProp::AllProps( string InputSpec, double Input1, double Input2, doubl
                            double& v, double& d, double& h, double& s, double& u, double& q,
                            double* x, double* y, double& cv, double& cp, double& c, double& alpha,
                            double& beta, double& chi, double& fi, double& ksi, double& psi,
-                           double& zeta, double& theta, double& kappa, double& gamma, double& eta, 
+                           double& zeta, double& theta, double& kappa, double& gamma, double& eta,
 						   double& lambda, string* ErrorMsg)
 {
    BSTR BSTR_InputSpec = _com_util::ConvertStringToBSTR(InputSpec.c_str());
@@ -608,7 +608,7 @@ void TFluidProp::AllProps( string InputSpec, double Input1, double Input2, doubl
    sa_y = SafeArrayCreate( VT_R8, 1, sa_bounds_y);
 
    FluidProp_COM->AllProps( BSTR_InputSpec, Input1, Input2, &P, &T, &v, &d, &h, &s, &u, &q, &sa_x,
-                            &sa_y, &cv, &cp, &c, &alpha, &beta, &chi, &fi, &ksi, &psi, &zeta, 
+                            &sa_y, &cv, &cp, &c, &alpha, &beta, &chi, &fi, &ksi, &psi, &zeta,
 							&theta, &kappa, &gamma, &eta, &lambda, &BSTR_Error);
 
    // Retrieve array with liquid and vapor phase compositions from SafeArrays
@@ -629,9 +629,9 @@ void TFluidProp::AllPropsSat( string InputSpec, double Input1, double Input2, do
                               double& v, double& d, double& h, double& s, double& u, double& q,
                               double* x, double* y, double& cv, double& cp, double& c, double& alpha,
                               double& beta, double& chi, double& fi, double& ksi, double& psi,
-                              double& zeta, double& theta, double& kappa, double& gamma, double& eta, 
-							  double& lambda, double& d_liq, double& d_vap, double& h_liq, double& h_vap, 
-						      double& T_sat,  double& dd_liq_dP, double& dd_vap_dP, double& dh_liq_dP, 
+                              double& zeta, double& theta, double& kappa, double& gamma, double& eta,
+							  double& lambda, double& d_liq, double& d_vap, double& h_liq, double& h_vap,
+						      double& T_sat,  double& dd_liq_dP, double& dd_vap_dP, double& dh_liq_dP,
 						      double& dh_vap_dP, double& dT_sat_dP, string* ErrorMsg)
 {
    BSTR BSTR_InputSpec = _com_util::ConvertStringToBSTR( InputSpec.c_str());
@@ -648,9 +648,9 @@ void TFluidProp::AllPropsSat( string InputSpec, double Input1, double Input2, do
    sa_y = SafeArrayCreate( VT_R8, 1, sa_bounds_y);
 
    FluidProp_COM->AllPropsSat( BSTR_InputSpec, Input1, Input2, &P, &T, &v, &d, &h, &s, &u, &q, &sa_x,
-                               &sa_y, &cv, &cp, &c, &alpha, &beta, &chi, &fi, &ksi, &psi, &zeta, 
-                               &theta, &kappa, &gamma, &eta, &lambda, &d_liq, &d_vap, &h_liq, &h_vap, 
-							   &T_sat, &dd_liq_dP, &dd_vap_dP, &dh_liq_dP, &dh_vap_dP, &dT_sat_dP, 
+                               &sa_y, &cv, &cp, &c, &alpha, &beta, &chi, &fi, &ksi, &psi, &zeta,
+                               &theta, &kappa, &gamma, &eta, &lambda, &d_liq, &d_vap, &h_liq, &h_vap,
+							   &T_sat, &dd_liq_dP, &dd_vap_dP, &dh_liq_dP, &dh_vap_dP, &dT_sat_dP,
 							   &BSTR_Error);
 
    // Retrieve array with liquid and vapor phase compositions from SafeArrays

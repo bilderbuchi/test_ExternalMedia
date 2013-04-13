@@ -17,6 +17,6 @@ external "C" cp = TwoPhaseMixture_specificHeatCapacityCp_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end specificHeatCapacityCp;

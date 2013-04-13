@@ -37,7 +37,7 @@ BaseSolver *SolverMap::getSolver(const string &mediumName, const string &library
 	++_solverUniqueID;
     solverUniqueIDWrapped = -(((_solverUniqueID - 1) % MAX_SOLVER) + 1);
 
-	if (_solverUniqueID <= MAX_SOLVER)	
+	if (_solverUniqueID <= MAX_SOLVER)
 	{
 		// For the first MAX_SOLVER calls, create a new object
 		// and assign it to a negative entry in the solverKeys map
@@ -59,7 +59,7 @@ BaseSolver *SolverMap::getSolver(const string &mediumName, const string &library
 	else if (libraryName.find("FluidProp") == 0){
 		if (nComp == 1)
 			_solvers[solverKeyString] = new FluidPropSolver(mediumName, libraryName, substanceName);
-		else 
+		else
 			_solvers[solverKeyString] = new FluidPropSolver(mediumName, libraryName, substanceName, nComp, Conc);
 	}
 #endif // FLUIDPROP == 1
@@ -76,19 +76,19 @@ BaseSolver *SolverMap::getSolver(const string &mediumName, const string &library
 	else
 	MediumMap::addSolverMedium(solverKeyString, _solvers[solverKeyString], nComp);
 	// Return pointer to solver
-	return _solvers[solverKeyString];  
+	return _solvers[solverKeyString];
 };
 
 //! Generate a unique solver key
 /*!
-  This function generates a unique solver key based on the library name and 
+  This function generates a unique solver key based on the library name and
   substance name.
 */
 string SolverMap::solverKey(const string &libraryName, const string &substanceName, const int nComp, double *Conc){
 	// This function returns the solver key and may be changed by advanced users
 	if (nComp !=1 && libraryName.find("FluidProp") != string::npos)
 		{
-		
+
 		int loc, nb = 0;
 		string substanceName_cpy = substanceName;
 		string substances[MAX_NO_COMPONENTS];
@@ -96,7 +96,7 @@ string SolverMap::solverKey(const string &libraryName, const string &substanceNa
 
 		while ((loc = substanceName_cpy.find("-")) != string::npos)
 		{
-			if (loc == 0) 
+			if (loc == 0)
 			{
 				substanceName_cpy = substanceName_cpy.erase(0, loc+1);
 				continue;

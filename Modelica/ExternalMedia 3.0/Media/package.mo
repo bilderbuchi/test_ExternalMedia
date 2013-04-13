@@ -1,3 +1,3 @@
 within ExternalMedia;
-package Media 
+package Media
 end Media;

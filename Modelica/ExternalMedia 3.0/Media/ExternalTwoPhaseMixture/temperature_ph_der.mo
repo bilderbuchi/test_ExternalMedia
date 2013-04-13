@@ -20,6 +20,6 @@ external "C" t_der = TwoPhaseMixture_temperature_ph_der_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end temperature_ph_der;

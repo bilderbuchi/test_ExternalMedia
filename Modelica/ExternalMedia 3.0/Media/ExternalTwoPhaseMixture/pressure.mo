@@ -17,6 +17,6 @@ external "C" p = TwoPhaseMixture_pressure_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end pressure;

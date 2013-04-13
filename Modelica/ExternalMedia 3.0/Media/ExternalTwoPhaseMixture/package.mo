@@ -1,5 +1,5 @@
 within ExternalMedia.Media;
-package ExternalTwoPhaseMixture 
+package ExternalTwoPhaseMixture
   import SI = Modelica.SIunits;
   import ExternalMedia.Common.InputChoice;
 

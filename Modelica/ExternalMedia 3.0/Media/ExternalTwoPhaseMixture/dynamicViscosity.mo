@@ -17,7 +17,7 @@ external "C" eta = TwoPhaseMixture_dynamicViscosity_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 
 end dynamicViscosity;

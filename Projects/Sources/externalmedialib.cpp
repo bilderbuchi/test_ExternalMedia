@@ -2,7 +2,7 @@
   \file externalmedialib.cpp
   \brief Interface layer
 
-  C/C++ layer for external medium models extending from 
+  C/C++ layer for external medium models extending from
   PartialExternalTwoPhaseMedium.
 
   Francesco Casella, Christoph Richter, Sep 2006
@@ -362,7 +362,7 @@ void TwoPhaseMedium_setSat_T_(double T, int uniqueID, double *sat_psat, double *
  	  medium = MediumMap::medium(uniqueID);
  	  // Call the medium object's setSat_T function
 	  medium->setSat_T(T);
-	  // Set the output values 
+	  // Set the output values
 	  if (sat_uniqueID != NULL)
   		  *sat_uniqueID = uniqueID;
 	  if (sat_psat != NULL)
@@ -383,7 +383,7 @@ void TwoPhaseMedium_setSat_T_(double T, int uniqueID, double *sat_psat, double *
   @param sat_uniqueID Pointer to return unique ID number for saturation record
 */
 void TwoPhaseMedium_setSat_p_state_(int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_uniqueID){
-	// Check for the validity of the uniqueID - this function should never be 
+	// Check for the validity of the uniqueID - this function should never be
 	// called with a zero unique ID
 	if (uniqueID == 0)
 		errorMessage("setSat_p_state called without a valid uniqueID");
@@ -393,7 +393,7 @@ void TwoPhaseMedium_setSat_p_state_(int uniqueID, double *sat_psat, double *sat_
 	// Call the medium object setSat_p_state() function, which will
 	// set the saturation properties corresponding to the medium pressure
 	medium->setSat_p_state();
-	// Set the output values 
+	// Set the output values
 	  if (sat_uniqueID != NULL)
   		  *sat_uniqueID = uniqueID;
 	  if (sat_psat != NULL)
@@ -415,7 +415,7 @@ void TwoPhaseMedium_setSat_p_state_(int uniqueID, double *sat_psat, double *sat_
 */
 void TwoPhaseMedium_setDewState_(int uniqueID, int phase, int *state_uniqueID, int *state_phase,
 								 const char *mediumName, const char *libraryName, const char *substanceName){
-	// Check for the validity of the uniqueID - this function should never be 
+	// Check for the validity of the uniqueID - this function should never be
 	// called with a zero unique ID or phase inputs
 	if (uniqueID == 0)
 		errorMessage("setDewState_ called without a valid uniqueID");
@@ -448,7 +448,7 @@ void TwoPhaseMedium_setDewState_(int uniqueID, int phase, int *state_uniqueID, i
 */
 void TwoPhaseMedium_setBubbleState_(int uniqueID, int phase, int *state_uniqueID, int *state_phase,
 									const char *mediumName, const char *libraryName, const char *substanceName){
-	// Check for the validity of the inputs - this function should never be 
+	// Check for the validity of the inputs - this function should never be
 	// called with a zero unique ID or phase inputs
 	if (uniqueID == 0)
 		errorMessage("setBubbleState_ called without a valid uniqueID");
@@ -477,7 +477,7 @@ double TwoPhaseMedium_density_(int uniqueID, int choice, double d, double h, dou
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->d();
 	}
-	else 
+	else
 	  return MediumMap::medium(uniqueID)->d();
 }
 
@@ -490,7 +490,7 @@ double TwoPhaseMedium_density_derp_h_(int uniqueID, int choice, double d, double
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dp_h();
 	}
-	else 
+	else
 	  return MediumMap::medium(uniqueID)->dd_dp_h();
 }
 
@@ -503,7 +503,7 @@ double TwoPhaseMedium_density_derh_p_(int uniqueID, int choice, double d, double
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dh_p();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dh_p();
 }
 
@@ -517,7 +517,7 @@ double TwoPhaseMedium_density_ph_der_(int uniqueID, double p_der, double h_der, 
 		return medium->dd_dp_h()*p_der +
 		       medium->dd_dh_p()*h_der;
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dp_h()*p_der +
 			   MediumMap::medium(uniqueID)->dd_dh_p()*h_der;
 }
@@ -531,7 +531,7 @@ double TwoPhaseMedium_pressure_(int uniqueID, int choice, double d, double h, do
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->p();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->p();
 }
 
@@ -544,7 +544,7 @@ double TwoPhaseMedium_specificEnthalpy_(int uniqueID, int choice, double d, doub
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->h();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->h();
 }
 
@@ -557,7 +557,7 @@ double TwoPhaseMedium_specificEntropy_(int uniqueID, int choice, double d, doubl
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->s();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->s();
 }
 
@@ -570,7 +570,7 @@ double TwoPhaseMedium_temperature_(int uniqueID, int choice, double d, double h,
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->T();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->T();
 }
 
@@ -584,7 +584,7 @@ double TwoPhaseMedium_temperature_ph_der_(int uniqueID, double p_der, double h_d
 		return medium->dT_dp_h()*p_der +
 			   medium->dT_dh_p()*h_der;
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dT_dp_h()*p_der +
 			   MediumMap::medium(uniqueID)->dT_dh_p()*h_der;
 }
@@ -598,7 +598,7 @@ double TwoPhaseMedium_isentropicEnthalpy_(double p_iso, int uniqueID, int choice
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->h_iso(p_iso);
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->h_iso(p_iso);
 }
 
@@ -765,7 +765,7 @@ double TwoPhaseMedium_isobaricExpansionCoefficient_(int uniqueID, int choice, do
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->beta();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->beta();
 }
 
@@ -778,7 +778,7 @@ double TwoPhaseMedium_isothermalCompressibility_(int uniqueID, int choice, doubl
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->kappa();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->kappa();
 }
 
@@ -791,7 +791,7 @@ double TwoPhaseMedium_specificHeatCapacityCp_(int uniqueID, int choice, double d
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->cp();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->cp();
 }
 
@@ -804,7 +804,7 @@ double TwoPhaseMedium_specificHeatCapacityCv_(int uniqueID, int choice, double d
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->cv();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->cv();
 }
 
@@ -817,7 +817,7 @@ double TwoPhaseMedium_dynamicViscosity_(int uniqueID, int choice, double d, doub
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->eta();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->eta();
 }
 
@@ -830,7 +830,7 @@ double TwoPhaseMedium_thermalConductivity_(int uniqueID, int choice, double d, d
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->lambda();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->lambda();
 }
 
@@ -843,7 +843,7 @@ double TwoPhaseMedium_prandtlNumber_(int uniqueID, int choice, double d, double 
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->Pr();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->Pr();
 }
 
@@ -870,7 +870,7 @@ double TwoPhaseMedium_velocityOfSound_(int uniqueID, int choice, double d, doubl
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->a();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->a();
 }
 
@@ -883,7 +883,7 @@ double TwoPhaseMedium_dDensity_dPressure_h_(int uniqueID, int choice, double d, 
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dp_h();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dp_h();
 }
 
@@ -896,7 +896,7 @@ double TwoPhaseMedium_dDensity_dEnthalpy_p_(int uniqueID, int choice, double d, 
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dh_p();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dh_p();
 }
 
@@ -930,7 +930,7 @@ double TwoPhaseMedium_saturationTemperature_derp_(double p, const char *mediumNa
 
 //! Call the appropriate setState_xx() function of the medium object
 /*!
-  This function calls the setState_xx() function of the medium object corresponding 
+  This function calls the setState_xx() function of the medium object corresponding
   to the choice input.
   @param medium Medium object (class BaseTwoPhaseMedium)
   @param choice of inputs (dT, ph, ps, pT)
@@ -1033,7 +1033,7 @@ void TwoPhaseMixture_setState_dTx_(double d, double T, int phase, int nComp, dou
 				  state_x[i] = x[i];
 			if (state_y != NULL)
 				  state_y[i] = y[i];
-	  } 
+	  }
     }
 }
 
@@ -1099,7 +1099,7 @@ void TwoPhaseMixture_setState_phx_(double p, double h, int phase, int nComp, dou
 				  state_x[i] = x[i];
 			if (state_y != NULL)
 				  state_y[i] = y[i];
-	  } 
+	  }
     }
 }
 
@@ -1129,7 +1129,7 @@ void TwoPhaseMixture_setState_phx_(double p, double h, int phase, int nComp, dou
 */
 void TwoPhaseMixture_setState_psx_(double p, double s, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y,
 								 const char *mediumName, const char *libraryName, const char *substanceName){
-	
+
 	// Auxilary Pointer to get the equilibrium Concentrations
 	double *x, *y;
 
@@ -1198,7 +1198,7 @@ void TwoPhaseMixture_setState_psx_(double p, double s, int phase, int nComp, dou
 */
 void TwoPhaseMixture_setState_pTx_(double p, double T, int phase, int nComp, double Conc[], int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, double *state_x, double *state_y,
 								 const char *mediumName, const char *libraryName, const char *substanceName){
-	
+
 	// Auxilary Pointer to get the equilibrium Concentrations
 	double *x, *y;
 
@@ -1235,7 +1235,7 @@ void TwoPhaseMixture_setState_pTx_(double p, double T, int phase, int nComp, dou
 				  state_x[i] = x[i];
 			if (state_y != NULL)
 				  state_y[i] = y[i];
-		} 
+		}
 	}
 }
 
@@ -1248,7 +1248,7 @@ double TwoPhaseMixture_density_(int uniqueID, int choice, double d, double h, do
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->d();
 	}
-	else 
+	else
 	  return MediumMap::medium(uniqueID)->d();
 }
 
@@ -1261,7 +1261,7 @@ double TwoPhaseMixture_pressure_(int uniqueID, int choice, double d, double h, d
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->p();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->p();
 }
 
@@ -1274,7 +1274,7 @@ double TwoPhaseMixture_specificEnthalpy_(int uniqueID, int choice, double d, dou
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->h();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->h();
 }
 
@@ -1287,7 +1287,7 @@ double TwoPhaseMixture_specificInternalEnergy_(int uniqueID, int choice, double 
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->u();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->u();
 }
 
@@ -1300,7 +1300,7 @@ double TwoPhaseMixture_specificEntropy_(int uniqueID, int choice, double d, doub
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->s();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->s();
 }
 
@@ -1313,7 +1313,7 @@ double TwoPhaseMixture_temperature_(int uniqueID, int choice, double d, double h
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->T();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->T();
 }
 
@@ -1345,7 +1345,7 @@ double TwoPhaseMixture_density_ph_der_(int uniqueID, double p_der, double h_der,
 		return medium->dd_dp_h()*p_der +
 		       medium->dd_dh_p()*h_der;
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dp_h()*p_der +
 			   MediumMap::medium(uniqueID)->dd_dh_p()*h_der;
 }
@@ -1360,7 +1360,7 @@ double TwoPhaseMixture_specificInternalEnergy_ph_der_(int uniqueID, double p_der
 		return medium->du_dp()*p_der +
 			   medium->du_dh()*h_der;
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->du_dp()*p_der +
 			   MediumMap::medium(uniqueID)->du_dh()*h_der;
 }
@@ -1375,7 +1375,7 @@ double TwoPhaseMixture_temperature_ph_der_(int uniqueID, double p_der, double h_
 		return medium->dT_dp_h()*p_der +
 			   medium->dT_dh_p()*h_der;
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dT_dp_h()*p_der +
 			   MediumMap::medium(uniqueID)->dT_dh_p()*h_der;
 }
@@ -1389,7 +1389,7 @@ double TwoPhaseMixture_specificHeatCapacityCp_(int uniqueID, int choice, double 
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->cp();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->cp();
 }
 
@@ -1402,7 +1402,7 @@ double TwoPhaseMixture_specificHeatCapacityCv_(int uniqueID, int choice, double 
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->cv();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->cv();
 }
 
@@ -1415,7 +1415,7 @@ double TwoPhaseMixture_dynamicViscosity_(int uniqueID, int choice, double d, dou
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->eta();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->eta();
 }
 
@@ -1428,6 +1428,6 @@ double TwoPhaseMixture_thermalConductivity_(int uniqueID, int choice, double d, 
         TwoPhaseMedium_setStateDefault_(medium, choice, d, h, p, s, T, phase, nComp);
 		return medium->lambda();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->lambda();
 }
