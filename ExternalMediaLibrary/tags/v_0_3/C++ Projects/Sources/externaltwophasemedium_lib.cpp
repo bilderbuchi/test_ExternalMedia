@@ -1,5 +1,5 @@
 /* *****************************************************************
- * C/C++ layer for external medium models extending from 
+ * C/C++ layer for external medium models extending from
  * PartialExternalTwoPhaseMedium.
  *
  * Francesco Casella, Christoph Richter, Sep 2006
@@ -12,7 +12,7 @@
 #include "twophasemedium.h"
 #include <stdio.h>
 
-int createMedium_(const char *mediumName, const char *libraryName, 
+int createMedium_(const char *mediumName, const char *libraryName,
 				  const char *substanceName, int oldUniqueID){
 	// Allocate a new object and return a unique ID if oldUniqueID == 0
 	if (oldUniqueID == 0){
@@ -55,7 +55,7 @@ void setSat_p_(double p, int uniqueID, double *sat_psat, double *sat_Tsat, int *
 void setSat_T_(double T, int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_uniqueID,
 			   const char *mediumName, const char *libraryName, const char *substanceName){
 	MediumMap::medium(uniqueID)->setSat_T(T);
-	
+
 	if (sat_uniqueID != NULL)
 		*sat_uniqueID = uniqueID;
 	if (sat_psat != NULL)

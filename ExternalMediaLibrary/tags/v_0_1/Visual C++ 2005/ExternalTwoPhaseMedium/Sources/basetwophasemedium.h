@@ -4,7 +4,7 @@
  * The BaseTwoPhaseMedium class defines all the variables and member
  * functions which are needed to use external Modelica medium models
  * extending from PartialExternalTwoPhaseMedium.
- * 
+ *
  * Francesco Casella, Christoph Richter Sep 2006
  ********************************************************************/
 
@@ -75,11 +75,11 @@ public:
 	virtual bool inputsAreEqual_ps(const double &p, const double &s, const int &phase);
 	virtual bool inputsAreEqual_pT(const double &p, const double &T);
 
-protected:	
+protected:
 	// This function initializes the external library code
 	// It should be only called once, by using firstCall
 	virtual void initializeLibrary() const;
-   
+
 	// Static boolean to decide whether library has already been initialized
     static bool firstCall;
 

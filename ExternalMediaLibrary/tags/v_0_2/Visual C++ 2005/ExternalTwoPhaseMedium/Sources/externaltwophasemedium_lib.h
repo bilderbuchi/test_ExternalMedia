@@ -12,7 +12,7 @@
 #define DLLExport
 #endif /*_USRDLL*/
 
-extern "C" DLLExport int createMedium_(const char *mediumName, 
+extern "C" DLLExport int createMedium_(const char *mediumName,
 						               const char *libraryName,
 						               const char *substanceName,
 						               int oldUniqueID);

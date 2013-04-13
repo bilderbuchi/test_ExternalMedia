@@ -2,8 +2,8 @@
  * Implementation of class TwoPhaseMedium
  *
  * TwoPhaseMedium is the default object embedding the fluid property
- * computations at a given point of the plant. 
- * 
+ * computations at a given point of the plant.
+ *
  * TwoPhaseMedium extends BaseTwoPhaseMedium.
  *
  * See the header file for further documentation
@@ -16,7 +16,7 @@
 // General purpose includes
 #include <math.h>
 
-TwoPhaseMedium::TwoPhaseMedium(const string &mediumName, const string &libraryName, 
+TwoPhaseMedium::TwoPhaseMedium(const string &mediumName, const string &libraryName,
 							   const string &substanceName, BaseSolver *const solver,
 							   const int &uniqueID)
 	: BaseTwoPhaseMedium(mediumName, libraryName, substanceName, solver, uniqueID){

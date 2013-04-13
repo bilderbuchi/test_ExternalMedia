@@ -18,6 +18,6 @@ external "C" t = TwoPhaseMixture_temperature_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end temperature;

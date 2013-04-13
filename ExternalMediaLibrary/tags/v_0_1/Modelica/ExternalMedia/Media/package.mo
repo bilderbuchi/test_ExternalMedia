@@ -1,2 +1,2 @@
-package Media 
+package Media
 end Media;

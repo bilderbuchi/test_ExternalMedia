@@ -8,7 +8,7 @@ int main(void)
 	printf("molarMass:\t%f.\n", molarMass_(uniqueID));
 	setState_ph_(30e5, 300e3, 0, uniqueID, 0, 0, 0, 0, 0);
 	printf("density:\t%f.\n", density_(uniqueID));
-	
+
 	int uniqueID2 = createMedium_("TestMedium","TestMedium","R744",0);
 	printf("UniqueID:\t%i.\n", uniqueID2);
 

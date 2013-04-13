@@ -17,6 +17,6 @@ external "C" h = TwoPhaseMixture_specificInternalEnergy_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end specificInternalEnergy;

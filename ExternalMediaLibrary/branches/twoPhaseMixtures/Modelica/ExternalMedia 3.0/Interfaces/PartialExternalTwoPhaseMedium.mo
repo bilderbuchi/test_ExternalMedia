@@ -47,20 +47,20 @@ partial package PartialExternalTwoPhaseMedium
   end SaturationProperties;
 
   redeclare model extends BaseProperties(
-    p(stateSelect = if preferredMediumStates and 
-                       (basePropertiesInputChoice == InputChoice.ph or 
-                        basePropertiesInputChoice == InputChoice.pT or 
-                        basePropertiesInputChoice == InputChoice.ps) then 
+    p(stateSelect = if preferredMediumStates and
+                       (basePropertiesInputChoice == InputChoice.ph or
+                        basePropertiesInputChoice == InputChoice.pT or
+                        basePropertiesInputChoice == InputChoice.ps) then
                             StateSelect.prefer else StateSelect.default),
-    T(stateSelect = if preferredMediumStates and 
-                       (basePropertiesInputChoice == InputChoice.pT or 
-                       basePropertiesInputChoice == InputChoice.dT) then 
+    T(stateSelect = if preferredMediumStates and
+                       (basePropertiesInputChoice == InputChoice.pT or
+                       basePropertiesInputChoice == InputChoice.dT) then
                          StateSelect.prefer else StateSelect.default),
-    h(stateSelect = if preferredMediumStates and 
-                       basePropertiesInputChoice == InputChoice.ph then 
+    h(stateSelect = if preferredMediumStates and
+                       basePropertiesInputChoice == InputChoice.ph then
                          StateSelect.prefer else StateSelect.default),
-    d(stateSelect = if preferredMediumStates and 
-                       basePropertiesInputChoice == InputChoice.dT then 
+    d(stateSelect = if preferredMediumStates and
+                       basePropertiesInputChoice == InputChoice.dT then
                          StateSelect.prefer else StateSelect.default))
     import ExternalMedia.Common.InputChoice;
     parameter InputChoice basePropertiesInputChoice=inputChoice
@@ -71,7 +71,7 @@ partial package PartialExternalTwoPhaseMedium
       "Phase output for medium, 2 for two-phase, 1 for one-phase";
     Integer uniqueID(final start=0) "Unique ID of BaseProperty object";
     SpecificEntropy s(
-      stateSelect = if basePropertiesInputChoice == InputChoice.ps then 
+      stateSelect = if basePropertiesInputChoice == InputChoice.ps then
                        StateSelect.prefer else StateSelect.default)
       "Specific entropy";
     SaturationProperties sat "saturation property record";
@@ -128,13 +128,13 @@ partial package PartialExternalTwoPhaseMedium
     else
       // Event generation at phase boundary crossing
       if basePropertiesInputChoice == InputChoice.ph then
-        phaseOutput = if ((h > bubbleEnthalpy(sat) and h < dewEnthalpy(sat)) and 
+        phaseOutput = if ((h > bubbleEnthalpy(sat) and h < dewEnthalpy(sat)) and
                            p < fluidConstants[1].criticalPressure) then 2 else 1;
       elseif basePropertiesInputChoice == InputChoice.dT then
-        phaseOutput = if  ((d < bubbleDensity(sat) and d > dewDensity(sat)) and 
+        phaseOutput = if  ((d < bubbleDensity(sat) and d > dewDensity(sat)) and
                             T < fluidConstants[1].criticalTemperature) then 2 else 1;
       elseif basePropertiesInputChoice == InputChoice.ps then
-        phaseOutput = if ((s > bubbleEntropy(sat) and s < dewEntropy(sat)) and 
+        phaseOutput = if ((s > bubbleEntropy(sat) and s < dewEntropy(sat)) and
                            p < fluidConstants[1].criticalPressure) then 2 else 1;
       else
         // basePropertiesInputChoice == pT
@@ -438,15 +438,15 @@ partial package PartialExternalTwoPhaseMedium
   end specificEnthalpy_pT;
 
 /*
-  redeclare replaceable function specificEntropy_pT 
-    "Return specific entropy from p and T" 
+  redeclare replaceable function specificEntropy_pT
+    "Return specific entropy from p and T"
     extends Modelica.Icons.Function;
     input Pressure p "Pressure";
     input Temperature T "Temperature";
     input FixedPhase phase "2 for two-phase, 1 for one-phase, 0 if not known";
     input Integer uniqueID "Unique ID";
     output SpecificEntropy s "specific entropy";
-  algorithm 
+  algorithm
     s := specificEntropy(setState_pT(p, T, phase, uniqueID));
   end specificEntropy_ph;
 */
@@ -465,15 +465,15 @@ partial package PartialExternalTwoPhaseMedium
   end specificEnthalpy_dT;
 
 /*
-  redeclare replaceable function specificEntropy_dT 
-    "Return specific entropy from d and T" 
+  redeclare replaceable function specificEntropy_dT
+    "Return specific entropy from d and T"
     extends Modelica.Icons.Function;
     input Density d "Density";
     input Temperature T "Temperature";
     input FixedPhase phase "2 for two-phase, 1 for one-phase, 0 if not known";
     input Integer uniqueID "Unique ID";
     output SpecificEntropy s "specific entropy";
-  algorithm 
+  algorithm
     s := specificEntropy(setState_dt(d, T, phase, uniqueID));
   end specificEntropy_ph;
 */

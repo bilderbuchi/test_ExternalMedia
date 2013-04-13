@@ -6,6 +6,6 @@ function dewTemperature "Return dew Temperature"
   input SI.MoleFraction X[nComp] "molar fractions of the species";
   output SI.Temperature Td;
 
- external "C" Td = TwoPhaseMixture_dewTemperature_(p, nComp, X, mediumName, libraryName, substanceName) 
+ external "C" Td = TwoPhaseMixture_dewTemperature_(p, nComp, X, mediumName, libraryName, substanceName)
    annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end dewTemperature;

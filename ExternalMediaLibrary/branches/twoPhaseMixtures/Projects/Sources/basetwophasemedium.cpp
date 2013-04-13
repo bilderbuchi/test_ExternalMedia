@@ -21,11 +21,11 @@
   @param solver Solver
   @param uniqueID Unique ID number
 */
-BaseTwoPhaseMedium::BaseTwoPhaseMedium(const string &mediumName, const string &libraryName, 
-									   const string &substanceName, BaseSolver *const solver, 
+BaseTwoPhaseMedium::BaseTwoPhaseMedium(const string &mediumName, const string &libraryName,
+									   const string &substanceName, BaseSolver *const solver,
 									   const int &uniqueID)
 	: _mediumName(mediumName), _libraryName(libraryName), _substanceName(substanceName),
-	  _solver(solver), 
+	  _solver(solver),
 	  _uniqueID(uniqueID),
 	  _dewUniqueIDOnePhase(0),
 	  _dewUniqueIDTwoPhase(0),
@@ -51,8 +51,8 @@ BaseTwoPhaseMedium::~BaseTwoPhaseMedium(){
   @param uniqueID Unique ID number
   @see BaseTwoPhaseMedium()
 */
-void BaseTwoPhaseMedium::reinitMedium(const string &mediumName, const string &libraryName, 
-									  const string &substanceName, BaseSolver *const solver, 
+void BaseTwoPhaseMedium::reinitMedium(const string &mediumName, const string &libraryName,
+									  const string &substanceName, BaseSolver *const solver,
 									  const int &uniqueID){
 	_mediumName = mediumName;
 	_libraryName = libraryName;
@@ -450,7 +450,7 @@ int BaseTwoPhaseMedium::getBubbleUniqueID(int phase){
 			if (_uniqueID > 0)
 				// allocate a permanent medium object for the bubble state
 				_bubbleUniqueIDOnePhase = MediumMap::addMedium(_mediumName, _libraryName, _substanceName);
-			else 
+			else
 				// allocate a transient medium object for the bubble state
 				_bubbleUniqueIDOnePhase = MediumMap::addTransientMedium(_mediumName, _libraryName, _substanceName);
 		}
@@ -463,7 +463,7 @@ int BaseTwoPhaseMedium::getBubbleUniqueID(int phase){
 			if (_uniqueID > 0)
 				// allocate a permanent medium object for the bubble state
 				_bubbleUniqueIDTwoPhase = MediumMap::addMedium(_mediumName, _libraryName, _substanceName);
-			else 
+			else
 				// allocate a transient medium object for the bubble state
 				_bubbleUniqueIDTwoPhase = MediumMap::addTransientMedium(_mediumName, _libraryName, _substanceName);
 		}
@@ -485,7 +485,7 @@ int BaseTwoPhaseMedium::getDewUniqueID(int phase){
 			if (_uniqueID > 0)
 				// allocate a permanent medium object for the dew state
 				_dewUniqueIDOnePhase = MediumMap::addMedium(_mediumName, _libraryName, _substanceName);
-			else 
+			else
 				// allocate a transient medium object for the dew state
 				_dewUniqueIDOnePhase = MediumMap::addTransientMedium(_mediumName, _libraryName, _substanceName);
 		}
@@ -498,7 +498,7 @@ int BaseTwoPhaseMedium::getDewUniqueID(int phase){
 			if (_uniqueID > 0)
 				// allocate a permanent medium object for the dew state
 				_dewUniqueIDTwoPhase = MediumMap::addMedium(_mediumName, _libraryName, _substanceName);
-			else 
+			else
 				// allocate a transient medium object for the dew state
 				_dewUniqueIDTwoPhase = MediumMap::addTransientMedium(_mediumName, _libraryName, _substanceName);
 		}

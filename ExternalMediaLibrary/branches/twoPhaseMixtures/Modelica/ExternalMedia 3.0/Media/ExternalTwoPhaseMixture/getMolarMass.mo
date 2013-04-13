@@ -8,6 +8,6 @@ external "C" MM = TwoPhaseMixture_getMolarMass_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end getMolarMass;

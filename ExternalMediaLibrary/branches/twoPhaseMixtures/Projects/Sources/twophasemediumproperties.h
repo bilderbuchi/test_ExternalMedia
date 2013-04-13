@@ -20,7 +20,7 @@ public:
 	TwoPhaseMediumProperties(const int nComp = 1);
 	void initializeFields(const int nComp = 1);
 
-	//! Phase 
+	//! Phase
 	/*!
 	  This phase flag is defined according to the phase flag in Modelica.Media:
 	  2 for two-phase, 1 for one-phase.

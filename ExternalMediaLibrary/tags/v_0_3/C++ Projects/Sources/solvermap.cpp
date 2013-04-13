@@ -35,7 +35,7 @@ BaseSolver *SolverMap::addSolver(const string &mediumName, const string &library
 	  sprintf(error, "Error: libraryName = %s is not supported by any external solver\n", libraryName.c_str());
 	  ERROR_MSG(error);
 	}
-	return _solvers[solverKey];  
+	return _solvers[solverKey];
 };
 
 map<string, BaseSolver*> SolverMap::_solvers;

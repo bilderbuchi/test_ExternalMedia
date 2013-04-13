@@ -10,6 +10,6 @@ function setState_phx "Return thermodynamic state record from p, h and x"
   output SI.MoleFraction x[nComp] "liquid phase composition";
   output SI.MoleFraction y[nComp] "vapor phase composition";
 external "C" TwoPhaseMixture_setState_phx_(p, h, phase, nComp, X, uniqueID, state.uniqueID, state.phase, state.d, state.h, state.p, state.s, state.T,
-   x, y, mediumName, libraryName, substanceName) 
+   x, y, mediumName, libraryName, substanceName)
    annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end setState_phx;

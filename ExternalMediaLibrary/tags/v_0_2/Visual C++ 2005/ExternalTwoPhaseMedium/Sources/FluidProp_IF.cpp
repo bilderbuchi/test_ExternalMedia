@@ -84,7 +84,7 @@ void CFluidProp::SetFluid(const char* ModelName, int nComp, const char* Comp[], 
    /*
    // Set units to SI
    if ( !strcmp(ErrorMsg, "No errors"))
-   {     
+   {
       char* UnitSet     = "SI";
       char* EmptyString = " ";
 	  BSTR BSTR_UnitSet     = _com_util::ConvertStringToBSTR(UnitSet);

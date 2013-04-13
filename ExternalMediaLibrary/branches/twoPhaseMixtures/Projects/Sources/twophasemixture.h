@@ -7,14 +7,14 @@
 //! Two phase mixture
 /*!
   This class is the object embedding the mixture property
-  computations at a given point of the plant. 
-  
+  computations at a given point of the plant.
+
   Andreas Joos, Jun 2009
   Hamburg University of Technology
 */
 class TwoPhaseMixture : public BaseTwoPhaseMedium{
 public:
-	TwoPhaseMixture(const string &mediumName, const string &libraryName, 
+	TwoPhaseMixture(const string &mediumName, const string &libraryName,
 				   const string &substanceName, BaseSolver *const solver,
 				   const int &uniqueID);
 	~TwoPhaseMixture();

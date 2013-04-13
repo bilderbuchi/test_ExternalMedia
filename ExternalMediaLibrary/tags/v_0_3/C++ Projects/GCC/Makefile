@@ -26,8 +26,8 @@ all:
 		twophasemedium.o \
 		-Wl,--out-implib,ExternalTwoPhaseMedium.a \
 		-Wl,--output-def,ExternalTwoPhaseMedium.def
-		
+
 	g++ -o tester main.cpp -L. -lExternalTwoPhaseMedium
-			
+
 clean:
-	-del *.a *.def *.exp *.o 
+	-del *.a *.def *.exp *.o

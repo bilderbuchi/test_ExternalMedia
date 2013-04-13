@@ -18,13 +18,13 @@
 */
 class BaseTwoPhaseMedium{
 public:
-	BaseTwoPhaseMedium(const string &mediumName, const string &libraryName, 
+	BaseTwoPhaseMedium(const string &mediumName, const string &libraryName,
 					   const string &substanceName, BaseSolver *const solver,
 					   const int &uniqueID);
 	virtual ~BaseTwoPhaseMedium();
 
-	void reinitMedium(const string &mediumName, const string &libraryName, 
-					  const string &substanceName, BaseSolver *const solver, 
+	void reinitMedium(const string &mediumName, const string &libraryName,
+					  const string &substanceName, BaseSolver *const solver,
 					  const int &uniqueID);
 
 	int uniqueID() const;
@@ -91,13 +91,13 @@ public:
     virtual void setDewState(int phase);
     virtual void setBubbleState(int phase);
 
-protected:	
+protected:
 	//! Medium property record
 	TwoPhaseMediumProperties *_properties;
 	//! Solver
 	BaseSolver *_solver;
 
-	//! Unique ID 
+	//! Unique ID
 	int _uniqueID;
 
 	//! Medium name

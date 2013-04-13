@@ -4,7 +4,7 @@
  * The TwoPhaseMediumProperties struct defines all the properties that are
  * computed by external Modelica medium models
  * extending from PartialExternalTwoPhaseMedium.
- * 
+ *
  * Francesco Casella, Christoph Richter Sep 2006
  ********************************************************************/
 

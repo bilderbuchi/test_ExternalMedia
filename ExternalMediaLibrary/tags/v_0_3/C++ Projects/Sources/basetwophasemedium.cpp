@@ -4,7 +4,7 @@
  * The BaseTwoPhaseMedium class defines all the variables and member
  * functions which are needed to use external Modelica medium models
  * extending from PartialExternalTwoPhaseMedium.
- * 
+ *
  * The functions defined here are not fluid-specific, thus need not
  * be adapted to your own specific fluid property computation code.
  *
@@ -15,8 +15,8 @@
 
 #include <math.h>
 
-BaseTwoPhaseMedium::BaseTwoPhaseMedium(const string &mediumName, const string &libraryName, 
-									   const string &substanceName, BaseSolver *const solver, 
+BaseTwoPhaseMedium::BaseTwoPhaseMedium(const string &mediumName, const string &libraryName,
+									   const string &substanceName, BaseSolver *const solver,
 									   const int &uniqueID)
 	: _solver(solver){
 }

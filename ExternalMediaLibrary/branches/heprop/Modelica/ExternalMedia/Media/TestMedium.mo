@@ -1,4 +1,4 @@
-package TestMedium 
+package TestMedium
   extends ExternalTwoPhaseMedium(
     mediumName = "TestMedium",
     libraryName = "TestMedium");

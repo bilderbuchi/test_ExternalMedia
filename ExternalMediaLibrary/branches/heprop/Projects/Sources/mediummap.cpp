@@ -27,7 +27,7 @@ int MediumMap::addMedium(const string &mediumName, const string &libraryName, co
 
 //! Add a new transient medium object to the medium map
 /*!
-  This function adds a new transient medium object to the medium map 
+  This function adds a new transient medium object to the medium map
   and returns its (negative) uniqueID.
   @param mediumName Medium name
   @param libraryName Library name
@@ -105,7 +105,7 @@ void MediumMap::deleteMedium(const int &uniqueID){
 	delete _mediums[uniqueID]; _mediums[uniqueID] = 0;
 }
 
-//! Return a pointer to a medium object 
+//! Return a pointer to a medium object
 /*!
   This function returns a pointer to a medium object in the medium
   map. The advantage of using this function instead of using the medium map
@@ -126,7 +126,7 @@ BaseTwoPhaseMedium *MediumMap::medium(const int &uniqueID){
 
 //! Return a pointer to the default medium for the solver
 /*!
-  This function returns a pointer to a medium object in the solver 
+  This function returns a pointer to a medium object in the solver
   medium map.
   @param solver Pointer to solver
 */
@@ -137,7 +137,7 @@ BaseTwoPhaseMedium *MediumMap::solverMedium(BaseSolver *const solver){
 
 //! Return a pointer to the default medium for the solver
 /*!
-  This function returns a pointer to a medium object in the solver 
+  This function returns a pointer to a medium object in the solver
   medium map. It is a convenience function if the pointer to the solver
   is not available. It creates a new solver medium if it does not exist.
   @param mediumName Medium name

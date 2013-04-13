@@ -17,6 +17,6 @@ external "C" s = TwoPhaseMixture_specificEntropy_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end specificEntropy;

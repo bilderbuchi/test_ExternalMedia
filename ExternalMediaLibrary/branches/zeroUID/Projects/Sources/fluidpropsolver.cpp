@@ -28,7 +28,7 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 		errorMessage(error);
 	}
 
-	// Set SI units 
+	// Set SI units
 	FluidProp.SetUnits("SI", " ", " ", " ", &ErrorMsg);
 	if (isError(ErrorMsg))  // An error occurred
 	{
@@ -88,16 +88,16 @@ void FluidPropSolver::setFluidConstants(){
 void FluidPropSolver::setSat_p(double &p, TwoPhaseMediumProperties *const properties){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
-		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 		   dh_vap_dP_, dT_sat_dP_;
 
 	// Compute all FluidProp variables at pressure p and steam quality 0
 	FluidProp.AllPropsSat("Pq", p , 0.0, P_, T_, v_, d_, h_, s_, u_, q_, x_, y_, cv_, cp_, c_,
-		                  alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,  
-	    			      d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		                  alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
+	    			      d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 						  dh_vap_dP_, dT_sat_dP_, &ErrorMsg);
 	if (isError(ErrorMsg)) {  // An error occurred
 		// Build error message and pass it to the Modelica environment
@@ -125,16 +125,16 @@ void FluidPropSolver::setSat_p(double &p, TwoPhaseMediumProperties *const proper
 void FluidPropSolver::setSat_T(double &T, TwoPhaseMediumProperties *const properties){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
-		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 		   dh_vap_dP_, dT_sat_dP_;
 
 	// Compute all FluidProp variables at temperature T and steam quality 0
 	FluidProp.AllPropsSat("Tq", T , 0.0, P_, T_, v_, d_, h_, s_, u_, q_, x_, y_, cv_, cp_, c_,
-		                  alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,  
-	    			      d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		                  alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
+	    			      d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 						  dh_vap_dP_, dT_sat_dP_, &ErrorMsg);
 	if (isError(ErrorMsg)) {  // An error occurred
 		// Build error message and pass it to the Modelica environment
@@ -170,21 +170,21 @@ void FluidPropSolver::setSat_p_state(TwoPhaseMediumProperties *const properties)
 void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMediumProperties *const properties){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
-		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 		   dh_vap_dP_, dT_sat_dP_;
 
 	// Compute all FluidProp variables
 	if (p > _fluidConstants.pc)
 	  FluidProp.AllProps("Ph", p , h, P_, T_, v_, d_, h_, s_, u_, q_, x_, y_, cv_, cp_, c_,
-	  	                 alpha_, beta_, chi_, fi_, ksi_, psi_, 
+	  	                 alpha_, beta_, chi_, fi_, ksi_, psi_,
 						 zeta_, theta_, kappa_, gamma_, eta_, lambda_, &ErrorMsg);
 	else
 	  FluidProp.AllPropsSat("Ph", p , h, P_, T_, v_, d_, h_, s_, u_, q_, x_, y_, cv_, cp_, c_,
-	  	                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,  
-	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+	  	                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
+	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 						    dh_vap_dP_, dT_sat_dP_, &ErrorMsg);
 
 	if (isError(ErrorMsg)) {  // An error occurred
@@ -196,7 +196,7 @@ void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 
     // set the phase property
 	if (phase == 0) {
-		properties->phase = (properties->h > properties->hl && 
+		properties->phase = (properties->h > properties->hl &&
 			                 properties->h < properties->hv &&
 							 properties->p < _fluidConstants.pc)  ?  2 : 1;
 	} else
@@ -250,10 +250,10 @@ void FluidPropSolver::setState_ph(double &p, double &h, int &phase, TwoPhaseMedi
 void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties *const properties){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
-		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 		   dh_vap_dP_, dT_sat_dP_;
 
 	// Compute all FluidProp variables
@@ -263,8 +263,8 @@ void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties
 						 zeta_, theta_, kappa_, gamma_, eta_, lambda_, &ErrorMsg);
 	else
 	  FluidProp.AllPropsSat("PT", p , T, P_, T_, v_, d_, h_, s_, u_, q_, x_, y_, cv_, cp_, c_,
-		                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,  
-	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
+	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 						    dh_vap_dP_, dT_sat_dP_, &ErrorMsg);
 	if (isError(ErrorMsg)) {  // An error occurred
 		// Build error message and pass it to the Modelica environment
@@ -317,10 +317,10 @@ void FluidPropSolver::setState_pT(double &p, double &T, TwoPhaseMediumProperties
 void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMediumProperties *const properties){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
-		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 		   dh_vap_dP_, dT_sat_dP_;
 
 	// Compute all FluidProp variables
@@ -330,8 +330,8 @@ void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMedi
 						 zeta_, theta_, kappa_, gamma_, eta_, lambda_, &ErrorMsg);
 	else
 	  FluidProp.AllPropsSat("dT", d , T, P_, T_, v_, d_, h_, s_, u_, q_, x_, y_, cv_, cp_, c_,
-		                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,  
-	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
+	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 						    dh_vap_dP_, dT_sat_dP_, &ErrorMsg);
 	if (isError(ErrorMsg)) {  // An error occurred
 		// Build error message and pass it to the Modelica environment
@@ -342,7 +342,7 @@ void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMedi
 
     // set the phase output
 	if (phase == 0) {
-		properties->phase = (properties->d < properties->dl && 
+		properties->phase = (properties->d < properties->dl &&
 			                 properties->d > properties->dv &&
 							 properties->T < _fluidConstants.Tc)  ?  2 : 1;
 	} else
@@ -396,10 +396,10 @@ void FluidPropSolver::setState_dT(double &d, double &T, int &phase, TwoPhaseMedi
 void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMediumProperties *const properties){
 	string ErrorMsg;
 	// FluidProp variables (in SI units)
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, zeta_ , theta_, kappa_, gamma_, eta_, lambda_,
-		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		   d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 		   dh_vap_dP_, dT_sat_dP_;
 
 	// Compute all FluidProp variables
@@ -409,10 +409,10 @@ void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMedi
 						 zeta_, theta_, kappa_, gamma_, eta_, lambda_, &ErrorMsg);
 	else
 	  FluidProp.AllPropsSat("Ps", p , s, P_, T_, v_, d_, h_, s_, u_, q_, x_, y_, cv_, cp_, c_,
-		                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,  
-	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_, 
+		                    alpha_, beta_, chi_, fi_, ksi_, psi_, zeta_, theta_, kappa_, gamma_, eta_, lambda_,
+	    			        d_liq_, d_vap_, h_liq_, h_vap_, T_sat_, dd_liq_dP_, dd_vap_dP_, dh_liq_dP_,
 						    dh_vap_dP_, dT_sat_dP_, &ErrorMsg);
-	if (isError(ErrorMsg)) {  
+	if (isError(ErrorMsg)) {
 		// An error occurred
 		// Build error message and pass it to the Modelica environment
 		char error[300];
@@ -422,7 +422,7 @@ void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMedi
 
     // set the phase output
 	if (phase == 0) {
-		properties->phase = (properties->d < properties->dl && 
+		properties->phase = (properties->d < properties->dl &&
 			                 properties->d > properties->dv &&
 							 properties->T < _fluidConstants.Tc)  ?  2 : 1;
 	} else
@@ -472,7 +472,7 @@ void FluidPropSolver::setState_ps(double &p, double &s, int &phase, TwoPhaseMedi
 
 void FluidPropSolver::setBubbleState(int phase, TwoPhaseMediumProperties *const properties,
 		                             TwoPhaseMediumProperties *const bubbleProperties){
-	// Set the bubble state property record based on the original medium 
+	// Set the bubble state property record based on the original medium
 	// saturation state
     // Change hl a little to guarantee the correct phase, since the phase
     // input is currently not supported
@@ -489,7 +489,7 @@ void FluidPropSolver::setBubbleState(int phase, TwoPhaseMediumProperties *const 
 
 void FluidPropSolver::setDewState(int phase, TwoPhaseMediumProperties *const properties,
 		                          TwoPhaseMediumProperties *const dewProperties){
-	// Set the dew state property record based on the original medium 
+	// Set the dew state property record based on the original medium
 	// saturation state
     // Change hv a little to guarantee the correct phase, since the phase
     // input is currently not supported

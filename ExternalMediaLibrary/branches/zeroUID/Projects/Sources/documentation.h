@@ -1,8 +1,8 @@
-/*! 
+/*!
   \mainpage External Media HowTo
 
   \section intro_sec Introduction
-  
+
   Welcome to the ExternalMediaPackage HowTo guide. This package is meant to
   help you interfacing your favourite external fluid computation code(s)
   to Modelica, using the Modelica.Media interface. Currently, the
@@ -12,8 +12,8 @@
   gcc. Please contact the authors if you're interested in such
   developments.
 
-  The ExternalMedia package has been implemented and is maintained by 
-  Francesco Casella (casella@elet.polimi.it) and Christoph Richter 
+  The ExternalMedia package has been implemented and is maintained by
+  Francesco Casella (casella@elet.polimi.it) and Christoph Richter
   (ch.richter@tu-bs.de). The code is released under the Modelica license.
 
   Copyright (c) 2006, Politecnico di Milano and TU Braunschweig.
@@ -89,7 +89,7 @@
 
   \section using_sec 2. Using an already implemented external medium with Dymola
 
-  If somebody else has already implemented the external medium, you only need a few 
+  If somebody else has already implemented the external medium, you only need a few
   things to use it on your computer:
 
   - the ExternalMedia Modelica package

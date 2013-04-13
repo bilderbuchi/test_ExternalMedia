@@ -17,6 +17,6 @@ external "C" lambda = TwoPhaseMixture_thermalConductivity_(
     X,
     mediumName,
     libraryName,
-    substanceName) 
+    substanceName)
   annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
 end thermalConductivity;
