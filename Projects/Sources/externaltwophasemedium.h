@@ -1,7 +1,7 @@
-/*! 
+/*!
   \file externaltwophasemedium.h
   \brief Header file to be included in Dymola
-  
+
   This is the header file to be included in the Dymola/Source directory.
   It proived function prototypes for all the external functions needed
   by medium models extending from PartialExternalTwoPhaseMedium.
@@ -33,18 +33,18 @@ extern "C" {
 #endif // __cplusplus
 
 	EXPORT int createMedium_(const char *mediumName, const char *libraryName, const char *substanceName, int oldUniqueID);
-	
+
 	EXPORT double getMolarMass_(const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double getCriticalTemperature_(const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double getCriticalPressure_(const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double getCriticalMolarVolume_(const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT void setSat_p_(double p, int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_uniqueID, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void setSat_T_(double T, int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_uniqueID, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void setSat_p_state_(int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_uniqueID);
 	EXPORT void setDewState_(int uniqueID, int phase, int *state_uniqueID, int *state_phase, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void setBubbleState_(int uniqueID, int phase, int *state_uniqueID, int *state_phase, const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT double saturationPressure_(double T, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double saturationTemperature_(double p, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double saturationPressure_sat_(double psat, double Tsat, int uniqueID, const char *mediumName, const char *libraryName, const char *substanceName);
@@ -61,12 +61,12 @@ extern "C" {
 	EXPORT double dDewDensity_dPressure_(double psat, double Tsat, int uniqueID, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double dBubbleEnthalpy_dPressure_(double psat, double Tsat, int uniqueID, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double dDewEnthalpy_dPressure_(double psat, double Tsat, int uniqueID, const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT void setState_dT_(double d, double T, int phase, int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void setState_ph_(double p, double h, int phase, int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void setState_ps_(double p, double s, int phase, int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT void setState_pT_(double p, double T, int phase, int uniqueID, int *state_uniqueID, int *state_phase, double *state_d, double *state_h, double *state_p, double *state_s, double *state_T, const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT double density_(int uniqueID, int choice, double d, double h, double p, double s, double T, int phase,
 				           const char *mediumName, const char *libraryName, const char *substanceName);
 	EXPORT double density_ph_der_(int uniqueID, double p_der, double h_der, double p, double h, int phase,
@@ -85,7 +85,7 @@ extern "C" {
 	EXPORT double temperature_(int uniqueID,
 		                       int choice, double d, double h, double p, double s, double T, int phase,
 				               const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT double isobaricExpansionCoefficient_(int uniqueID,
 		                   int choice, double d, double h, double p, double s, double T, int phase,
 				           const char *mediumName, const char *libraryName, const char *substanceName);
@@ -102,7 +102,7 @@ extern "C" {
 	EXPORT double isentropicEnthalpy_(double p_iso, int uniqueID,
 		                   int choice, double d, double h, double p, double s, double T, int phase,
 				           const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT double dynamicViscosity_(int uniqueID,
 		                   int choice, double d, double h, double p, double s, double T, int phase,
 				           const char *mediumName, const char *libraryName, const char *substanceName);
@@ -117,7 +117,7 @@ extern "C" {
 	EXPORT double velocityOfSound_(int uniqueID,
 		                   int choice, double d, double h, double p, double s, double T, int phase,
 				           const char *mediumName, const char *libraryName, const char *substanceName);
-	
+
 	EXPORT double dDensity_dPressure_h_(int uniqueID,
 		                   int choice, double d, double h, double p, double s, double T, int phase,
 				           const char *mediumName, const char *libraryName, const char *substanceName);

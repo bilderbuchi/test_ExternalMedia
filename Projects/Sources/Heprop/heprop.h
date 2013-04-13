@@ -1,4 +1,4 @@
-/* 
+/*
    Header file with external declarations for FORTRAN function calls
 */
 

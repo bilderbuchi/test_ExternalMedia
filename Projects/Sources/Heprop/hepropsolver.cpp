@@ -13,9 +13,9 @@ HepropSolver::~HepropSolver(){
 }
 
 void HepropSolver::setFluidConstants(){
-  _fluidConstants.pc = 2.26*101325; 
-  _fluidConstants.Tc = 5.25;   
-  _fluidConstants.MM = 4.003e-3;  
+  _fluidConstants.pc = 2.26*101325;
+  _fluidConstants.Tc = 5.25;
+  _fluidConstants.MM = 4.003e-3;
   _fluidConstants.dc = 69.3;
 }
 

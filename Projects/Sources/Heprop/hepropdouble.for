@@ -4,7 +4,7 @@ C #                   HELIUM PROPERTIES PACKAGE
 C #                   -------------------------
 C #
 C # Contains functions for the calculation of the helium properties,
-C # based on the output data of the Cryodata code Heprop. the SuperFluid 
+C # based on the output data of the Cryodata code Heprop. the SuperFluid
 C # Thermal Conductivity data have been fitted.
 C #
 C # © Cryosoft, version 2.0, February 1997
@@ -12,10 +12,10 @@ C ######################################################################
 C
 C  NPRESS   number of data in Pressure
 C  NDATA    number of data in Temperature and in Helium properties
-C  POINTER  start position of properties data for HEPRESS(i) among 
+C  POINTER  start position of properties data for HEPRESS(i) among
 C           HETEMP and the other arrays
 C  HEPRESS  values of Pressure [Pa]
-C  
+C
 C  data(i) ist valid at HETEMP(i) for the corresponding HEPRESS,
 C  after the last data the perfetc gas condition is reached
 C
@@ -23,7 +23,7 @@ C  HETEMP   values of Temperature [K]
 C  RHO      values of density [kg/m3]
 C  CP       values of specific heat at constant pressure [J/kg-K]
 C  CV       values of specific heat at constant volume [J/kg-K]
-C  GRUN     values of Gruneisen parameter = (V/Cv)(dP/dT) = V*DP/DU 
+C  GRUN     values of Gruneisen parameter = (V/Cv)(dP/dT) = V*DP/DU
 C                     at constant V
 C  COND     values of Conductivity [W/m-K]
 C  SND      values of velocity of sound [m/s]
@@ -41,7 +41,7 @@ C ######################################################################
 C #
 C # density of Helium in kg/m3, as a function of T and P, for
 C # 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa. A 2% accuracy is expected
-C # outside a band of +/- 0.1 K around the saturation and lambda curves 
+C # outside a band of +/- 0.1 K around the saturation and lambda curves
 C # and a band of 2 K below the melting curve
 C #
 C # variable    I/O          meaning                      units
@@ -533,7 +533,7 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 C-----------------------------------------------------------------------
       FUNCTION CPHE (P,T)
 	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
@@ -541,10 +541,10 @@ C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 C ######################################################################
 C #
-C # specific heat of Helium at constant pressure in J/kg-K, as a 
-C # function of T and P, for 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa. 
-C # A 2% accuracy is expected outside a band of +/- 0.1 K around the 
-C # saturation and lambda curves and a band of 2 K below the melting 
+C # specific heat of Helium at constant pressure in J/kg-K, as a
+C # function of T and P, for 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa.
+C # A 2% accuracy is expected outside a band of +/- 0.1 K around the
+C # saturation and lambda curves and a band of 2 K below the melting
 C # curve
 C #
 C # variable    I/O          meaning                      units
@@ -2151,7 +2151,7 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 C-----------------------------------------------------------------------
       FUNCTION CVHE (P,T)
 	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
@@ -2159,10 +2159,10 @@ C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 C ######################################################################
 C #
-C # specific heat of Helium at constant volume in J/kg-K, as a 
-C # function of T and P, for 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa. 
-C # A 2% accuracy is expected outside a band of +/- 0.1 K around the 
-C # saturation and lambda curves and a band of 2 K below the melting 
+C # specific heat of Helium at constant volume in J/kg-K, as a
+C # function of T and P, for 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa.
+C # A 2% accuracy is expected outside a band of +/- 0.1 K around the
+C # saturation and lambda curves and a band of 2 K below the melting
 C # curve
 C #
 C # variable    I/O          meaning                      units
@@ -2679,7 +2679,7 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 C-----------------------------------------------------------------------
       FUNCTION GRUNHE (P,T)
 	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
@@ -2689,7 +2689,7 @@ C ######################################################################
 C #
 C # Gruneisen parameter of Helium as a function of T and P, for
 C # 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa. A 2% accuracy is expected
-C # outside a band of +/- 0.1 K around the saturation and lambda curves 
+C # outside a band of +/- 0.1 K around the saturation and lambda curves
 C # and a band of 2 K below the melting curve
 C #
 C # variable    I/O          meaning                      units
@@ -4252,11 +4252,11 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 C--------------------------------------------------------------------
       SUBROUTINE GRUN_FIT(P,T,GRUN)
 C--------------------------------------------------------------------
-C  fit of the Gruneisen curves for T>=130, accuracy is 2% 
+C  fit of the Gruneisen curves for T>=130, accuracy is 2%
 C
       IMPLICIT NONE
       DOUBLE PRECISION  P,T,GRUN
@@ -4265,13 +4265,13 @@ C
      &      B1/-0.0957657/,B2/-0.1573145/,B3/0.93205004/,
      &      C1/0.2582588/, C2/-25.024221/, C3/0.6654051/
       SAVE  A1,A2,A3,B1,B2,B3,C1,C2,C3
-C      
+C
       PBAR = P/1.E5
       A = A1*T**A2+A3
       B = B1*T**B2+B3
       C = C1*T**C2+C3
-      GRUN = A*PBAR**B+C 
-C      
+      GRUN = A*PBAR**B+C
+C
       RETURN
       END
 C-----------------------------------------------------------------------
@@ -4283,7 +4283,7 @@ C ######################################################################
 C #
 C # Conductivity of Helium in W/m-K, as a function of T and P, for
 C # 2.3<=T<=1000 K and 1.E3<=P<=1.E8 Pa. A 3% accuracy is expected
-C # outside a band of +/- 0.1 K around the saturation and lambda curves 
+C # outside a band of +/- 0.1 K around the saturation and lambda curves
 C # and a band of 2 K below the melting curve
 C #
 C # variable    I/O          meaning                      units
@@ -4521,12 +4521,12 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 C--------------------------------------------------------------------
       SUBROUTINE K_FIT(P,T,K)
 C--------------------------------------------------------------------
-C  fit of the conductivity curves in the perfect gas region and for 
-C  T>100 at all P, max accuracy at 3% 
+C  fit of the conductivity curves in the perfect gas region and for
+C  T>100 at all P, max accuracy at 3%
 C
       IMPLICIT NONE
       DOUBLE PRECISION    P,T,K
@@ -4535,12 +4535,12 @@ C
       DATA    A1/2.232213E-02/,A2/-6.028577E-05/,A3/-2.224655E-02/,
      &        B1/2.159429E-01/,B2/-2.053041E-04/,B3/-2.154265E-01/,
      &        C1/1.732402/, C2/-1.390902E-01/, C3/1.665624E-01/,
-     &        D/-1.249954E-03/, E/-2.400312E-01/, F/4.285881E-04/, 
+     &        D/-1.249954E-03/, E/-2.400312E-01/, F/4.285881E-04/,
      &        K0/-6.6148556/, K1/1.7026877/, K2/-3.8532242E-01/,
      &        K3/5.9190070E-02/, K4/-3.2740804E-03/,
      &        K5/9.9242081E-06/
       SAVE    A1,A2,A3,B1,B2,B3,C1,C2,C3,D,E,F,K0,K1,K2,K3,K4,K5
-C      
+C
       PBAR = P/1.E5
       A = A1*T**A2+A3
       B = B1*T**B2+B3
@@ -4549,7 +4549,7 @@ C
       KGAS = EXP(K0+K1*TLOG+K2*TLOG**2+K3*TLOG**3+K4*TLOG**4+
      &           K5*TLOG**5)
       K = A*PBAR**C+B + D*T**E + F + KGAS
-C      
+C
       RETURN
       END
 C-----------------------------------------------------------------------
@@ -4561,7 +4561,7 @@ C ######################################################################
 C #
 C # velocity of sound in helium in m/s, as a function of T and P, for
 C # 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa. A 2% accuracy is expected
-C # outside a band of +/- 0.1 K around the saturation and lambda curves 
+C # outside a band of +/- 0.1 K around the saturation and lambda curves
 C # and a band of 2 K below the melting curve
 C #
 C # variable    I/O          meaning                      units
@@ -4778,12 +4778,12 @@ C
       IF(.NOT.PERFECT1) THEN
          SND1 = (1.0-F1)*SND(IT1) + F1*SND(IT1+1)
       ELSE
-         SND1 = 58.8380605*SQRT(T) 
+         SND1 = 58.8380605*SQRT(T)
       ENDIF
       IF(.NOT.PERFECT2) THEN
          SND2 = (1.0-F2)*SND(IT2) + F2*SND(IT2+1)
       ELSE
-         SND2 = 58.8380605*SQRT(T) 
+         SND2 = 58.8380605*SQRT(T)
       ENDIF
 C
 C  interpolate in pressure
@@ -4792,11 +4792,11 @@ C
          F = (PP-HEPRESS(IP))/(HEPRESS(IP+1)-HEPRESS(IP))
          SNDHE = (1.0-F)*SND1 + F*SND2
       ELSE
-         SNDHE = 58.8380605*SQRT(T)   
+         SNDHE = 58.8380605*SQRT(T)
       ENDIF
 C
       RETURN
-      END          
+      END
 C-----------------------------------------------------------------------
       FUNCTION VISCHE (P,T)
 	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
@@ -4805,8 +4805,8 @@ C-----------------------------------------------------------------------
 C ######################################################################
 C #
 C # viscosity of helium in Pa-s, as a function of T and P, for
-C # 1.2<=T<=1000 K and 1.E3<=P<=1.E8 Pa. A 3% accuracy is expected 
-C # outside a band of +/- 0.1 K around the saturation and lambda curves 
+C # 1.2<=T<=1000 K and 1.E3<=P<=1.E8 Pa. A 3% accuracy is expected
+C # outside a band of +/- 0.1 K around the saturation and lambda curves
 C # and a band of 2 K below the melting curve
 C #
 C # variable    I/O          meaning                      units
@@ -5177,12 +5177,12 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 C--------------------------------------------------------------------
       SUBROUTINE VISC_FIT(P,T,VISC)
 C--------------------------------------------------------------------
-C  fit of the viscosity curves in the perfect gas region and for 
-C  T>50 at all P, max accuracy at 3% 
+C  fit of the viscosity curves in the perfect gas region and for
+C  T>50 at all P, max accuracy at 3%
 C
       IMPLICIT NONE
       DOUBLE PRECISION    P,T,VISC
@@ -5197,15 +5197,15 @@ C
      &        VA/5.75E-7/, VALPHA/0.63/,VB/3.8E-9/
       SAVE    A1,A2,A3,B1,B2,B3,C1,C2,C3,D,ALPHA,E,BETA,F,GAMMA,CONST,
      &        VA,VB,VALPHA
-C      
+C
       PBAR = P/1.E5
       A = A1*T**A2+A3
       B = B1*T**B2+B3
       C = C1*T**C2+C3
       VGAS = VA*T**VALPHA+VB
-      VISC = (A*PBAR**C+B + D*T**ALPHA + E*EXP(-T*BETA) + 
+      VISC = (A*PBAR**C+B + D*T**ALPHA + E*EXP(-T*BETA) +
      &        F*T**GAMMA + CONST)/1.E6 + VGAS
-C      
+C
       RETURN
       END
 C-----------------------------------------------------------------------
@@ -5215,16 +5215,16 @@ C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 C ######################################################################
 C #
-C # SuperFluid Thermal Conductivity function of helium in W3/m5-K, 
-C # as a function of T and P, for T and P in the superfluid region, 
-C # (outside the data are set to 0). 
+C # SuperFluid Thermal Conductivity function of helium in W3/m5-K,
+C # as a function of T and P, for T and P in the superfluid region,
+C # (outside the data are set to 0).
 C #
 C # variable    I/O          meaning                      units
 C # --------------------------------------------------------------------
 C #   T         I            temperature                  K
 C #   P         I            pressure                     Pa
 C #   SUPFLD      O          SuperFluid Thermal           W3/m5-K
-C #                          Conductivity                 
+C #                          Conductivity
 C #
 C # Author : Cryosoft
 C # Version: 2.0   February 1997
@@ -5244,7 +5244,7 @@ C
          SL = 2446.0*TN**3-13301.0*TN**2+24871.0*TN-14784.0
          PBAR  = P*1.E-5
          TNORM = T/TN
-         RHO   = (144.614+2.35516*PBAR**0.77375) + 
+         RHO   = (144.614+2.35516*PBAR**0.77375) +
      &           (0.82638+0.35482*PBAR**0.64626)*
      &            TNORM**(5.05699+0.076082*PBAR)
 C         AC = 124.64*PBAR+1162.4
@@ -5257,13 +5257,13 @@ C         X  = 0.0083*PBAR+0.0001
          SUPFLD = (RHO**2*SL**4*TN**3)/AC/TF
 	  else
 	   supfld = 0.0
-	  endif	
+	  endif
       ELSE
          SUPFLD = 0.0
       ENDIF
 C
       RETURN
-      END          
+      END
 C-----------------------------------------------------------------------
       SUBROUTINE BINSRC (F, N, X, IOUT)
 C-----------------------------------------------------------------------
@@ -5275,7 +5275,7 @@ C   N           I    I    dimension of F
 C   X           I    I    value we are looking for
 C   IOUT        I      O  index corresponding to X, 0 if X is out of
 C                         range, otherwise F(IOUT)<X<F(IOUT+1)
-C
+C
       IMPLICIT NONE
 C
       INTEGER (4)  N,IOUT,IMIN,IMAX,IMED
@@ -5299,7 +5299,7 @@ C
       IOUT = IMIN
 C
       RETURN
-      END     
+      END
 C-----------------------------------------------------------------------
       SUBROUTINE PT_BINSRC (P,T,HEPRESS,NPRESS,POINTER,NDATA,HETEMP,
      &                      PP,PHECUR,IPHECUR,IP,IT1,F1,PERFECT1,
@@ -5386,7 +5386,7 @@ C
          IT2 = IT2+IND2S-1
          F2 = (TT2-HETEMP(IT2))/(HETEMP(IT2+1)-HETEMP(IT2))
       ENDIF
-C      
+C
       RETURN
       END
 C-----------------------------------------------------------------------
@@ -5397,7 +5397,7 @@ C  P,T     requested P,T
 C  P1,P2   pressure value of the interpolation (P1<P<P2)
 C  T1,T2   temperature arrays at P1 and P2
 C  NT1,NT2 number of element of T1 and T2
-C  IT1,IT2 index among T1,T2 of the seeking T (interpolate between 
+C  IT1,IT2 index among T1,T2 of the seeking T (interpolate between
 C          IT1 and IT1+1)
 C  TT1,TT2 seeking T, adjusted according with T1,T2
 C
@@ -5448,12 +5448,12 @@ C-----------------------------------------------------------------------
 C
 C  Lambda Temperature [K] at input Pressure [Pa]
 C
-      IMPLICIT NONE      
+      IMPLICIT NONE
       DOUBLE PRECISION  P,T,TTLAM,ALAM,BLAM,CLAM
-      
+
       DATA  ALAM /2.1789557/, BLAM/-0.97992E-7/, CLAM/-0.1267E-13/
       SAVE  ALAM,BLAM,CLAM
-      
+
       TTLAM = ALAM + BLAM*P + CLAM*P**2
 
       RETURN
@@ -5466,16 +5466,16 @@ C-----------------------------------------------------------------------
 C
 C  Saturation Temperature [K] at input Pressure [Pa]
 C
-      IMPLICIT NONE      
+      IMPLICIT NONE
       DOUBLE PRECISION  P,T,TTSAT,A1SAT,B1SAT,ALPHA1SAT,P01SAT,A2SAT,
      &      B2SAT,ALPHA2SAT,P02SAT
-      
+
       DATA  A1SAT /0.3119179/, B1SAT /0.4625151/, ALPHA1SAT /0.1435503/,
-     &      P01SAT/0.0/, 
+     &      P01SAT/0.0/,
      &      A2SAT /0.8873773/, B2SAT /0.0874407/, ALPHA2SAT /0.3159898/,
      &      P02SAT/15.6/
       SAVE  A1SAT,B1SAT,ALPHA1SAT,P01SAT,A2SAT,B2SAT,ALPHA2SAT,P02SAT
-      
+
       IF(P.LE.19.2577) THEN
          TTSAT = A1SAT+B1SAT*(P-P01SAT)**ALPHA1SAT
       ELSE
@@ -5492,21 +5492,21 @@ C-----------------------------------------------------------------------
 C
 C  Melting Temperature [K] at input Pressure [Pa]
 C
-      IMPLICIT NONE      
+      IMPLICIT NONE
       DOUBLE PRECISION  P,T,TTMELT,AMELT,BMELT,P0MELT,ALPHAMELT,CMELT,
      &				  DMELT,BETAMELT
-      DATA  AMELT /0.8/, BMELT /0.22403E-1/, 
+      DATA  AMELT /0.8/, BMELT /0.22403E-1/,
      &      P0MELT /2.53E+6/, ALPHAMELT /0.29199/,
      &      CMELT /0.359978/, DMELT /9.1578E-5/,
      &      BETAMELT /0.646168/
       SAVE  AMELT,BMELT,P0MELT,ALPHAMELT,CMELT,DMELT,BETAMELT
-      
+
       IF(P.LE.2.87E6) THEN
          TTMELT = AMELT+BMELT*(P-P0MELT)**ALPHAMELT
       ELSE
          TTMELT = CMELT+DMELT*P**BETAMELT
       ENDIF
-      
+
       RETURN
       END
 C-----------------------------------------------------------------------
@@ -5517,13 +5517,13 @@ C-----------------------------------------------------------------------
 C
 C  Lambda Pressure [Pa] at input Temperature [K]
 C
-      IMPLICIT NONE      
+      IMPLICIT NONE
       DOUBLE PRECISION  P,T,PPLAM,ALAM,BLAM,CLAM,DLAM
-      
-      DATA  ALAM /6.816918/, BLAM/66.989322/, 
+
+      DATA  ALAM /6.816918/, BLAM/66.989322/,
      &      CLAM/-23.381701/, DLAM/-4.0068178/
       SAVE  ALAM,BLAM,CLAM,DLAM
-      
+
       PPLAM = ALAM + BLAM*T + CLAM*T**2 + DLAM*T**3
       PPLAM = PPLAM*1.E5
 
@@ -5537,16 +5537,16 @@ C-----------------------------------------------------------------------
 C
 C  Saturation Pressure [Pa] at input Temperature [K]
 C
-      IMPLICIT NONE      
+      IMPLICIT NONE
       DOUBLE PRECISION  P,T,PPSAT,A1SAT,B1SAT,ALPHA1SAT,P01SAT,A2SAT,
      &      B2SAT,ALPHA2SAT,P02SAT
-      
+
       DATA  A1SAT /0.3119179/, B1SAT /0.4625151/, ALPHA1SAT /0.1435503/,
-     &      P01SAT/0.0/, 
+     &      P01SAT/0.0/,
      &      A2SAT /0.8873773/, B2SAT /0.0874407/, ALPHA2SAT /0.3159898/,
      &      P02SAT/15.6/
       SAVE  A1SAT,B1SAT,ALPHA1SAT,P01SAT,A2SAT,B2SAT,ALPHA2SAT,P02SAT
-      
+
       IF(T.LE.1.0191) THEN
          PPSAT = P01SAT+((T-A1SAT)/B1SAT)**(1.0/ALPHA1SAT)
       ELSE
@@ -5563,10 +5563,10 @@ C-----------------------------------------------------------------------
 C
 C  Melting Pressure [Pa] at input Temperature [K]
 C
-      IMPLICIT NONE      
+      IMPLICIT NONE
       DOUBLE PRECISION  P,T,PPMELT,AMELT,BMELT,P0MELT,ALPHAMELT,CMELT,
      &				  DMELT,BETAMELT
-      DATA  AMELT /0.8/, BMELT /0.22403E-1/, 
+      DATA  AMELT /0.8/, BMELT /0.22403E-1/,
      &      P0MELT /2.53E+6/, ALPHAMELT /0.29199/,
      &      CMELT /0.359978/, DMELT /9.1578E-5/,
      &      BETAMELT /0.646168/
@@ -5587,9 +5587,9 @@ C-----------------------------------------------------------------------
 C ######################################################################
 C #
 C # entropy of Helium in J/kg-K, as a function of T and P, for
-C # 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa. 
-C # A 2% accuracy is expected outside a band of +/- 0.1 K around the 
-C # saturation and lambda curves and a band of 2 K below the melting 
+C # 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa.
+C # A 2% accuracy is expected outside a band of +/- 0.1 K around the
+C # saturation and lambda curves and a band of 2 K below the melting
 C # curve
 C #
 C # variable    I/O          meaning                      units
@@ -6119,7 +6119,7 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 C-----------------------------------------------------------------------
       FUNCTION HHE (P,T)
 	!DEC$ ATTRIBUTES C :: CALLED_FROM_C
@@ -6128,9 +6128,9 @@ C-----------------------------------------------------------------------
 C ######################################################################
 C #
 C # enthalpy of Helium in J/kg, as a function of T and P, for
-C # 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa. 
-C # A 2% accuracy is expected outside a band of +/- 0.1 K around the 
-C # saturation and lambda curves and a band of 2 K below the melting 
+C # 0.8<=T<=1000 K and 1.E3<=P<=1.E8 Pa.
+C # A 2% accuracy is expected outside a band of +/- 0.1 K around the
+C # saturation and lambda curves and a band of 2 K below the melting
 C # curve
 C #
 C # variable    I/O          meaning                      units
@@ -6413,7 +6413,7 @@ C
       ENDIF
 C
       RETURN
-      END          
+      END
 
 C&%&%&  DBDT.OUT
       DOUBLE PRECISION FUNCTION DBDT (T)

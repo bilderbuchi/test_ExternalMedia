@@ -2,7 +2,7 @@
   \file externaltwophasemedium.cpp
   \brief Interface layer
 
-  C/C++ layer for external medium models extending from 
+  C/C++ layer for external medium models extending from
   PartialExternalTwoPhaseMedium.
 
   Francesco Casella, Christoph Richter, Sep 2006
@@ -26,7 +26,7 @@ void setStateDefault_(BaseTwoPhaseMedium *medium, int choice, double d, double h
   @param substanceName Substance name
   @param oldUniqueID Old unique ID number
 */
-int createMedium_(const char *mediumName, const char *libraryName, 
+int createMedium_(const char *mediumName, const char *libraryName,
 				  const char *substanceName, int oldUniqueID){
 	// Allocate a new object and return a unique ID if oldUniqueID == 0
 	if (oldUniqueID == 0){
@@ -44,7 +44,7 @@ int createMedium_(const char *mediumName, const char *libraryName,
   @param libraryName Library name
   @param substanceName Substance name
 */
-double getMolarMass_(const char *mediumName, const char *libraryName,  
+double getMolarMass_(const char *mediumName, const char *libraryName,
 					 const char *substanceName){
 	// Return molar mass
 	return SolverMap::getSolver(mediumName, libraryName, substanceName)->molarMass();
@@ -57,7 +57,7 @@ double getMolarMass_(const char *mediumName, const char *libraryName,
   @param libraryName Library name
   @param substanceName Substance name
 */
-double getCriticalTemperature_(const char *mediumName, const char *libraryName,  
+double getCriticalTemperature_(const char *mediumName, const char *libraryName,
 				         	   const char *substanceName){
 	// Return critical temperature
 	return SolverMap::getSolver(mediumName, libraryName, substanceName)->criticalTemperature();
@@ -70,7 +70,7 @@ double getCriticalTemperature_(const char *mediumName, const char *libraryName,
   @param libraryName Library name
   @param substanceName Substance name
 */
-double getCriticalPressure_(const char *mediumName, const char *libraryName,  
+double getCriticalPressure_(const char *mediumName, const char *libraryName,
 				            const char *substanceName){
 	// Return critical pressure
 	return SolverMap::getSolver(mediumName, libraryName, substanceName)->criticalPressure();
@@ -365,7 +365,7 @@ void setSat_T_(double T, int uniqueID, double *sat_psat, double *sat_Tsat, int *
  	  medium = MediumMap::medium(uniqueID);
  	  // Call the medium object's setSat_T function
 	  medium->setSat_T(T);
-	  // Set the output values 
+	  // Set the output values
 	  if (sat_uniqueID != NULL)
   		  *sat_uniqueID = uniqueID;
 	  if (sat_psat != NULL)
@@ -386,7 +386,7 @@ void setSat_T_(double T, int uniqueID, double *sat_psat, double *sat_Tsat, int *
   @param sat_uniqueID Pointer to return unique ID number for saturation record
 */
 void setSat_p_state_(int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_uniqueID){
-	// Check for the validity of the uniqueID - this function should never be 
+	// Check for the validity of the uniqueID - this function should never be
 	// called with a zero unique ID
 	if (uniqueID == 0)
 		errorMessage("setSat_p_state called without a valid uniqueID");
@@ -396,7 +396,7 @@ void setSat_p_state_(int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_
 	// Call the medium object setSat_p_state() function, which will
 	// set the saturation properties corresponding to the medium pressure
 	medium->setSat_p_state();
-	// Set the output values 
+	// Set the output values
 	  if (sat_uniqueID != NULL)
   		  *sat_uniqueID = uniqueID;
 	  if (sat_psat != NULL)
@@ -418,7 +418,7 @@ void setSat_p_state_(int uniqueID, double *sat_psat, double *sat_Tsat, int *sat_
 */
 void setDewState_(int uniqueID, int phase, int *state_uniqueID, int *state_phase,
   				  const char *mediumName, const char *libraryName, const char *substanceName){
-	// Check for the validity of the uniqueID - this function should never be 
+	// Check for the validity of the uniqueID - this function should never be
 	// called with a zero unique ID or phase inputs
 	if (uniqueID == 0)
 		errorMessage("setDewState_ called without a valid uniqueID");
@@ -451,7 +451,7 @@ void setDewState_(int uniqueID, int phase, int *state_uniqueID, int *state_phase
 */
 void setBubbleState_(int uniqueID, int phase, int *state_uniqueID, int *state_phase,
   				     const char *mediumName, const char *libraryName, const char *substanceName){
-	// Check for the validity of the inputs - this function should never be 
+	// Check for the validity of the inputs - this function should never be
 	// called with a zero unique ID or phase inputs
 	if (uniqueID == 0)
 		errorMessage("setBubbleState_ called without a valid uniqueID");
@@ -480,7 +480,7 @@ double density_(int uniqueID, int choice, double d, double h, double p, double s
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->d();
 	}
-	else 
+	else
 	  return MediumMap::medium(uniqueID)->d();
 }
 
@@ -493,7 +493,7 @@ double density_derp_h_(int uniqueID, int choice, double d, double h, double p, d
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dp_h();
 	}
-	else 
+	else
 	  return MediumMap::medium(uniqueID)->dd_dp_h();
 }
 
@@ -506,7 +506,7 @@ double density_derh_p_(int uniqueID, int choice, double d, double h, double p, d
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dh_p();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dh_p();
 }
 
@@ -520,7 +520,7 @@ double density_ph_der_(int uniqueID, double p_der, double h_der, double p, doubl
 		return medium->dd_dp_h()*p_der +
 		       medium->dd_dh_p()*h_der;
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dp_h()*p_der +
 			   MediumMap::medium(uniqueID)->dd_dh_p()*h_der;
 }
@@ -534,7 +534,7 @@ double pressure_(int uniqueID, int choice, double d, double h, double p, double 
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->p();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->p();
 }
 
@@ -547,7 +547,7 @@ double specificEnthalpy_(int uniqueID, int choice, double d, double h, double p,
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->h();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->h();
 }
 
@@ -560,7 +560,7 @@ double specificEntropy_(int uniqueID, int choice, double d, double h, double p, 
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->s();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->s();
 }
 
@@ -573,7 +573,7 @@ double temperature_(int uniqueID, int choice, double d, double h, double p, doub
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->T();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->T();
 }
 
@@ -587,7 +587,7 @@ double temperature_ph_der_(int uniqueID, double p_der, double h_der, double p, d
 		return medium->dT_dp_h()*p_der +
 			   medium->dT_dh_p()*h_der;
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dT_dp_h()*p_der +
 			   MediumMap::medium(uniqueID)->dT_dh_p()*h_der;
 }
@@ -601,7 +601,7 @@ double isentropicEnthalpy_(double p_iso, int uniqueID, int choice, double d, dou
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->h_iso(p_iso);
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->h_iso(p_iso);
 }
 
@@ -768,7 +768,7 @@ double isobaricExpansionCoefficient_(int uniqueID, int choice, double d, double 
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->beta();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->beta();
 }
 
@@ -781,7 +781,7 @@ double isothermalCompressibility_(int uniqueID, int choice, double d, double h, 
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->kappa();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->kappa();
 }
 
@@ -794,7 +794,7 @@ double specificHeatCapacityCp_(int uniqueID, int choice, double d, double h, dou
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->cp();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->cp();
 }
 
@@ -807,7 +807,7 @@ double specificHeatCapacityCv_(int uniqueID, int choice, double d, double h, dou
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->cv();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->cv();
 }
 
@@ -820,7 +820,7 @@ double dynamicViscosity_(int uniqueID, int choice, double d, double h, double p,
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->eta();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->eta();
 }
 
@@ -833,7 +833,7 @@ double thermalConductivity_(int uniqueID, int choice, double d, double h, double
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->lambda();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->lambda();
 }
 
@@ -846,7 +846,7 @@ double prandtlNumber_(int uniqueID, int choice, double d, double h, double p, do
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->Pr();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->Pr();
 }
 
@@ -873,7 +873,7 @@ double velocityOfSound_(int uniqueID, int choice, double d, double h, double p, 
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->a();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->a();
 }
 
@@ -886,7 +886,7 @@ double dDensity_dPressure_h_(int uniqueID, int choice, double d, double h, doubl
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dp_h();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dp_h();
 }
 
@@ -899,7 +899,7 @@ double dDensity_dEnthalpy_p_(int uniqueID, int choice, double d, double h, doubl
         setStateDefault_(medium, choice, d, h, p, s, T, phase);
 		return medium->dd_dh_p();
 	}
-	else 
+	else
 		return MediumMap::medium(uniqueID)->dd_dh_p();
 }
 
@@ -936,7 +936,7 @@ double saturationTemperature_derp_(double p, const char *mediumName,
 
 //! Call the appropriate setState_xx() function of the medium object
 /*!
-  This function calls the setState_xx() function of the medium object corresponding 
+  This function calls the setState_xx() function of the medium object corresponding
   to the choice input.
   @param medium Medium object (class BaseTwoPhaseMedium)
   @param choice of inputs (dT, ph, ps, pT)

@@ -34,7 +34,7 @@
 #define OPEN_MODELICA 0
 
 // Selection of used external fluid property computation packages.
-//! FluidProp solver	
+//! FluidProp solver
 /*!
   Set this preprocessor variable to 1 to include the interface to the
   FluidProp solver developed and maintained by Francesco Casella.
@@ -44,7 +44,7 @@
 // Selection of build type for this project
 //! Build project into a DLL
 /*!
-  Set this preprocessor variable to 1 if the project is built into a 
+  Set this preprocessor variable to 1 if the project is built into a
   dynamic link library. This setting influences the error reporting
   mechanism as well as the export statement.
   \sa BUILD_LIB
@@ -52,7 +52,7 @@
 #define BUILD_DLL 1
 //! Build project into a LIB
 /*!
-  Set this preprocessor variable to 1 if the project is built into a 
+  Set this preprocessor variable to 1 if the project is built into a
   static library. This setting influences the error reporting
   mechanism as well as the export statement.
   \sa BUILD_DLL
@@ -61,8 +61,8 @@
 
 //! Maximum number of non-overlapping transient medium objects
 /*!
-  Increase this number if you ran a large model with more than 
-  a thousand instances of  ThermodynamicState and SaturationState 
+  Increase this number if you ran a large model with more than
+  a thousand instances of  ThermodynamicState and SaturationState
   outside BaseProperties records, and without explicit uniqueID handling
 */
 #define MAX_TRANSIENT_MEDIUM 1000
@@ -77,7 +77,7 @@
 
 /********************************************************************
  *                 End of user option selection
- *            Do not change anything below this line                                    
+ *            Do not change anything below this line
  ********************************************************************/
 
 // General purpose includes

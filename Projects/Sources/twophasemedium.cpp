@@ -12,7 +12,7 @@
   @param solver Solver
   @param uniqueID Unique ID number
 */
-TwoPhaseMedium::TwoPhaseMedium(const string &mediumName, const string &libraryName, 
+TwoPhaseMedium::TwoPhaseMedium(const string &mediumName, const string &libraryName,
 							   const string &substanceName, BaseSolver *const solver,
 							   const int &uniqueID)
 	: BaseTwoPhaseMedium(mediumName, libraryName, substanceName, solver, uniqueID){
