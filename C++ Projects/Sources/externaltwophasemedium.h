@@ -1,5 +1,5 @@
 /* *****************************************************************
- * Header file to include in the Dymola/Source directory 
+ * Header file to include in the Dymola/Source directory
  *
  * Provides function prototypes for all the external functions needed
  * by medium model extending from PartialExternalTwoPhaseMedium
@@ -11,7 +11,7 @@
 #ifndef EXTERNALTWOPHASEMEDIUM_H_
 #define EXTERNALTWOPHASEMEDIUM_H_
 
-extern int createMedium_(const char *mediumName, const char *libraryName, 
+extern int createMedium_(const char *mediumName, const char *libraryName,
 							 const char *substanceName, int oldUniqueID);
 
 extern double molarMass_(int uniqueID);

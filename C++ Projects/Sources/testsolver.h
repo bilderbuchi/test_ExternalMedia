@@ -4,10 +4,10 @@
  * This class defines a dummy solver object, computing properties of
  * a fluid roughly resembling warm water at low pressure, without
  * the need of any further external code. This is useful for debugging
- * purposes, to test if the C compiler and Modelica tools are set correctly, 
+ * purposes, to test if the C compiler and Modelica tools are set correctly,
  * before tackling problems with the actual external code
  *
- * To instatiate a specific FluidProp fluid, it is necessary to set 
+ * To instatiate a specific FluidProp fluid, it is necessary to set
  * the libraryName package constants as follows:
  *
  * libraryName = "TestMedium";

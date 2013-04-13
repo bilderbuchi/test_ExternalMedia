@@ -184,7 +184,7 @@ void TFluidProp::GetFluid( string* ModelName, int* nComp, string* Comp, double* 
    SafeArrayDestroy( sa_Conc);
 }
 
-void TFluidProp::GetFluidNames( string LongShort, string ModelName, int* nFluids, 
+void TFluidProp::GetFluidNames( string LongShort, string ModelName, int* nFluids,
                                 string* FluidNames, string* ErrorMsg)
 {
    long long_nFluids;
@@ -591,11 +591,11 @@ void TFluidProp::AllPropsSat( string InputSpec, double Input1, double Input2, do
                               double& v, double& d, double& h, double& s, double& u, double& q,
                               double* x, double* y, double& cv, double& cp, double& c, double& alpha,
                               double& beta, double& chi, double& fi, double& ksi, double& psi,
-                              double& zeta, double& gamma, double& eta, double& lambda, 
-							  double& d_liq, double& d_vap, double& h_liq, double& h_vap, 
-						      double& T_sat,  double& dd_liq_dP, double& dd_vap_dP, double& dh_liq_dP, 
-						      double& dh_vap_dP, double& dT_sat_dP, double& dd_liq_dP_hL, 
-						      double& dd_liq_dP_h2, double& dd_vap_dP_h2, double& dd_vap_dP_hV, 							  
+                              double& zeta, double& gamma, double& eta, double& lambda,
+							  double& d_liq, double& d_vap, double& h_liq, double& h_vap,
+						      double& T_sat,  double& dd_liq_dP, double& dd_vap_dP, double& dh_liq_dP,
+						      double& dh_vap_dP, double& dT_sat_dP, double& dd_liq_dP_hL,
+						      double& dd_liq_dP_h2, double& dd_vap_dP_h2, double& dd_vap_dP_hV,
 							  string* ErrorMsg)
 {
    BSTR BSTR_InputSpec = _com_util::ConvertStringToBSTR( InputSpec.c_str());
@@ -612,9 +612,9 @@ void TFluidProp::AllPropsSat( string InputSpec, double Input1, double Input2, do
    sa_y = SafeArrayCreate( VT_R8, 1, sa_bounds_y);
 
    FluidProp_COM->AllPropsSat( BSTR_InputSpec, Input1, Input2, &P, &T, &v, &d, &h, &s, &u, &q, &sa_x,
-                               &sa_y, &cv, &cp, &c, &alpha, &beta, &chi, &fi, &ksi, &psi, &zeta, 
-                               &gamma, &eta, &lambda, &d_liq, &d_vap, &h_liq, &h_vap, &T_sat, &dd_liq_dP, 
-							   &dd_vap_dP, &dh_liq_dP, &dh_vap_dP, &dT_sat_dP, &dd_liq_dP_hL, 
+                               &sa_y, &cv, &cp, &c, &alpha, &beta, &chi, &fi, &ksi, &psi, &zeta,
+                               &gamma, &eta, &lambda, &d_liq, &d_vap, &h_liq, &h_vap, &T_sat, &dd_liq_dP,
+							   &dd_vap_dP, &dh_liq_dP, &dh_vap_dP, &dT_sat_dP, &dd_liq_dP_hL,
 						       &dd_liq_dP_h2, &dd_vap_dP_h2, &dd_vap_dP_hV, &BSTR_Error);
 
    // Retrieve array with liquid and vapor phase compositions from SafeArrays

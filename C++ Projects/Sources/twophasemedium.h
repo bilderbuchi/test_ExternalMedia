@@ -2,7 +2,7 @@
  * Interface of class TwoPhaseMedium
  *
  * TwoPhaseMedium is the default object embedding the fluid property
- * computations at a given point of the plant. 
+ * computations at a given point of the plant.
  *
  * Christoph Richter, Francesco Casella, Sep 2006
  ********************************************************************/
@@ -16,7 +16,7 @@
 
 class TwoPhaseMedium : public BaseTwoPhaseMedium{
 public:
-	TwoPhaseMedium(const string &mediumName, const string &libraryName, 
+	TwoPhaseMedium(const string &mediumName, const string &libraryName,
 				   const string &substanceName, BaseSolver *const solver,
 				   const int &uniqueID);
 	~TwoPhaseMedium();

@@ -4,7 +4,7 @@
  * This class defines a solver object encapsulating a FluidProp object
  *
  * The class will work if FluidProp is correctly installed, and if
- * the following files, defining the CFluidProp object, are included 
+ * the following files, defining the CFluidProp object, are included
  * in the C project:
  *   - FluidProp_IF.h
  *   - FluidProp_IF.cpp
@@ -14,7 +14,7 @@
  * It should be used both to compile the ExternalTwoPhaseMedium.lib
  * library, and to compile the dymosim.exe Dymola executable.
  *
- * To instatiate a specific FluidProp fluid, it is necessary to set 
+ * To instatiate a specific FluidProp fluid, it is necessary to set
  * the libraryName and substanceNames package constants as in the
  * following example:
  *

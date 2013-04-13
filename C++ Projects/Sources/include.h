@@ -13,7 +13,7 @@
  *                Start of user option selection
  ********************************************************************/
 
-// Selection of Modelica compiler 
+// Selection of Modelica compiler
 #define DYMOLA
 // #define OPEN_MODELICA
 
@@ -22,7 +22,7 @@
 
 /********************************************************************
  *                 End of user option selection
- *            Do not change anything below this line                                    
+ *            Do not change anything below this line
  ********************************************************************/
 
 // General purpose includes
@@ -33,7 +33,7 @@ using std::map;
 using std::string;
 
 // Error message generation macro
-// Prints an error messages on the console and waits for the user to press 
+// Prints an error messages on the console and waits for the user to press
 // the return key - in the future, better logging and graceful simulation
 // termination will be supported
 #define ERROR_MSG(error_string) {printf("\a%s\nPress return to end the simulation\n", error_string); getchar(); exit(1);}

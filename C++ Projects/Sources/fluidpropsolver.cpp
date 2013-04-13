@@ -28,7 +28,7 @@ FluidPropSolver::FluidPropSolver(const string &mediumName,
 		ERROR_MSG(error);
 	}
 
-	// Set SI units 
+	// Set SI units
 	FluidProp.SetUnits("SI", " ", " ", " ", &ErrorMsg);
 	if (ErrorMsg != "No errors")  // An error occurred
 	{
@@ -82,7 +82,7 @@ void FluidPropSolver::setSat_T(const double &T, TwoPhaseMediumProperties *const 
 void FluidPropSolver::setState_ph(const double &p, const double &h, const int &phase, TwoPhaseMediumProperties *const properties){
 	// FluidProp variables (with their default units)
 	string ErrorMsg;
-    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20], 
+    double P_, T_, v_, d_, h_, s_, u_, q_, x_[20], y_[20],
 		   cv_, cp_, c_, alpha_, beta_, chi_, fi_, ksi_,
 		   psi_, gamma_, eta_, lambda_;
 	// Compute all FluidProp variables

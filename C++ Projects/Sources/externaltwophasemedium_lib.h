@@ -3,7 +3,7 @@
  *
  * Christoph Richter, Francesco Casella, Sep 2006
  ********************************************************************/
- 
+
 #ifndef EXTERNALTWOPHASEMEDIUM_LIB_H_
 #define EXTERNALTWOPHASEMEDIUM_LIB_H_
 
@@ -17,7 +17,7 @@
 extern "C" {
 #endif // __cplusplus
 
-	MEDIA_DLL int createMedium_(const char *mediumName, const char *libraryName, 
+	MEDIA_DLL int createMedium_(const char *mediumName, const char *libraryName,
 								const char *substanceName, int oldUniqueID);
 
 	MEDIA_DLL double molarMass_(int uniqueID);

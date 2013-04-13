@@ -4,7 +4,7 @@
  * The BaseTwoPhaseMedium class defines all the variables and member
  * functions which are needed to use external Modelica medium models
  * extending from PartialExternalTwoPhaseMedium.
- * 
+ *
  * Francesco Casella, Christoph Richter Sep 2006
  ********************************************************************/
 
@@ -18,7 +18,7 @@
 
 class BaseTwoPhaseMedium{
 public:
-	BaseTwoPhaseMedium(const string &mediumName, const string &libraryName, 
+	BaseTwoPhaseMedium(const string &mediumName, const string &libraryName,
 					   const string &substanceName, BaseSolver *const solver,
 					   const int &uniqueID);
 	virtual ~BaseTwoPhaseMedium();
@@ -74,7 +74,7 @@ public:
 	virtual void setState_ps(const double &p, const double &s, const int &phase);
 	virtual void setState_pT(const double &p, const double &T);
 
-protected:	
+protected:
 	// Pointer to medium property record
 	TwoPhaseMediumProperties *_properties;
 
