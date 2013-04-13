@@ -1,5 +1,5 @@
 /* *****************************************************************
- * C/C++ layer for external medium models extending from 
+ * C/C++ layer for external medium models extending from
  * PartialExternalTwoPhaseMedium.
  *
  * Francesco Casella, Christoph Richter, Sep 2006
@@ -17,7 +17,7 @@ static int uniqueID(0);
 static bool firstCall(true);
 
 // Function to initialize library
-static void initializeLibrary(const char *mediumName, 
+static void initializeLibrary(const char *mediumName,
 							  const char *libraryName,
                               const char *substanceName){
 	// Create medium at MediumMap::mediums[0]
@@ -34,9 +34,9 @@ int createMedium_(const char *mediumName, const char *libraryName,
 	// Allocate a new object and return a unique ID if oldUniqueID == 0
 	if (oldUniqueID == 0){
 		++uniqueID;
-		MediumMap::mediums[uniqueID] = new TwoPhaseMedium(mediumName, libraryName, substanceName);  
+		MediumMap::mediums[uniqueID] = new TwoPhaseMedium(mediumName, libraryName, substanceName);
 		return uniqueID;
-	} else 
+	} else
 	// Do nothing if oldUniqueID > 0 (medium object already allocated)
 	{
 		return oldUniqueID;
@@ -86,7 +86,7 @@ void setSat_T_(double T, int uniqueID, double *sat_psat, double *sat_Tsat, int *
 		initializeLibrary(mediumName, libraryName, substanceName);
 
 	MediumMap::mediums[uniqueID]->setSat_T(T);
-	
+
 	if (sat_uniqueID != NULL)
 		*sat_uniqueID = uniqueID;
 	if (sat_psat != NULL)

@@ -2,7 +2,7 @@
  * Interface of class TwoPhaseMedium
  *
  * TwoPhaseMedium is the default object embedding the fluid property
- * computations at a given point of the plant. 
+ * computations at a given point of the plant.
  *
  * To test the compiler setup, uncomment the directive
  * #define COMPILER_TEST; the TwoPhaseMedium object will compute
@@ -14,7 +14,7 @@
  *
  * To implement the interface to your own external fluid property
  * computation software, comment the directive
- * #define COMPILER_TEST, and fill in the blanks in the code with 
+ * #define COMPILER_TEST, and fill in the blanks in the code with
  * the appropriate function calls to your external code.
 *
  * TwoPhaseMedium extends BaseTwoPhaseMedium.
@@ -37,7 +37,7 @@
 
 class TwoPhaseMedium : public BaseTwoPhaseMedium{
 public:
-	TwoPhaseMedium(const string &mediumName, 
+	TwoPhaseMedium(const string &mediumName,
 		           const string &libraryName,
 		           const string &substanceName);
 	~TwoPhaseMedium();
