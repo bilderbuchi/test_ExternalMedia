@@ -8,6 +8,10 @@
   Francesco Casella, Christoph Richter, Roberto Bonifetto
   2006-2012
   Copyright Politecnico di Milano, TU Braunschweig, Politecnico di Torino
+  
+  Minor additions in 2014 to make ExternalMedia compatible 
+  with GCC on Linux operating systems
+  Jorrit Wronski (Technical University of Denmark)
 */
 
 #ifndef EXTERNALMEDIALIB_H_
@@ -18,6 +22,41 @@
 #define CHOICE_ph 2
 #define CHOICE_ps 3
 #define CHOICE_pT 4
+#define CHOICE_hs 5
+
+/*! Detect the platform in order to avoid the DLL commands from 
+ * making g++ choke. Code taken from CoolProp...
+ */
+#if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
+#  define __ISWINDOWS__
+#elif __APPLE__
+#  define __ISAPPLE__
+#elif __linux
+#  define __ISLINUX__
+#endif
+
+/*! Portable definitions of the EXPORT macro, 
+ *  merge both macros to produce a single modifier 
+ *  for the function names.
+ */
+#ifndef EXPORT_CODE
+#  if defined(__ISWINDOWS__)
+#    define EXPORT_CODE __declspec(dllexport)
+#  else
+#    define EXPORT_CODE 
+#  endif
+#endif
+#ifndef CONVENTION
+#  if defined(__ISWINDOWS__)
+#    define CONVENTION __stdcall
+#  else
+#    define CONVENTION
+#  endif
+#endif
+#ifndef EXPORT
+#  define EXPORT EXPORT_CODE CONVENTION
+#endif
+
 
 // Define struct
 //! ExternalThermodynamicState property struct
@@ -101,12 +140,6 @@ typedef struct {
 
 } ExternalSaturationProperties;
 
-// Define export
-#ifdef __cplusplus
-#define EXPORT __declspec(dllexport)
-#else
-#define EXPORT
-#endif // __cplusplus
 
 #ifdef __cplusplus
 extern "C" {
