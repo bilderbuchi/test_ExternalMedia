@@ -35,28 +35,16 @@
 #  define __ISLINUX__
 #endif
 
-/*! Portable definitions of the EXPORT macro, 
- *  merge both macros to produce a single modifier 
- *  for the function names.
+/*! 
+Portable definitions of the EXPORT macro, 
  */
-#ifndef EXPORT_CODE
-#  if defined(__ISWINDOWS__)
-#    define EXPORT_CODE __declspec(dllexport)
-#  else
-#    define EXPORT_CODE 
-#  endif
-#endif
-#ifndef CONVENTION
-#  if defined(__ISWINDOWS__)
-#    define CONVENTION __stdcall
-#  else
-#    define CONVENTION
-#  endif
-#endif
 #ifndef EXPORT
-#  define EXPORT EXPORT_CODE CONVENTION
+#  if defined(__ISWINDOWS__)
+#    define EXPORT __declspec(dllexport)
+#  else
+#    define EXPORT
+#  endif
 #endif
-
 
 // Define struct
 //! ExternalThermodynamicState property struct
