@@ -7,7 +7,7 @@
 # ============================================================================
 # The installation procedure should be as follows:
 # 1) make header library
-# 2) sudo make install
+# 2) make install
 # ============================================================================
 # 
 ###########################################################
@@ -17,9 +17,9 @@
 ###########################################################
 SRCDIR     :=./Sources
 # For Dymola integration
-DYMDIR     =/opt/dymola
-LIBINST    =$(DYMDIR)/bin/lib
-HEADINST   =$(DYMDIR)/source
+# DYMDIR     =/opt/dymola
+# LIBINST    =$(DYMDIR)/bin/lib
+# HEADINST   =$(DYMDIR)/source
 # For OpenModelica integration
 # LIBINST    =/usr/lib/omc
 # HEADINST   =/usr/include/omc
@@ -27,8 +27,8 @@ HEADINST   =$(DYMDIR)/source
 # LIBINST    =/usr/local/lib
 # HEADINST   =/usr/local/include
 # For relative path installation
-# LIBINST     ="../Modelica/ExternalMedia $(FULLVERSION)/Resources/Library/linux32"
-# HEADINST    ="../Modelica/ExternalMedia $(FULLVERSION)/Resources/Include"
+LIBINST     ="../Modelica/ExternalMedia $(FULLVERSION)/Resources/Library/linux32"
+HEADINST    ="../Modelica/ExternalMedia $(FULLVERSION)/Resources/Include"
 #
 BINDIR     :=./build/LinuxGCC
 
@@ -74,6 +74,7 @@ DEBUGFLAGS   =-g -O3
 CPPFLAGS     =$(OPTFLAGS)# -Wall -pedantic -fbounds-check -ansi -Wpadded -Wpacked -malign-double -mpreferred-stack-boundary=8
 
 .PHONY          : install
+
 LIBFILE         :=$(THENAME)
 LIBRARY         :=lib$(THENAME)
 #HEADERFILE      =$(THENAME)
