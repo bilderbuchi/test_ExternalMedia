@@ -1164,6 +1164,33 @@ package Test "Test models for the different solvers"
         T2 = 280 + 50*time;
       end TestStatesSupercriticalDebugInfo;
     end CO2;
+
+    model Pentane_hs
+
+    package pentane
+      extends ExternalMedia.Media.CoolPropMedium(
+        mediumName = "Pentane",
+        substanceNames = {"n-Pentane"});
+    end pentane;
+
+      replaceable package wf = pentane constrainedby
+        Modelica.Media.Interfaces.PartialMedium "Medium model";
+      wf.BaseProperties fluid "Properties of the two-phase fluid";
+      Modelica.SIunits.SpecificEnthalpy h;
+      Modelica.SIunits.Pressure p;
+      Modelica.SIunits.DerDensityByEnthalpy drdh
+        "Derivative of average density by enthalpy";
+      Modelica.SIunits.DerDensityByPressure drdp
+        "Derivative of average density by pressure";
+    equation
+      p = 1E5;
+      h = 0 + time*1E6;
+      fluid.p = p;
+      fluid.h = h;
+      drdp = wf.density_derp_h(fluid.state);
+      drdh = wf.density_derh_p(fluid.state);
+      annotation ();
+    end Pentane_hs;
   end CoolProp;
 
   package WrongMedium "Test cases with wrong medium models"

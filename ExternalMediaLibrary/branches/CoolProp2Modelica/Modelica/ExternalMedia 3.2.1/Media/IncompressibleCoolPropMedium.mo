@@ -119,7 +119,7 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input Integer phase = 1 "2 for two-phase, 1 for one-phase, 0 if not known";
     input String name "name and mass fractions";
     output ThermodynamicState state;
-  external "C" TwoPhaseMedium_setState_ph_(p, h, phase, state, mediumName, libraryName, name)
+  external "C" TwoPhaseMedium_setState_ph_C_impl(p, h, phase, state, mediumName, libraryName, name)
     annotation(Include="#include <ExternalMediaLib.h>", Library="ExternalMediaLib");
   end setState_ph_library;
 
@@ -158,7 +158,7 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input Integer phase = 1 "2 for two-phase, 1 for one-phase, 0 if not known";
     input String name "name and mass fractions";
     output ThermodynamicState state;
-  external "C" TwoPhaseMedium_setState_pT_(p, T, state, mediumName, libraryName, name)
+  external "C" TwoPhaseMedium_setState_pT_C_impl(p, T, state, mediumName, libraryName, name)
     annotation(Include="#include <ExternalMediaLib.h>", Library="ExternalMediaLib");
   end setState_pT_library;
 
@@ -173,7 +173,7 @@ import ExternalMedia.Common.InputChoiceIncompressible;
   protected
     String in1 = ExternalMedia.Common.XtoName(substanceName,X);
     //assert(false, "Incompressibles only support pT and ph as inputs!", level=AssertionLevel.error);
-  external "C" TwoPhaseMedium_setState_ps_(p, s, phase, state, mediumName, libraryName, in1)
+  external "C" TwoPhaseMedium_setState_ps_C_impl(p, s, phase, state, mediumName, libraryName, in1)
     annotation(Include="#include <ExternalMediaLib.h>", Library="ExternalMediaLib");
   end setState_psX;
 
