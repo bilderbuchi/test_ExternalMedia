@@ -1375,4 +1375,52 @@ package Test "Test models for the different solvers"
       end TypicalHeliumProperties;
     end TestHeliumHardCodedProperties;
   end TestOMC;
+
+  model incompressibleCoolPropMedium
+
+  //Definition of the two fluid packages:
+  package LiBr_CP "Lithium bromide solution properties from CoolProp"
+    extends ExternalMedia.Media.IncompressibleCoolPropMedium(
+    mediumName="LiBr",
+    substanceNames={"LiBr|calc_transport=1"},
+    ThermoStates=Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.pTX);
+  end LiBr_CP;
+
+  package DowQ_CP "DowthermQ properties from CoolProp"
+    extends ExternalMedia.Media.IncompressibleCoolPropMedium(
+    mediumName="DowQ",
+    substanceNames={"DowQ|calc_transport=1"},
+    ThermoStates=Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.pT);
+  end DowQ_CP;
+
+    replaceable package Solution =
+    LiBr_CP(substanceNames={"LiBr|calc_transport=1|debug=10","dummyToMakeBasePropertiesWork"})
+    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
+    Solution.ThermodynamicState state_var;
+    Solution.ThermodynamicState state_con;
+    Solution.Temperature T;
+    Solution.AbsolutePressure p;
+    Solution.MassFraction[1] X_var;
+    Solution.MassFraction[1] X_con;
+    Solution.BaseProperties varProps;
+   replaceable package Liquid =
+    DowQ_CP(substanceNames={"DowQ|calc_transport=1|debug=10"})
+    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
+    Liquid.ThermodynamicState state_liq;
+    Liquid.BaseProperties liqProps;
+  equation
+    p         = 10E5;
+    T         = 273.15 + 15.0 + time * 50.0;
+    X_var[1]  =   0.00 +  0.1 + time *  0.5;
+    X_con[1]  =   0.00 +  0.1;
+    state_var = Solution.setState_pTX(p,T,X_var);
+    state_con = Solution.setState_pTX(p,T,X_con);
+    state_liq = Liquid.setState_pT(p,T);
+    // And now we do some testing with the BaseProperties
+    varProps.T = T;
+    varProps.p = p;
+    varProps.Xi = X_var;
+    liqProps.T = T;
+    liqProps.p = p;
+  end incompressibleCoolPropMedium;
 end Test;
