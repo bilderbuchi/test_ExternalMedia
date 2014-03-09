@@ -1167,14 +1167,13 @@ package Test "Test models for the different solvers"
 
     model Pentane_hs
 
-    package pentane
+    package wf
       extends ExternalMedia.Media.CoolPropMedium(
         mediumName = "Pentane",
-        substanceNames = {"n-Pentane"});
-    end pentane;
+        substanceNames = {"n-Pentane"},
+        inputChoice=ExternalMedia.Common.InputChoice.hs);
+    end wf;
 
-      replaceable package wf = pentane constrainedby
-        Modelica.Media.Interfaces.PartialMedium "Medium model";
       wf.BaseProperties fluid "Properties of the two-phase fluid";
       Modelica.SIunits.SpecificEnthalpy h;
       Modelica.SIunits.Pressure p;
@@ -1184,14 +1183,42 @@ package Test "Test models for the different solvers"
       Modelica.SIunits.DerDensityByPressure drdp
         "Derivative of average density by pressure";
     equation
-      p = 1E5;
+      //p = 1E5;
       h = 0 + time*1E6;
+      s = 1500;  //600 + time*2000;
       fluid.p = p;
+      fluid.s = s;
       fluid.h = h;
-      s = fluid.s;
       drdp = wf.density_derp_h(fluid.state);
       drdh = wf.density_derh_p(fluid.state);
     end Pentane_hs;
+
+    model Pentane_hs_state
+
+    package wf
+      extends ExternalMedia.Media.CoolPropMedium(
+        mediumName = "Pentane",
+        substanceNames = {"n-Pentane"},
+        inputChoice=ExternalMedia.Common.InputChoice.hs);
+    end wf;
+
+      wf.ThermodynamicState fluid "Properties of the two-phase fluid";
+      Modelica.SIunits.SpecificEnthalpy h;
+      Modelica.SIunits.Pressure p;
+      Modelica.SIunits.SpecificEntropy s;
+      Modelica.SIunits.DerDensityByEnthalpy drdh
+        "Derivative of average density by enthalpy";
+      Modelica.SIunits.DerDensityByPressure drdp
+        "Derivative of average density by pressure";
+    equation
+      //p = 1E5;
+      h = 0 + time*1E6;
+      s = 600 + time*2000;
+      fluid = wf.setState_hs(h,s);
+      fluid.p = p;
+      drdp = wf.density_derp_h(fluid);
+      drdh = wf.density_derh_p(fluid);
+    end Pentane_hs_state;
   end CoolProp;
 
   package WrongMedium "Test cases with wrong medium models"
