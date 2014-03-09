@@ -1178,6 +1178,7 @@ package Test "Test models for the different solvers"
       wf.BaseProperties fluid "Properties of the two-phase fluid";
       Modelica.SIunits.SpecificEnthalpy h;
       Modelica.SIunits.Pressure p;
+      Modelica.SIunits.SpecificEntropy s;
       Modelica.SIunits.DerDensityByEnthalpy drdh
         "Derivative of average density by enthalpy";
       Modelica.SIunits.DerDensityByPressure drdp
@@ -1187,9 +1188,9 @@ package Test "Test models for the different solvers"
       h = 0 + time*1E6;
       fluid.p = p;
       fluid.h = h;
+      s = fluid.s;
       drdp = wf.density_derp_h(fluid.state);
       drdh = wf.density_derh_p(fluid.state);
-      annotation ();
     end Pentane_hs;
   end CoolProp;
 

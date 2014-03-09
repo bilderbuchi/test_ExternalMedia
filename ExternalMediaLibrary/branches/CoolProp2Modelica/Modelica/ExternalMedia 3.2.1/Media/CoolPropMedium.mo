@@ -49,7 +49,7 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
         mediumName,
         libraryName,
         substanceName)
-    annotation(Include="#include <ExternalMediaLib.h>", Library="ExternalMediaLib");
+    annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
   end setState_hs;
 
   replaceable function setState_hsX
