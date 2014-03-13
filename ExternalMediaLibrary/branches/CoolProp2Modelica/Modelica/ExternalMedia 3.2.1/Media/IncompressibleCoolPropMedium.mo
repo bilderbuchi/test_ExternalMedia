@@ -18,7 +18,6 @@ import ExternalMedia.Common.InputChoiceIncompressible;
   end FluidConstants;
   constant InputChoiceIncompressible inputChoice=InputChoiceIncompressible.pTX
     "Default choice of input variables for property computations, incompressibles are in p,T";
-
   redeclare replaceable record ThermodynamicState
     Integer phase(min=0,max=2,start=0); //Only single phase
     PrandtlNumber Pr "prandtl number";
@@ -198,10 +197,8 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input MassFraction X[nX] "Mass fractions";
     input ThermodynamicState state;
     output Density d "density";
-
   algorithm
     d := density(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -260,10 +257,8 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input MassFraction X[nX] "Mass fractions";
     input ThermodynamicState state;
     output Temperature T "Temperature";
-
   algorithm
     T := temperature(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -291,10 +286,8 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input MassFraction X[nX] "Mass fractions";
     input ThermodynamicState state;
     output SpecificEntropy s "Specific Entropy";
-
   algorithm
     s := specificEntropy(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -310,11 +303,9 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input Real p_der "time derivative of pressure";
     input Real h_der "time derivative of specific enthalpy";
     output Real s_der "time derivative of specific entropy";
-
   algorithm
     s_der := p_der*(-1.0/(state.d*state.T))
            + h_der*( 1.0/state.T);
-
   annotation (
     Inline=true);
   end specificEntropy_phX_der;
@@ -339,10 +330,8 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input MassFraction X[nX] "Mass fractions";
     input ThermodynamicState state;
     output Density d "Density";
-
   algorithm
     d := density(state);
-
   annotation (
     Inline=false,
     LateInline=true);
@@ -371,10 +360,8 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input MassFraction X[nX] "Mass fractions";
     input ThermodynamicState state;
     output SpecificEnthalpy h "specific enthalpy";
-
   algorithm
     h := specificEnthalpy(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -389,10 +376,8 @@ import ExternalMedia.Common.InputChoiceIncompressible;
   input MassFraction X[nX] "Mass fractions";
   input Integer phase=1 "2 for two-phase, 1 for one-phase, 0 if not known";
   output SpecificEntropy s "Specific Entropy";
-
   algorithm
   s := specificEntropy_pTX_state(p=p, T=T, X=X, state=setState_pTX(p=p, T=T, X=X, phase=phase));
-
     annotation (
       Inline=true);
   end specificEntropy_pTX;
@@ -405,10 +390,8 @@ import ExternalMedia.Common.InputChoiceIncompressible;
     input MassFraction X[nX] "Mass fractions";
     input ThermodynamicState state;
     output SpecificEntropy s "Specific Entropy";
-
   algorithm
     s := specificEntropy(state);
-
   annotation (
     Inline=false,
     LateInline=true);
@@ -523,5 +506,4 @@ import ExternalMedia.Common.InputChoiceIncompressible;
 */
     annotation(Inline = true);
   end thermalConductivity;
-
 end IncompressibleCoolPropMedium;

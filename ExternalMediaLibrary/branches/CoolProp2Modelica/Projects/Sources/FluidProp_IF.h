@@ -24,8 +24,6 @@
 #ifndef FluidProp_IF_h
 #define FluidProp_IF_h
 
-#if defined(__ISWINDOWS__)
-
 #pragma comment(lib, "comsuppw.lib")
 
 #include <string>
@@ -119,6 +117,4 @@ class TFluidProp
 };
 
 #endif
-#endif
-
 

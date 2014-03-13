@@ -2,7 +2,6 @@ within ExternalMedia.Media;
 package CoolPropMedium "Medium package accessing the CoolProp solver"
   extends BaseClasses.ExternalTwoPhaseMedium(final libraryName="CoolProp");
   import ExternalMedia.Common.InputChoice;
-
   redeclare replaceable model extends BaseProperties(
       p(stateSelect = if preferredMediumStates and
                          (basePropertiesInputChoice == InputChoice.ph or
@@ -24,7 +23,6 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
                          basePropertiesInputChoice == InputChoice.ps or
                          basePropertiesInputChoice == InputChoice.hs then
                            StateSelect.prefer else StateSelect.default))
-
   equation
     if (basePropertiesInputChoice == InputChoice.hs) then
       state = setState_hs(h, s, phaseInput);
@@ -253,10 +251,8 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output Temperature T "Temperature";
-
   algorithm
     T := temperature(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -270,10 +266,8 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output Density d "density";
-
   algorithm
     d := density(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -287,10 +281,8 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output Density d "Density";
-
   algorithm
     d := density(state);
-
   annotation (
     Inline=false,
     LateInline=true);
@@ -303,10 +295,8 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output Density d "Density";
-
   algorithm
     d := density(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -320,10 +310,8 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output AbsolutePressure p "pressure";
-
   algorithm
     p := pressure(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -337,11 +325,9 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output SpecificEnthalpy h "SpecificEnthalpy";
-
   algorithm
     h := specificEnthalpy(
       state);
-
   annotation (
     Inline=false,
     LateInline=true);
@@ -353,7 +339,6 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
   input Temperature T "Temperature";
   input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
   output SpecificEntropy s "Specific Entropy";
-
   algorithm
     s :=
       specificEntropy_dT_state(
@@ -363,7 +348,6 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
           d=d,
           T=T,
           phase=phase));
-
     annotation (
       Inline=true);
   end specificEntropy_dT;
@@ -376,11 +360,9 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output SpecificEntropy s "Specific Entropy";
-
   algorithm
     s := specificEntropy(
       state);
-
   annotation (
     Inline=false,
     LateInline=true);
@@ -395,11 +377,9 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input Real p_der "time derivative of pressure";
     input Real h_der "time derivative of specific enthalpy";
     output Real s_der "time derivative of specific entropy";
-
   algorithm
     s_der := p_der*(-1.0/(state.d*state.T))
            + h_der*( 1.0/state.T);
-
   annotation (
     Inline=true);
   end specificEntropy_ph_der;
@@ -412,11 +392,9 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output SpecificEntropy s "Specific Entropy";
-
   algorithm
     s := specificEntropy(
       state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -429,7 +407,6 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
   input Temperature T "Temperature";
   input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
   output SpecificEntropy s "Specific Entropy";
-
   algorithm
     s :=
       specificEntropy_pT_state(
@@ -439,7 +416,6 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
           p=p,
           T=T,
           phase=phase));
-
     annotation (
       Inline=true,
       inverse(T=temperature_ps(p=p, s=s, phase=phase)));
@@ -453,11 +429,9 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output SpecificEntropy s "Specific Entropy";
-
   algorithm
     s := specificEntropy(
       state);
-
   annotation (
     Inline=false,
     LateInline=true);
@@ -470,10 +444,8 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input ThermodynamicState
                          state;
     output Temperature T "Temperature";
-
   algorithm
     T := temperature(state);
-
   annotation (
     Inline=false,
     LateInline=true,
@@ -488,11 +460,9 @@ package CoolPropMedium "Medium package accessing the CoolProp solver"
     input
       CoolProp2Modelica.Interfaces.ExternalTwoPhaseMedium.ThermodynamicState state;
     output SpecificEnthalpy h "specific enthalpy";
-
   algorithm
     h := CoolProp2Modelica.Interfaces.ExternalTwoPhaseMedium.specificEnthalpy(
       state);
-
   annotation (
     Inline=false,
     LateInline=true,

@@ -6,13 +6,11 @@ function XtoName "A function to convert concentration to substance name"
   input String delimiter = "|";
   input Boolean debug = false;
   output String result;
-
 protected
   Integer nextIndex;
   Integer inLength;
   String name;
   String rest;
-
 algorithm
   if noEvent(size(composition,1) <= 0) then
     assert(not debug, "You are passing an empty composition vector, returning name only: "+substanceName, level=  AssertionLevel.warning);
@@ -35,9 +33,7 @@ algorithm
       result := name + "-" + String(composition[1]) + rest;
     end if;
   end if;
-
   if noEvent(debug) then
     assert(false, result+" --- "+substanceName, level=  AssertionLevel.warning);
   end if;
-
 end XtoName;
