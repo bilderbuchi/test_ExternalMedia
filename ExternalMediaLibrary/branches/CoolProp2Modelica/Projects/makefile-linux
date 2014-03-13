@@ -64,7 +64,7 @@ THETEST          :=ExternalMediaLibTest
 COOLPROPDIR      :=../externals/coolprop/branches/ExternalMedia/CoolProp
 
 LIBS       =
-OPTFLAGS   =-O2 -funroll-loops -ffast-math -loleaut32 -DCOOLPROP=1 # optimisation, remove for debugging
+OPTFLAGS   =-O2 -funroll-loops -ffast-math -loleaut32 #-DCOOLPROP=1 # optimisation, remove for debugging
 
 
 ###########################################################
@@ -149,8 +149,15 @@ all        : header library
 EXMECPP_FILES   = $(wildcard $(SRCDIR)/*.cpp)
 EXMEOBJ_FILES   = $(addprefix $(BINDIR)/,$(notdir $(EXMECPP_FILES:.cpp=.o)))
 # Files do not change here, := assignments work. 
+USE_COOLPROP   := $(shell grep COOLPROP $(SRCDIR)/include.h | cut -d " " -f3)
+
+ifeq ($(USE_COOLPROP),1)
 COOLCPP_FILES  := $(wildcard $(COOLPROPDIR)/*.cpp)
 COOLOBJ_FILES  := $(addprefix $(BINDIR)/,$(notdir $(COOLCPP_FILES:.cpp=.o)))
+else
+COOLCPP_FILES  :=  
+COOLOBJ_FILES  :=  
+endif
 COOLSOL_FILES  := coolpropsolver.cpp coolpropsolver.h
 
 # Define search path for prerequisite files and g++ include 
@@ -233,6 +240,7 @@ print-flags:
 	  LIBFLAGS     :$(LIBFLAGS)\n\
 	  OPTFLAGS     :$(OPTFLAGS)\n\
 	  CPPFLAGS     :$(CPPFLAGS)\n\
-	  CPPINCLUDES  :$(CPPINCLUDES)\n\n\
+	  CPPINCLUDES  :$(CPPINCLUDES)\n\
+	  USE_COOLPROP :$(USE_COOLPROP)\n\n\
 	  EXMEOBJ_FILES:\n$(EXMEOBJ_FILES)\n\
 	  COOLOBJ_FILES:\n$(COOLOBJ_FILES)\n\n"

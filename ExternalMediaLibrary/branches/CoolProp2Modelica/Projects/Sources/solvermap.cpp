@@ -1,6 +1,7 @@
 #include "solvermap.h"
 #include "basesolver.h"
 #include "testsolver.h"
+#include "include.h"
 
 #if (FLUIDPROP == 1)
 #include "fluidpropsolver.h"

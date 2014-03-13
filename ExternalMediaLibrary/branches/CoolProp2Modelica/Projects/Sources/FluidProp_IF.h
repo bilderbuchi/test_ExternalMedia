@@ -24,6 +24,8 @@
 #ifndef FluidProp_IF_h
 #define FluidProp_IF_h
 
+#if (FLUIDPROP == 1)
+
 #pragma comment(lib, "comsuppw.lib")
 
 #include <string>
@@ -118,3 +120,4 @@ class TFluidProp
 
 #endif
 
+#endif
