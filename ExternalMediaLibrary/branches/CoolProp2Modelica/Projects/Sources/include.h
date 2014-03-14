@@ -50,7 +50,7 @@
   Set this preprocessor variable to 1 to include the interface to the
   CoolProp solver developed and maintained by Ian Bell et al.
 */
-#define COOLPROP 0
+#define COOLPROP 1
 
 // Selection of build type for this project
 //! Build project into a DLL
