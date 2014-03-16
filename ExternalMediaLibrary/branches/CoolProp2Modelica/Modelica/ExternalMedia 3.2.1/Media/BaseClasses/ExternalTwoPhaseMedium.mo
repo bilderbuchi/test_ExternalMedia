@@ -146,8 +146,14 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
     end if;
     // Compute the internal energy
     u = h - p/d;
-    // Compute the saturation properties record
-    sat = setSat_p_state(state);
+    // Compute the saturation properties record only if below critical point
+    if (p < fluidConstants[1].criticalPressure) then
+      sat = setSat_p_state(state);
+    elseif (T < fluidConstants[1].criticalTemperature) then
+      sat = setSat_T_state(state);
+    else
+      sat = setSat_p(fluidConstants[1].criticalPressure);
+    end if;
     // Event generation for phase boundary crossing
     if smoothModel then
       // No event generation
@@ -166,9 +172,10 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
       elseif basePropertiesInputChoice == InputChoice.hs then
         phaseOutput = if ((s > bubbleEntropy(sat)  and s < dewEntropy(sat)) and
                           (h > bubbleEnthalpy(sat) and h < dewEnthalpy(sat))) then 2 else 1;
-      else
-        // basePropertiesInputChoice == pT
+      elseif basePropertiesInputChoice == InputChoice.pT then
         phaseOutput = 1;
+      else
+        assert(false, "You are using an unsupported pair of inputs.");
       end if;
     end if;
   end BaseProperties;
@@ -264,21 +271,6 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
     annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
   end setState_hs;
 
-  replaceable function setSat_p_state
-    "Return saturation properties from the state"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state;
-    output SaturationProperties sat "saturation property record";
-    // Standard definition
-  algorithm
-    sat:=setSat_p(state.p);
-    //Redeclare this function for more efficient implementations avoiding the repeated computation of saturation properties
-  /*  // If special definition in "C"
-  external "C" TwoPhaseMedium_setSat_p_state_C_impl(state, sat)
-    annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
-*/
-    annotation(Inline = true);
-  end setSat_p_state;
 
   redeclare function extends setState_phX
   algorithm
@@ -1001,6 +993,22 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
     annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
   end setSat_p;
 
+  replaceable function setSat_p_state
+    "Return saturation properties from the state"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state;
+    output SaturationProperties sat "saturation property record";
+    // Standard definition
+  algorithm
+    sat:=setSat_p(state.p);
+    //Redeclare this function for more efficient implementations avoiding the repeated computation of saturation properties
+  /*  // If special definition in "C"
+  external "C" TwoPhaseMedium_setSat_p_state_C_impl(state, sat)
+    annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
+*/
+    annotation(Inline = true);
+  end setSat_p_state;
+
   redeclare replaceable function setSat_T "Return saturation properties from p"
     extends Modelica.Icons.Function;
     input Temperature T "temperature";
@@ -1008,6 +1016,22 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
   external "C" TwoPhaseMedium_setSat_T_C_impl(T, sat, mediumName, libraryName, substanceName)
     annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
   end setSat_T;
+
+  replaceable function setSat_T_state
+    "Return saturation properties from the state"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state;
+    output SaturationProperties sat "saturation property record";
+    // Standard definition
+  algorithm
+    sat:=setSat_T(state.T);
+    //Redeclare this function for more efficient implementations avoiding the repeated computation of saturation properties
+  /*  // If special definition in "C"
+  external "C" TwoPhaseMedium_setSat_T_state_C_impl(state, sat)
+    annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
+*/
+    annotation(Inline = true);
+  end setSat_T_state;
 
   redeclare replaceable function extends setBubbleState
     "set the thermodynamic state on the bubble line"
