@@ -64,7 +64,7 @@ THETEST          :=ExternalMediaLibTest
 COOLPROPDIR      :=../externals/coolprop/branches/ExternalMedia/CoolProp
 
 LIBS       =
-OPTFLAGS   =-O2 -funroll-loops -ffast-math -loleaut32 #-DCOOLPROP=1 # optimisation, remove for debugging
+OPTFLAGS   =-O2 -funroll-loops -ffast-math #-loleaut32 #-DCOOLPROP=1 # optimisation, remove for debugging
 
 
 ###########################################################
@@ -149,6 +149,7 @@ all        : header library
 EXMECPP_FILES   = $(wildcard $(SRCDIR)/*.cpp)
 EXMEOBJ_FILES   = $(addprefix $(BINDIR)/,$(notdir $(EXMECPP_FILES:.cpp=.o)))
 # Files do not change here, := assignments work. 
+USE_FLUIDPROP  := $(shell grep FLUIDPROP $(SRCDIR)/include.h | cut -d " " -f3)
 USE_COOLPROP   := $(shell grep COOLPROP $(SRCDIR)/include.h | cut -d " " -f3)
 
 ifeq ($(USE_COOLPROP),1)
@@ -241,6 +242,7 @@ print-flags:
 	  OPTFLAGS     :$(OPTFLAGS)\n\
 	  CPPFLAGS     :$(CPPFLAGS)\n\
 	  CPPINCLUDES  :$(CPPINCLUDES)\n\
+	  USE_FLUIDPROP:$(USE_FLUIDPROP)\n\
 	  USE_COOLPROP :$(USE_COOLPROP)\n\n\
 	  EXMEOBJ_FILES:\n$(EXMEOBJ_FILES)\n\
 	  COOLOBJ_FILES:\n$(COOLOBJ_FILES)\n\n"
