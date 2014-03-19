@@ -817,7 +817,7 @@ package Test "Test models for the different solvers"
         "Test case with state records, supercritical conditions"
         extends Modelica.Icons.Example;
         extends GenericModels.TestStates(          redeclare package Medium =
-              ExternalMedia.Examples.CO2CoolProp(substanceNames={"CO2|calc_transport=0|enable_TTSE=0"}));
+              ExternalMedia.Examples.CO2CoolProp);
       equation
         p1 = 8e6;
         h1 = 1.0e5 + 6e5*time;
@@ -894,27 +894,6 @@ package Test "Test models for the different solvers"
             experimentSetupOutput(equdistant=false));
       end TestBasePropertiesDynamic;
 
-      model TestBasePropertiesDynamicLong
-        "Test case using BaseProperties and dynamic equations"
-        extends Modelica.Icons.Example;
-        extends GenericModels.TestBasePropertiesDynamic(
-          redeclare package Medium = ExternalMedia.Examples.CO2CoolProp,
-          Tstart=300,
-          hstart=4e5,
-          pstart=1e6,
-          Kv0=1.00801e-4,
-          V=0.1);
-      equation
-        // Inlet equations
-        win = 1;
-        hin = 5e5+sin(time)*1e2;
-        // Input variables
-        Kv = if time < 50 then Kv0 else Kv0*1.1;
-        Q = if time < 1 then 0 else 1e4;
-        annotation (experiment(StopTime=800, Tolerance=1e-007),
-            experimentSetupOutput(equdistant=false));
-      end TestBasePropertiesDynamicLong;
-
       model TestBasePropertiesTranscritical
         "Test case using BaseProperties and explicit equations"
         extends Modelica.Icons.Example;
@@ -927,24 +906,6 @@ package Test "Test models for the different solvers"
         h2 = 7.0e5;
       end TestBasePropertiesTranscritical;
 
-      model TestStatesSupercriticalDebugInfo
-        "Test case with state records, supercritical conditions, debug info turned on"
-        extends Modelica.Icons.Example;
-        replaceable package Medium = ExternalMedia.Examples.CO2CoolProp (
-              substanceNames = {"CO2|debug=10"});
-        Medium.AbsolutePressure p1;
-        Medium.SpecificEnthalpy h1;
-        Medium.AbsolutePressure p2;
-        Medium.Temperature T2;
-        Medium.ThermodynamicState state1;
-      equation
-       // state1 = Medium.setState_ph(p1, h1);
-        state1 = Medium.setState_pT(p2, T2);
-        p1 = 8e6;
-        h1 = 1.0e5 + 6e5*time;
-        p2 = 8e6;
-        T2 = 280 + 50*time;
-      end TestStatesSupercriticalDebugInfo;
     end CO2;
 
     model Pentane_hs
@@ -1006,6 +967,38 @@ package Test "Test models for the different solvers"
           redeclare package NewMedium = ExternalMedia.Examples.WaterCoolProp)
         annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
     end MSL_Models;
+
+    model CheckOptions
+      extends Modelica.Icons.Example;
+      String test;
+    algorithm
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_TTSE");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_TTSE=0");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_TTSE=1");
+      //
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_BICUBIC");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_BICUBIC=0");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_BICUBIC=1");
+      //
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_EXTTP");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_EXTTP=0");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_EXTTP=1");
+      //
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|twophase_derivsmoothing_xend");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|twophase_derivsmoothing_xend=0.0");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|twophase_derivsmoothing_xend=0.1");
+      //
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|rho_smoothing_xend");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|rho_smoothing_xend=0.0");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|rho_smoothing_xend=0.1");
+      //
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|debug");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|debug=0");
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|debug=100");
+      //
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_TTSE=1|debug=0|enable_EXTTP",debug=true);
+      test := ExternalMedia.Common.CheckCoolPropOptions("LiBr|enable_TTSE=1|debug=0|enableEXTTP=1");
+    end CheckOptions;
   end CoolProp;
 
   package WrongMedium "Test cases with wrong medium models"
@@ -1525,8 +1518,8 @@ package Test "Test models for the different solvers"
       testMedium.baseProperties.h = hmin + (hmax - hmin)*time;
     end CompareModelicaTestMedium;
 
-    partial model TestRunnerTwoPhase
-      "A collection of models to test the saturation states"
+    partial model TestRunner
+      "A collection of models to test the states and base properties"
       extends Modelica.Icons.Example;
 
       replaceable package Medium = Modelica.Media.Water.StandardWater
@@ -1537,6 +1530,8 @@ package Test "Test models for the different solvers"
       Medium.SpecificEnthalpy h_in;
       Medium.Temperature T_in;
       Medium.SaturationProperties sat_in;
+      parameter Medium.SpecificEnthalpy hstart = 2e5
+        "Start value for specific enthalpy";
 
       model TestStates_Impl
         extends ExternalMedia.Test.GenericModels.TestStates;
@@ -1617,7 +1612,7 @@ package Test "Test models for the different solvers"
         _T1=T_in,
         _p2=p_in*1.15,
         _T2=T_in,
-        hstart=1e3)
+        hstart=hstart)
                   annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
       model TestBasePropertiesDynamic_Impl
@@ -1640,25 +1635,49 @@ package Test "Test models for the different solvers"
         redeclare package Medium = Medium,_h1=h_in)
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
       annotation (experiment(StopTime=80, Tolerance=1e-007));
-    end TestRunnerTwoPhase;
+    end TestRunner;
 
-    model TestRunnerTwoPhaseWater
+    model TestRunnerTwoPhase
       "A collection of models to test the saturation states"
       extends Modelica.Icons.Example;
-      extends ExternalMedia.Test.GenericModels.TestRunnerTwoPhase(redeclare
+      extends ExternalMedia.Test.GenericModels.TestRunner(        redeclare
           package Medium =
-            WaterMedium);
+            TwoPhaseMedium);
 
-      replaceable package WaterMedium = Modelica.Media.Water.StandardWater
+      replaceable package TwoPhaseMedium = Modelica.Media.Water.StandardWater
         constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
         annotation(choicesAllMatching=true);
 
+      parameter Medium.AbsolutePressure p_start = 1e5;
+    algorithm
+      assert(Medium.fluidConstants[1].criticalPressure>p_start, "You have to start below the critical pressure.");
     equation
-      p_in = 1e5+0.9e5*time;
+      p_in = p_start+0.5*(Medium.fluidConstants[1].criticalPressure-p_start)*time;
       sat_in = Medium.setSat_p(p=p_in);
       h_in = Medium.bubbleEnthalpy(sat_in);
       T_in = Medium.saturationTemperature_sat(sat_in);
-    end TestRunnerTwoPhaseWater;
+    end TestRunnerTwoPhase;
+
+    model TestRunnerTranscritical
+      "A collection of models to test the transcritical states"
+      extends Modelica.Icons.Example;
+      extends ExternalMedia.Test.GenericModels.TestRunner(        redeclare
+          package Medium =
+            TwoPhaseMedium);
+
+      replaceable package TwoPhaseMedium = Modelica.Media.Water.StandardWater
+        constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
+        annotation(choicesAllMatching=true);
+
+      parameter Medium.AbsolutePressure p_start = 1e5;
+    algorithm
+      assert(Medium.fluidConstants[1].criticalPressure>p_start, "You have to start below the critical pressure.");
+    equation
+      p_in = p_start+1.5*(Medium.fluidConstants[1].criticalPressure-p_start)*time;
+      sat_in = Medium.setSat_p(p=p_in);
+      h_in = Medium.bubbleEnthalpy(sat_in);
+      T_in = Medium.saturationTemperature_sat(sat_in);
+    end TestRunnerTranscritical;
   end GenericModels;
 
   package MSL_Models
@@ -1691,10 +1710,10 @@ package Test "Test models for the different solvers"
   model WaterComparison "Compares different implementations of water"
     extends Modelica.Icons.Example;
 
-    GenericModels.TestRunnerTwoPhaseWater testRunnerTwoPhaseWater(redeclare
-        package WaterMedium = ExternalMedia.Examples.WaterCoolProp)
+    GenericModels.TestRunnerTwoPhase      testRunnerTwoPhaseWater1(
+      hstart=4e5,
+      redeclare package TwoPhaseMedium = ExternalMedia.Examples.WaterCoolProp,
+      p_start=100000)
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-    GenericModels.TestRunnerTwoPhaseWater testRunnerTwoPhaseWater1
-      annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   end WaterComparison;
 end Test;

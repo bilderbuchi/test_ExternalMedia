@@ -12,7 +12,7 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
   constant String mediumName="unusablePartialMedium" "Name of the medium";
   constant String libraryName = "UnusableExternalMedium"
     "Name of the external fluid property computation library";
-  final constant String substanceName = substanceNames[1]
+  constant String substanceName = substanceNames[1]
     "Only one substance can be specified";
   constant FluidConstants externalFluidConstants = FluidConstants(
     iupacName=  "unknown",
@@ -29,6 +29,7 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
     meltingPoint=  280,
     normalBoilingPoint=  380.0,
     dipoleMoment=  2.0);
+
   constant InputChoice inputChoice=InputChoice.ph
     "Default choice of input variables for property computations";
   redeclare replaceable record ThermodynamicState
@@ -147,13 +148,8 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
     // Compute the internal energy
     u = h - p/d;
     // Compute the saturation properties record only if below critical point
-    if (p < fluidConstants[1].criticalPressure) then
-      sat = setSat_p_state(state);
-    elseif (T < fluidConstants[1].criticalTemperature) then
-      sat = setSat_T_state(state);
-    else
-      sat = setSat_p(fluidConstants[1].criticalPressure);
-    end if;
+    //sat = setSat_p(min(p,fluidConstants[1].criticalPressure));
+    sat = setSat_p_state(state);
     // Event generation for phase boundary crossing
     if smoothModel then
       // No event generation
@@ -270,7 +266,6 @@ package ExternalTwoPhaseMedium "Generic external two phase medium package"
   external "C" TwoPhaseMedium_setState_hs_C_impl(h, s, phase, state, mediumName, libraryName, substanceName)
     annotation(Include="#include \"externalmedialib.h\"", Library="ExternalMediaLib");
   end setState_hs;
-
 
   redeclare function extends setState_phX
   algorithm
