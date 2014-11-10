@@ -30,7 +30,7 @@ CoolPropSolver::CoolPropSolver(const std::string &mediumName, const std::string 
 	rho_smoothing_xend = 0;
 
 	// Initialise the saturation and near-critical variables
-	_p_eps   = 1e-5; // relative tolerance margin for subcritical pressure conditions
+	_p_eps   = 1e-3; // relative tolerance margin for subcritical pressure conditions
 	_delta_h = 1e-1; // delta_h for one-phase/two-phase discrimination
 
 	if (name_options.size()>1)
@@ -571,23 +571,18 @@ long CoolPropSolver::makeDerivString(const string &of, const string &wrt, const 
 	else {
 		errorMessage((char*) format("Internal error: Derivatives of %s are not defined in the Solver object.",of.c_str()).c_str());
 	}
-
 	if      (!wrt.compare("p")){ derivTerm.append("dp"); }
 	else if (!wrt.compare("h")){ derivTerm.append("dh"); }
 	else if (!wrt.compare("T")){ derivTerm.append("dT"); }
 	else {
 		errorMessage((char*) format("Internal error: Derivatives with respect to %s are not defined in the Solver object.",wrt.c_str()).c_str());
 	}
-
 	if      (!cst.compare("p")){ derivTerm.append("|p"); }
 	else if (!cst.compare("h")){ derivTerm.append("|h"); }
 	else if (!cst.compare("d")){ derivTerm.append("|rho"); }
 	else {
 		errorMessage((char*) format("Internal error: Derivatives at constant %s are not defined in the Solver object.",cst.c_str()).c_str());
 	}
-
-	//derivTer("drhodh|p");
-
 	long iOutput = get_param_index(derivTerm);
 	return iOutput;
 }
