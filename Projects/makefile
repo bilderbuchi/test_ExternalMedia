@@ -32,11 +32,10 @@ SRCDIR     :=./Sources
 # LIBINST    =/usr/local/lib
 # HEADINST   =/usr/local/include
 # For relative path installation
-LIBINST     ="../Modelica/ExternalMedia $(FULLVERSION)/Resources/Library/linux32"
+LIBINST     ="../Modelica/ExternalMedia $(FULLVERSION)/Resources/Library/$(SYSDIR)"
 HEADINST    ="../Modelica/ExternalMedia $(FULLVERSION)/Resources/Include"
 #
 BINDIR     :=./build/LinuxGCC
-
 
 # ============================================================================
 # ============ No customisation is necessary beyond this point ===============
@@ -68,8 +67,20 @@ THETEST          :=ExternalMediaLibTest
 
 COOLPROPDIR      :=../externals/coolprop.git
 COOLPROPTMP      :=../externals/coolprop.build.gcc
-# Compiler: Unix Makefiles or MinGW Makefiles
-COOLPROPCMP      :=Unix Makefiles
+
+ifeq ($(OS),Windows_NT)
+  SYSDIR      :=win32
+  COOLPROPCMP :=MinGW Makefiles
+else
+  UNAME_S := $(shell uname -s)
+  ifeq ($(UNAME_S),Linux)
+    SYSDIR      :=linux32
+    COOLPROPCMP :=Unix Makefiles
+  else
+    SYSDIR      :=mac64
+    COOLPROPCMP :=Unix Makefiles
+  endif
+endi
 
 LIBS       =
 OPTFLAGS   =-O2 -funroll-loops -ffast-math #-loleaut32 #-DCOOLPROP=1 # optimisation, remove for debugging
@@ -210,8 +221,8 @@ $(BINDIR)/$(LIBRARY).a: coolprop $(EXMEOBJ_FILES) #$(SRCDIR)/$(LIBFILE).o
 	$(AR) $(BINDIR)/$(LIBRARY).a $(BINDIR)/*.o $^
 
 .PHONY: coolprop
-coolprop:
 ifeq ($(USE_COOLPROP),1)
+  coolprop:
     if [ -d "$(COOLPROPDIR)" ] ; then \
       pushd "$(COOLPROPDIR)" ; \
       git pull ; \
@@ -226,7 +237,8 @@ ifeq ($(USE_COOLPROP),1)
     popd
     $(CP) "$(COOLPROPTMP)/CoolProp.dir/Release/"*.o $(BINDIR)/
 else
-    echo "Not using CoolProp"
+  coolprop:
+    @echo "Not using CoolProp"
 endif
 
 
@@ -269,5 +281,4 @@ print-flags:
 	  CPPINCLUDES  :$(CPPINCLUDES)\n\
 	  USE_FLUIDPROP:$(USE_FLUIDPROP)\n\
 	  USE_COOLPROP :$(USE_COOLPROP)\n\n\
-	  EXMEOBJ_FILES:\n$(EXMEOBJ_FILES)\n\
-	  COOLOBJ_FILES:\n$(COOLOBJ_FILES)\n\n"
+	  EXMEOBJ_FILES:\n$(EXMEOBJ_FILES)\n\n"
