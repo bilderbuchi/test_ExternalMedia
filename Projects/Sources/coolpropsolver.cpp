@@ -159,7 +159,8 @@ CoolPropSolver::CoolPropSolver(const std::string &mediumName, const std::string 
 	isCompressible = (backend.find("INCOMP") == std::string::npos);
 
 	// Create the state class
-	this->state = CoolProp::AbstractState::factory(backend, this->substanceName);
+	//this->state = CoolProp::AbstractState::factory(backend, this->substanceName);
+	this->state.reset(CoolProp::AbstractState::factory(backend, this->substanceName));
     if (this->state->using_mole_fractions()){
         // Skip predefined mixtures and pure fluids
         if (this->state->get_mole_fractions().empty()){
@@ -180,7 +181,7 @@ CoolPropSolver::CoolPropSolver(const std::string &mediumName, const std::string 
 
 
 CoolPropSolver::~CoolPropSolver(){
-	delete state;
+	//delete state;
 };
 
 
@@ -467,13 +468,9 @@ void CoolPropSolver::setSat_T(double &T, ExternalSaturationProperties *const pro
 		  // Ancillary equations - fast but not 100% consistent with the rest
 		  //properties->dl = state->saturation_ancillary(CoolProp::iDmass,0,CoolProp::iT,T);
 		  //properties->dl = state->saturation_ancillary(CoolProp::iDmolar,0,CoolProp::iT,T)/state->molar_mass();
-
-		  /* TODO:                                                                                                  **
-		  ** Uncoment the `specify_phase` when issue 656 is solved: https://github.com/CoolProp/CoolProp/issues/656 **
-		  ** This will allow for a full state update and a speed enhancement                                        */
 		  
 		  // At bubble line:
-		  // state->specify_phase(CoolProp::iphase_liquid);
+		  state->specify_phase(CoolProp::iphase_liquid);
 		  state->update(CoolProp::QT_INPUTS,0,T);
 		  properties->Tsat = T;
 		  properties->psat = state->p(); // At bubble line! (mather for pseudo-pure fluids)
@@ -486,7 +483,7 @@ void CoolPropSolver::setSat_T(double &T, ExternalSaturationProperties *const pro
 		  properties->sl    = state->smass();    // Specific entropy at bubble line (for pressure ps)
 
 		  // At dew line:
-		  // state->specify_phase(CoolProp::iphase_gas);
+		  state->specify_phase(CoolProp::iphase_gas);
 		  state->update(CoolProp::QT_INPUTS,1,T);
 		  properties->dv = state->rhomass();
 		  properties->hv = state->hmass();
